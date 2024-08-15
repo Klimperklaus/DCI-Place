@@ -1,0 +1,70 @@
+// Color Button Wrapper Styling
+#buttonwrap {
+  background-color: rgb(40, 41, 41);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 8vw;
+  height: 100vh;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  
+  // Schatten Effekte für die Buttons
+  // die insets sind die Farben für die Schatten
+
+  @mixin box-shadow($inset1, $inset2) {
+    box-shadow: inset -20px 20px 40px $inset1, inset 20px -20px 40px $inset2;
+    transform: translateY(2px);
+  }
+  // Einzelne Buttons
+  #colorButton {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 30px;
+    border: none;
+    margin: 0 auto; // Zentrierung im Grid
+    cursor: pointer;
+    transition: 0.2;
+    // hier einfach bestimmen welche Farbe oder Eigenschaften die Effekte haben sollen
+    &:focus {
+      @include box-shadow(#6c6d6d78, #898a8a80); 
+    }
+    
+    &:hover {
+      @include box-shadow(#6c6d6d7a, #898a8a79);
+    }
+    
+    &:active {
+      @include box-shadow(#b6bbbb49, #898a8a85);
+      transform: translateY(4px);
+    }
+  }
+
+  // Responsivness
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 15%;
+    gap: 0rem;
+    padding-top: 0.1rem;
+    padding-bottom: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    width: 20%;
+    padding-top: 1rem;
+    padding-bottom: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    width: 30%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+}

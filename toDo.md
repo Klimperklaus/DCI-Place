@@ -1,0 +1,9 @@
+- Home Seite <br>
+- Coursor färbt sich mit Farbauswahl<br> 
+- Koordinaten anzeigen <br>
+- Infos über Plazierung / Statistik<br>
+- Canvas Format / Pixelgröße / Erweiterung / Zoom / Raster<br>
+- Login Register Backend<br>
+- Cookies<br>
+- Navleiste Profil und Devdesk sollen nur zu sehen sein nach Login als Admin oder Normie. Login danach nicht mehr. Logout entweder immer zu sehen oder im Profil<br>
+- Profil 

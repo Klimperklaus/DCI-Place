@@ -1,0 +1,49 @@
+// Navbar Styling 
+#navbar{
+  width: 8vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(40, 41, 41);
+  color: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style-type: none;
+  gap: 0.5em;
+}
+nav a {
+  text-decoration: none;
+  color: yellow;
+  padding: 0.5em;
+}
+
+nav li a {
+  display: block;
+  padding: 0.25em;
+  text-decoration: none;
+}
+
+nav li a:hover {
+  text-shadow: 1px 1px 2px black;
+  color: lime;
+  scale: 1.1;
+}
+
+nav li {
+  font-family: system-ui, sans-serif;
+  cursor: pointer;
+}
+
+button li {
+  font-family: system-ui, sans-serif;
+  cursor: pointer;
+}

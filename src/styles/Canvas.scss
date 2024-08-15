@@ -1,0 +1,20 @@
+$cell-size: 5px;
+
+#canvas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.canvas-row {
+  display: flex;
+}
+
+// Styling für die einzelnen Zellen
+
+.canvas-cell {
+  width: $cell-size;
+  height: $cell-size;
+  border: 0.1px solid lightwhite;
+}
