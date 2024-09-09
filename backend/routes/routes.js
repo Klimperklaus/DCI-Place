@@ -1,33 +1,35 @@
-import { Router } from 'express';
+import express from 'express';
 import { getUsers, getProfile, register, login, deleteUser, editUser, changePassword } from '../controller/userController.js';
+
+const router = express.Router();
 
 
 
 // GET alle Benutzer
-Router.get('/', getUsers);
+router.get('/', getUsers);
 
 // GET Profil
 
-Router.get('/profile', getProfile);
+router.get('/profile', getProfile);
 
 // POST Registrieren
 
-Router.post('/register', register);
+router.post('/register', register);
 
 // POST Login
 
-Router.post('/login', login);
+router.post('/login', login);
 
 // DELETE Benutzer
 
-Router.delete('/:id', deleteUser);
+router.delete('/:id', deleteUser);
 
 // PUT Benutzer bearbeiten
 
-Router.put('/:id', editUser);
+router.put('/:id', editUser);
 
 // PUT Password ändern
 
-Router.put('/changePassword/:id', changePassword);
+router.put('/changePassword/:id', changePassword);
 
-export default Router;
+export default router;
