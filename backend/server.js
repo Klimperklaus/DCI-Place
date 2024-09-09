@@ -25,6 +25,8 @@ app.listen(PORT, () => {
 });
 
 
+
+
 // Optional: Für die Datenkomprimierung
 
 // const compression = require('compression');
