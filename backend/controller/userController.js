@@ -1,11 +1,11 @@
-const user = require('../model/userModel');
-bcrypt = require('bcryptjs');
+import User from '../models/userModel.js';
+import bcrypt from 'bcrypt';
 
 const handleError = (res, status, msg) => res.status(status).json({ msg });
 
 // Registrieren
 
-exports.register = async (req, res) => {
+const register = async (req, res) => {
     const { username, email, password } = req.body;
     if (!username || !email || !password) return handleError(res, 400, 'Bitte alle Felder ausfüllen.');
   
@@ -24,7 +24,7 @@ exports.register = async (req, res) => {
 
 // Login
 
-exports.login = async (req, res) => {
+const login = async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) return handleError(res, 400, 'Bitte alle Felder ausfüllen.');
   
@@ -40,7 +40,7 @@ exports.login = async (req, res) => {
 
 // Alle Benutzer anzeigen
 
-exports.getUsers = async (req, res) => {
+const getUsers = async (req, res) => {
     try {
       const users = await user.find().select('-password');
       res.json(users);
@@ -50,7 +50,7 @@ exports.getUsers = async (req, res) => {
   }
 
 // Profil aufrufen
-exports.getProfile = async (req, res) => {
+const getProfile = async (req, res) => {
     try {
       const user = await user.findById(req.user.id).select('-password');
       res.json(user);
@@ -61,7 +61,7 @@ exports.getProfile = async (req, res) => {
 
 
 // Profil bearbeiten
-exports.editUser = async (req, res) => {
+const editUser = async (req, res) => {
     const { username, email, classTeam } = req.body;
     if (!username || !email || !classTeam) return handleError(res, 400, 'Bitte alle Felder ausfüllen.');
   
@@ -74,7 +74,7 @@ exports.editUser = async (req, res) => {
   };
 
   // Profil löschen
-exports.deleteUser = async (req, res) => {
+const deleteUser = async (req, res) => {
     try {
       await user.findByIdAndDelete(req.user.id);
       res.json({ msg: 'Profil erfolgreich gelöscht.' });
@@ -85,7 +85,7 @@ exports.deleteUser = async (req, res) => {
 
   // Passwort ändern
 
-exports.changePassword = async (req, res) => {
+const changePassword = async (req, res) => {
     const { oldPassword, newPassword } = req.body;
     if (!oldPassword || !newPassword) return handleError(res, 400, 'Bitte alle Felder ausfüllen.');
   
@@ -103,3 +103,5 @@ exports.changePassword = async (req, res) => {
       handleError(res, 500, 'Serverfehler');
     }
     }
+
+export { register, login, getUsers, getProfile, editUser, deleteUser, changePassword };
