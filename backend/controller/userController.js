@@ -10,7 +10,7 @@ const register = async (req, res) => {
     if (!username || !email || !password) return handleError(res, 400, 'Bitte alle Felder ausfüllen.');
   
     try {
-      const existingUser = await user.findOne({ email });
+      const existingUser = await User.findOne({ email });
       if (existingUser) return handleError(res, 400, 'Benutzer existiert bereits.');
   
       const newUser = new User({ username, email, password });
@@ -42,7 +42,7 @@ const login = async (req, res) => {
 
 const getUsers = async (req, res) => {
     try {
-      const users = await user.find().select('-password');
+      const users = await users.find().select('-password');
       res.json(users);
     } catch {
       handleError(res, 500, 'Serverfehler');
