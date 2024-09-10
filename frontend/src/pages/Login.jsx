@@ -20,17 +20,17 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       await register(username, email, password, team);
-      setMessage({ type: "success", text: "Sign up successful!" });
+      setMessage({ type: "success", text: "Registrierung erfolgreich!" });
     } catch (err) {
       setMessage({ type: "error", text: err.message });
     }
   };
-
+  
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
       await login(email, password);
-      setMessage({ type: "success", text: "Login successful!" });
+      setMessage({ type: "success", text: "Erfolgreicher Login!" });
     } catch (err) {
       setMessage({ type: "error", text: err.message });
     }

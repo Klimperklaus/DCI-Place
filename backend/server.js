@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import path from 'path';
 import dotenv from 'dotenv';
 import routes from './routes/routes.js';
 
@@ -12,13 +13,13 @@ const app = express();
 
 // cors anfragen vom Frontend erlauben
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:5173',
   optionsSuccessStatus: 200
 };
 
 app.use(express.json());
 app.use(cors(corsOptions));
-app.use('/app', routes);
+app.use('/', routes);
 
 mongoose.connect(process.env.MONGO_URI).then(() => {
   console.log('MongoDB connected');
@@ -34,16 +35,19 @@ app.listen(PORT, () => {
 
 
 
-// Optional: Für die Datenkomprimierung
+// Optional:
 
-// const compression = require('compression');
-// const path = require('path');
+// import compression from 'compression';
 
-// // Für die Datenkomprimierung
+// Für die Datenkomprimierung
 // app.use(compression());
+
+
+
+// Statische daten nach dem Build
 
 // app.use(express.static(path.join(__dirname, 'dist')));
 
 // app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+// res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 // });

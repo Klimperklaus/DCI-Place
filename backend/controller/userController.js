@@ -79,12 +79,12 @@ const getProfile = async (req, res) => {
 
 // Profil bearbeiten
 const editUser = async (req, res) => {
-  const { username, email, classTeam } = req.body;
-  if (!username || !email || !classTeam)
+  const { username, email, team } = req.body;
+  if (!username || !email || !team)
     return handleError(res, 400, "Bitte alle Felder ausfüllen.");
 
   try {
-    await user.findByIdAndUpdate(req.user.id, { username, email, classTeam });
+    await user.findByIdAndUpdate(req.user.id, { username, email, team });
     res.json({ msg: "Profil erfolgreich bearbeitet." });
   } catch {
     handleError(res, 500, "Serverfehler");
