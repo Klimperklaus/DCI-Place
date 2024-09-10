@@ -10,8 +10,14 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 const app = express();
 
+// cors anfragen vom Frontend erlauben
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200
+};
+
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use('/app', routes);
 
 mongoose.connect(process.env.MONGO_URI).then(() => {
