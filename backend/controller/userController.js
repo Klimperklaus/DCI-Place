@@ -1,5 +1,5 @@
 import User from "../models/userModel.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const handleError = (res, status, msg) => res.status(status).json({ msg });
