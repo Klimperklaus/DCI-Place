@@ -6,9 +6,19 @@ services:
     ports:
       - '3000:3000'
     environment:
-      MONGO_URI: mongodb://localhost:27017/DCI-Place
+      MONGO_URI: mongodb://mongo:27017/DCI-Place
+    depends_on:
+      - mongo
 
   frontend:
     build: ./frontend
     ports:
       - '5173:5173'
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+
+volumes:
+  mongo_data:

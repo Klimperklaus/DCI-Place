@@ -84,7 +84,7 @@ const editUser = async (req, res) => {
     return handleError(res, 400, "Bitte alle Felder ausfüllen.");
 
   try {
-    await user.findByIdAndUpdate(req.user.id, { username, email, team });
+    await User.findByIdAndUpdate(req.user.id, { username, email, team });
     res.json({ msg: "Profil erfolgreich bearbeitet." });
   } catch {
     handleError(res, 500, "Serverfehler");
@@ -94,7 +94,7 @@ const editUser = async (req, res) => {
 // Profil löschen
 const deleteUser = async (req, res) => {
   try {
-    await user.findByIdAndDelete(req.user.id);
+    await User.findByIdAndDelete(req.user.id);
     res.json({ msg: "Profil erfolgreich gelöscht." });
   } catch {
     handleError(res, 500, "Serverfehler");
