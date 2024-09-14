@@ -3,6 +3,11 @@ import react from "@vitejs/plugin-react";
 import compression from "vite-plugin-compression";
 
 export default defineConfig({
+  server: {
+    host: true,
+    port: 5173,
+  },
+  // Für die Komprimierung der Dateien:
   plugins: [
     react(),
     compression({
@@ -12,5 +17,4 @@ export default defineConfig({
   ],
 });
 
-// Für die Komprimierung der Dateien:
 //  npm install vite-plugin-compression --save-dev

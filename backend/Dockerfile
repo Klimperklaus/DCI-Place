@@ -1,5 +1,5 @@
 # Express Dockerfile
-FROM node:18-alpine
+FROM node:18
 
 # Arbeitsverzeichnis im Container erstellen
 WORKDIR /app
