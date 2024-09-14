@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { getProfile, editProfile, changePassword } from '../services/api';
 import teams from '../data/teams';
 
@@ -13,7 +13,6 @@ const ProfilePage = () => {
   const [message, setMessage] = useState(null);
 
   useEffect(() => {
-    // Profildaten beim Laden der Seite abrufen
     const fetchProfile = async () => {
       try {
         const data = await getProfile();
@@ -29,7 +28,7 @@ const ProfilePage = () => {
     fetchProfile();
   }, []);
 
-  const handleEditProfile = async (e) => {
+  const handleEditProfile = useCallback(async (e) => {
     e.preventDefault();
     try {
       await editProfile(username, email, team);
@@ -39,9 +38,9 @@ const ProfilePage = () => {
     } catch (err) {
       setMessage({ type: 'error', text: err.message });
     }
-  };
+  }, [username, email, team, profile]);
 
-  const handleChangePassword = async (e) => {
+  const handleChangePassword = useCallback(async (e) => {
     e.preventDefault();
     try {
       await changePassword(oldPassword, newPassword);
@@ -51,12 +50,12 @@ const ProfilePage = () => {
     } catch (err) {
       setMessage({ type: 'error', text: err.message });
     }
-  };
+  }, [oldPassword, newPassword]);
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     localStorage.removeItem('token');
-    window.location.href = '/login'; // Pfad wohin nach Logout
-  };
+    window.location.href = '/login';
+  }, []);
 
   return (
     <div className="profilewrap">
@@ -64,7 +63,7 @@ const ProfilePage = () => {
       {profile && (
         <div className="profile-content">
           <h1>Profil</h1>
-          <button onClick={() => setEditing(!editing)}>
+          <button onClick={() => setEditing(prev => !prev)}>
             {editing ? 'Abbrechen' : 'Bearbeiten'}
           </button>
           {editing ? (

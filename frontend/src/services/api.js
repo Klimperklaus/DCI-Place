@@ -1,22 +1,24 @@
 const API_URL = 'http://localhost:3000';  // Backend URL
 
+// JSON Format kontrollieren
+const parseJSON = async (response) => {
+  try {
+    return await response.json();
+  } catch (e) {
+    throw new Error('Unexpected response format from server');
+  }
+};
+
 // Benutzer registrieren
 export const register = async (username, email, password, team) => {
   try {
     const response = await fetch(`${API_URL}/register`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, email, password, team }),
     });
 
-    let data;
-    try {
-      data = await response.json();
-    } catch (e) {
-      throw new Error('Unexpected response format from server');
-    }
+    const data = await parseJSON(response);
 
     if (!response.ok) {
       throw new Error(data.msg || 'Registration failed');
@@ -34,18 +36,11 @@ export const login = async (email, password) => {
   try {
     const response = await fetch(`${API_URL}/login`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     });
 
-    let data;
-    try {
-      data = await response.json();
-    } catch (e) {
-      throw new Error('Unexpected response format from server');
-    }
+    const data = await parseJSON(response);
 
     if (!response.ok) {
       throw new Error(data.msg || 'Login failed');
@@ -75,7 +70,8 @@ export const getProfile = async () => {
       },
     });
 
-    const data = await response.json();
+    const data = await parseJSON(response);
+
     if (!response.ok) {
       throw new Error(data.msg || 'Profilabruf fehlgeschlagen.');
     }
@@ -90,21 +86,19 @@ export const getProfile = async () => {
 // Profil bearbeiten
 export const editProfile = async (username, email, team) => {
   try {
+    const token = localStorage.getItem('token');
+    if (!token) throw new Error('Token nicht gefunden. Bitte erneut anmelden.');
+
     const response = await fetch(`${API_URL}/profile`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({ username, email, team }),
     });
 
-    let data;
-    try {
-      data = await response.json();
-    } catch (e) {
-      throw new Error('Unexpected response format from server');
-    }
+    const data = await parseJSON(response);
 
     if (!response.ok) {
       throw new Error(data.msg || 'Failed to update profile');
@@ -120,21 +114,19 @@ export const editProfile = async (username, email, team) => {
 // Passwort ändern
 export const changePassword = async (oldPassword, newPassword) => {
   try {
+    const token = localStorage.getItem('token');
+    if (!token) throw new Error('Token nicht gefunden. Bitte erneut anmelden.');
+
     const response = await fetch(`${API_URL}/change-password`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({ oldPassword, newPassword }),
     });
 
-    let data;
-    try {
-      data = await response.json();
-    } catch (e) {
-      throw new Error('Unexpected response format from server');
-    }
+    const data = await parseJSON(response);
 
     if (!response.ok) {
       throw new Error(data.msg || 'Failed to change password');
@@ -150,4 +142,5 @@ export const changePassword = async (oldPassword, newPassword) => {
 // Benutzer abmelden (Logout)
 export const logout = () => {
   localStorage.removeItem('token');
+  // Evtl. noch einen Redirekt zu Home oder Login
 };

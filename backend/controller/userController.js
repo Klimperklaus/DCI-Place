@@ -63,17 +63,17 @@ const getUsers = async (req, res) => {
     const users = await users.find().select("-password");
     res.json(users);
   } catch {
-    handleError(res, 500, "Serverfehler");
+    handleError(res, 500, "Serverfehler bei User Aufruf");
   }
 };
 
 // Profil aufrufen
 const getProfile = async (req, res) => {
   try {
-    const user = await user.findById(req.user.id).select("-password");
+    const user = await user.findById(req.user._id).select("-password");
     res.json(user);
   } catch {
-    handleError(res, 500, "Serverfehler");
+    handleError(res, 500, "Serverfehler beim Profilaufruf");
   }
 };
 
@@ -87,7 +87,7 @@ const editUser = async (req, res) => {
     await user.findByIdAndUpdate(req.user.id, { username, email, team });
     res.json({ msg: "Profil erfolgreich bearbeitet." });
   } catch {
-    handleError(res, 500, "Serverfehler");
+    handleError(res, 500, "Serverfehler bei Profilbearbeitung");
   }
 };
 
