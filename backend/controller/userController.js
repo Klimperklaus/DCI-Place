@@ -6,7 +6,7 @@ const handleError = (res, status, msg) => res.status(status).json({ msg });
 
 // Token generieren
 const generateToken = (user) => {
-  return jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+  return jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
 };
 
 
@@ -19,14 +19,13 @@ const register = async (req, res) => {
 
   try {
     const existingUser = await User.findOne({ email });
-    if (existingUser)
-      return handleError(res, 400, "Benutzer existiert bereits.");
+    if (existingUser) return handleError(res, 400, "Benutzer existiert bereits.");
 
     const newUser = new User({ username, email, password });
-        await newUser.save();
+    await newUser.save();
 
-        const token = generateToken(newUser);
-        res.status(201).json({ msg: 'Registrierung erfolgreich.', token });
+    const token = generateToken(newUser); 
+    res.status(201).json({ msg: 'Registrierung erfolgreich.', token });
   } catch (err) {
     res.status(500).json({ msg: err.message });
   }
@@ -50,6 +49,7 @@ const login = async (req, res) => {
     res.json({
       msg: "Login erfolgreich",
       user: { id: user._id, username: user.username, email: user.email },
+      token, 
     });
   } catch (err) {
     handleError(res, 500, err.message);

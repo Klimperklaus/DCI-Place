@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
 
 const authMiddleware = (req, res, next) => {
-    const token = req.header('Authorization')?.split(' ')[1];
+    const authHeader = req.headers.authorization;
+    const token = authHeader && authHeader.split(' ')[1]; 
 
     if (!token) {
         return res.status(401).json({ msg: 'Kein Token, Zugriff verweigert.' });
@@ -12,7 +13,7 @@ const authMiddleware = (req, res, next) => {
         req.user = decoded;
         next();
     } catch (err) {
-        res.status(401).json({ msg: 'Ungültiges Token.' });
+        return res.status(403).json({ msg: 'Ungültiges Token.' });
     }
 };
 
