@@ -12,55 +12,76 @@ const ProfilePage = () => {
   const [newPassword, setNewPassword] = useState('');
   const [message, setMessage] = useState(null);
 
+  // Error message reset
+  useEffect(() => {
+    const timer = setTimeout(() => setMessage(null), 5000);
+    return () => clearTimeout(timer);
+  }, [message]);
+
+  // Fetch user profile on load
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const data = await getProfile();
+        const data = await getProfile(); // Get profile data
         setProfile(data);
         setUsername(data.username);
         setEmail(data.email);
         setTeam(data.team);
       } catch (err) {
-        setMessage({ type: 'error', text: err.message });
+        setMessage({ type: 'error', text: 'Fehler beim Laden des Profils' });
       }
     };
 
     fetchProfile();
   }, []);
 
+  // Handle profile edit
   const handleEditProfile = useCallback(async (e) => {
     e.preventDefault();
     try {
-      await editProfile(username, email, team);
+      if (!username || !email || !team) {
+        setMessage({ type: 'error', text: 'Alle Felder müssen ausgefüllt werden' });
+        return;
+      }
+
+      await editProfile(username, email, team); // Update profile via API
       setProfile({ ...profile, username, email, team });
       setEditing(false);
       setMessage({ type: 'success', text: 'Profil erfolgreich aktualisiert!' });
     } catch (err) {
-      setMessage({ type: 'error', text: err.message });
+      setMessage({ type: 'error', text: 'Profilaktualisierung fehlgeschlagen' });
     }
   }, [username, email, team, profile]);
 
+  // Handle password change
   const handleChangePassword = useCallback(async (e) => {
     e.preventDefault();
+    if (!oldPassword || !newPassword) {
+      setMessage({ type: 'error', text: 'Beide Passwortfelder müssen ausgefüllt werden' });
+      return;
+    }
+
     try {
-      await changePassword(oldPassword, newPassword);
+      await changePassword(oldPassword, newPassword); // Change password via API
       setOldPassword('');
       setNewPassword('');
       setMessage({ type: 'success', text: 'Passwort erfolgreich geändert!' });
     } catch (err) {
-      setMessage({ type: 'error', text: err.message });
+      setMessage({ type: 'error', text: 'Passwortänderung fehlgeschlagen' });
     }
   }, [oldPassword, newPassword]);
 
+  // Handle logout
   const handleLogout = useCallback(() => {
-    localStorage.removeItem('token');
-    window.location.href = '/login';
+    localStorage.removeItem('token'); // Optional: Clear any local tokens if used
+    document.cookie = 'jwt=; Max-Age=0'; // Expire JWT cookie on logout
+    window.location.href = '/login'; // Redirect to login
   }, []);
 
   return (
     <div className="profilewrap">
       {message && <div className={`message ${message.type}`}>{message.text}</div>}
-      {profile && (
+      {profile ? (
         <div className="profile-content">
           <h1>Profil</h1>
           <button onClick={() => setEditing(prev => !prev)}>
@@ -127,6 +148,8 @@ const ProfilePage = () => {
 
           <button onClick={handleLogout}>Logout</button>
         </div>
+      ) : (
+        <div>Profil wird geladen...</div>
       )}
     </div>
   );

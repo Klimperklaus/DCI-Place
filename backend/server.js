@@ -1,50 +1,59 @@
+// backend/server.js
+
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import path from 'path';
 import dotenv from 'dotenv';
 import routes from './routes/routes.js';
-
+import errorHandler from './middleware/errorMiddleware.js';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 const app = express();
 
-// cors anfragen vom Frontend erlauben
+// CORS-Anfragen vom Frontend erlauben
 const corsOptions = {
-  origin: 'http://localhost:5173', // Frontend URL
-  optionsSuccessStatus: 200
+  origin: 'http://localhost:3000', // Frontend URL
+  credentials: true, // Cookies erlauben
+  optionsSuccessStatus: 200,
 };
 
+// Middlwares
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors(corsOptions));
-app.use('/', routes);
+app.use('/api', routes);
+app.use(errorHandler);
 
-mongoose.connect(process.env.MONGO_URI).then(() => {
-  console.log('MongoDB connected');
-}
-).catch((err) => {
-  console.log(`MongoDB connection error: , ${err.message}`)});
-
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
-
+// MongoDB-Verbindung
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log('MongoDB connected');
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log(`MongoDB connection error: ${err.message}`);
+  });
 
 
 
 // Optional:
 
+// Datenkomprimierung
+
 // import compression from 'compression';
 
-// Für die Datenkomprimierung
 // app.use(compression());
 
 
 
 // Statische daten nach dem Build
+
+// import path from 'path';
 
 // app.use(express.static(path.join(__dirname, 'dist')));
 
