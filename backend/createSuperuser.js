@@ -14,9 +14,9 @@ mongoose.connect(process.env.MONGO_URI).then(async () => {
   }
 
   const newUser = new User({
-    username: 'admin',
-    email: 'benni@admin.de',
-    password: '456asdf+++',
+    username: '',
+    email: '',
+    password: '',
     isAdmin: true,
   });
 
