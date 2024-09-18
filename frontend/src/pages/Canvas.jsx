@@ -1,94 +1,100 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import { Stage, Layer, Rect } from 'react-konva';
+import { ChromePicker } from 'react-color';
+import "../styles/Canvas.scss"
 
-function Canvas() {
-  // vllt in data auslagern
-  const colors = [
-    "#ff4500",
-    "#ffa800",
-    "#ffd635",
-    "#00a368",
-    "#be0039",
-    "#ff3881",
-    "#6d001a",
-    "#fff8b8",
-    "#7eed56",
-    "#2450a4",
-    "#3690ea",
-    "#51e9f4",
-    "#00756f",
-    "#009eaa",
-    "#00ccc0",
-    "#94b3ff",
-    "#811e9f",
-    "#b44ac0",
-    "#ff99aa",
-    "#9c6926",
-    "#493ac1",
-    "#6a5cff",
-    "#e4abff",
-    "#de107f",
-    "#ffffff",
-    "#d4d7d9",
-    "#898d90",
-    "#000000",
-    "#00cc78",
-    "#6d482f",
-    "#ffb470",
-    "#515252",
-  ];
+const App = () => {
+  const [selectedColor, setSelectedColor] = useState('#FF5733');
+  const [rectangles, setRectangles] = useState([]);
+  const [canSetPixel, setCanSetPixel] = useState(true);
+  const [showColorPicker, setShowColorPicker] = useState(false);
 
-  const [color, setColor] = useState("#ff4500");
-  const [canvas, setCanvas] = useState(
-    Array(140).fill(Array(250).fill("#ffffff")) // Größe Canvas festlegen
-  ); 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCanSetPixel(true);
+    }, 0);
 
-  const handleCanvasClick = (row, col) => {
-    const updatedCanvas = canvas.map((currentRow, rowIndex) => {
-      if (rowIndex === row) {
-        return currentRow.map((currentCol, colIndex) => {
-          if (colIndex === col) {
-            return color;
-          }
-          return currentCol;
-        });
+    return () => clearTimeout(timer);
+  }, [canSetPixel]);
+
+  const getCrosshairCursor = () => {
+    const svg = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 100 100">
+      <line x1="0" y1="50" x2="49.5" y2="50" stroke="${selectedColor}" strokeWidth="2" />
+      <line x1="50.5" y1="50" x2="100" y2="50" stroke="${selectedColor}" strokeWidth="2" />
+      <line x1="50" y1="0" x2="50" y2="49.5" stroke="${selectedColor}" strokeWidth="2" />
+      <line x1="50" y1="50.5" x2="50" y2="100" stroke="${selectedColor}" strokeWidth="2" />
+      <rect x="49" y="49" width="3" height="3" fill="transparent" />
+      </svg>
+    `;
+    return `url('data:image/svg+xml;base64,${btoa(svg)}') 50 50, auto`;
+  };
+
+  const handleCanvasClick = (e) => {
+    if (!canSetPixel) return;
+
+    const stage = e.target.getStage();
+    const pointerPosition = stage.getPointerPosition();
+    setRectangles([
+      ...rectangles,
+      { x: pointerPosition.x -5 , y: pointerPosition.y -5 , color: selectedColor },
+    ]);
+    console.log(`Rectangle added at (${pointerPosition.x}, ${pointerPosition.y}) with color ${selectedColor}`);
+
+    setCanSetPixel(false);
+  };
+
+  const handleColorChange = (color) => {
+    setSelectedColor(color.hex);
+    console.log(`Color selected: ${color.hex}`);
+  };
+
+  return (
+    <div className="wrapper">
+      {
+      /** 
+       * @TODO convert to scss
+       */
       }
-      return currentRow;
-    });
-    setCanvas(updatedCanvas);
-  };
-
-  const handleButtonClick = (selectedColor) => {
-    setColor(selectedColor);
-  };
-
-  return ( 
-      <div>
-        <div id="canvas">
-          {canvas.map((row, rowIndex) => (
-            <div key={rowIndex} className="canvas-row">
-              {row.map((col, colIndex) => (
-                <div
-                  key={colIndex}
-                  className="canvas-cell"
-                  style={{ backgroundColor: col }}
-                  onClick={() => handleCanvasClick(rowIndex, colIndex)}
-                ></div>
-              ))}
-            </div>
-          ))}
+      <div className="test"> 
+        <div className="test2">
+          {canSetPixel ? 'You can set a pixel' : 'Please wait...'}
         </div>
-        <div id="buttonwrap">
-          {colors.map((color, index) => (
-            <button
-              id="colorButton"
-              key={index}
-              style={{ backgroundColor: color }}
-              onClick={() => handleButtonClick(color)}
-            ></button>
-          ))}
-        </div>
-      </div> 
+        <div
+          className="test3"
+          style={{ backgroundColor: selectedColor }}
+          onClick={() => setShowColorPicker(!showColorPicker)}
+        />
+        {showColorPicker && (
+          <ChromePicker
+            color={selectedColor}
+            onChange={handleColorChange}
+          />
+        )}
+      </div>
+      <div className="test4">
+        <Stage
+          // width={window.innerWidth}
+          // height={window.innerHeight}
+          onClick={handleCanvasClick}
+          style={{ border: '5px solid black', cursor: getCrosshairCursor() }}
+        >
+          <Layer>
+            {rectangles.map((rect, index) => (
+              <Rect
+                key={index}
+                x={rect.x}
+                y={rect.y}
+                width={1}
+                height={1}
+                fill={rect.color}
+              />
+            ))}
+          </Layer>
+        </Stage>
+      </div>
+    </div>
   );
-}
+};
 
-export default Canvas;
+export default App;
