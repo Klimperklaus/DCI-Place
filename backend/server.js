@@ -1,4 +1,4 @@
-// backend/server.js
+// server.js
 
 import express from 'express';
 import cookieParser from 'cookie-parser';
@@ -39,24 +39,3 @@ mongoose.connect(process.env.MONGO_URI)
     console.log(`MongoDB connection error: ${err.message}`);
   });
 
-
-
-// Optional:
-
-// Datenkomprimierung
-
-// import compression from 'compression';
-
-// app.use(compression());
-
-
-
-// Statische daten nach dem Build
-
-// import path from 'path';
-
-// app.use(express.static(path.join(__dirname, 'dist')));
-
-// app.get('*', (req, res) => {
-// res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-// });

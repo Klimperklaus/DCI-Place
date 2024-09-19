@@ -1,6 +1,8 @@
+// api.js
+
 const API_URL = 'http://localhost:5000/api';  // Backend URL
 
-// Fetch and handle JSON responses
+// Prüfen, ob die Antwort JSON enthält
 const parseJSON = async (response) => {
   try {
     return await response.json();
@@ -16,7 +18,7 @@ export const register = async (username, email, password, team) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, email, password, team }),
-      credentials: 'include', // Include cookies with request
+      credentials: 'include', // Cookies mit Anfrage senden
     });
 
     const data = await parseJSON(response);
@@ -39,7 +41,7 @@ export const login = async (email, password) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
-      credentials: 'include', // Include cookies with request
+      credentials: 'include',
     });
 
     const data = await parseJSON(response);
@@ -60,7 +62,7 @@ export const getProfile = async () => {
   try {
     const response = await fetch(`${API_URL}/profile`, {
       method: 'GET',
-      credentials: 'include', // Include cookies with request
+      credentials: 'include',
     });
 
     const data = await parseJSON(response);
@@ -85,18 +87,18 @@ export const editProfile = async (username, email, team) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ username, email, team }),
-      credentials: 'include', // Include cookies with request
+      credentials: 'include', 
     });
 
     const data = await parseJSON(response);
 
     if (!response.ok) {
-      throw new Error(data.msg || 'Failed to update profile');
+      throw new Error(data.msg || 'Fehler bei Profilupdate');
     }
 
     return data;
   } catch (error) {
-    console.error('Edit profile error:', error.message);
+    console.error('Profiledit Fehler:', error.message);
     throw error;
   }
 };
@@ -110,18 +112,18 @@ export const changePassword = async (oldPassword, newPassword) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ oldPassword, newPassword }),
-      credentials: 'include', // Include cookies with request
+      credentials: 'include', 
     });
 
     const data = await parseJSON(response);
 
     if (!response.ok) {
-      throw new Error(data.msg || 'Failed to change password');
+      throw new Error(data.msg || 'Fehler beim Ändern des Passworts');
     }
 
     return data;
   } catch (error) {
-    console.error('Change password error:', error.message);
+    console.error('Fehler bei Passwortänderung:', error.message);
     throw error;
   }
 };
@@ -132,9 +134,9 @@ export const getUsers = async () => {
     const response = await fetch(`${API_URL}/users`, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`, // Still sending Bearer token here if required
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
       },
-      credentials: 'include', // Include cookies with request
+      credentials: 'include', 
     });
 
     const data = await parseJSON(response);
@@ -155,7 +157,7 @@ export const logout = async () => {
   try {
     const response = await fetch(`${API_URL}/logout`, {
       method: 'POST',
-      credentials: 'include', // Include cookies with request
+      credentials: 'include',
     });
 
     const data = await parseJSON(response);
