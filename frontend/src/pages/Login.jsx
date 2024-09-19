@@ -29,10 +29,12 @@ const LoginPage = () => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
-      await login(email, password);
-      setMessage({ type: "success", text: "Erfolgreicher Login!" });
+      const data = await login(email, password);
+      localStorage.setItem('token', data.token); // Token speichern
+      setMessage({ type: 'success', text: "Erfolgreicher Login!" });
+      window.location.href = "/profile";
     } catch (err) {
-      setMessage({ type: "error", text: err.message });
+      setMessage({ type: 'error', text: err.message });
     }
   };
 
