@@ -20,13 +20,4 @@ export default defineConfig({
 
 
 
-// Für die Komprimierung der Dateien:
-// import compression from "vite-plugin-compression";
-// plugins: [
-// react(),
-//  compression({
-//    algorithm: "gzip", // 'brotliCompress' für Brotli-Komprimierung
-//    ext: ".gz", // '.br' für Brotli-Komprimierung
-//  }),
-// ],
-//  npm install vite-plugin-compression --save-dev
+
