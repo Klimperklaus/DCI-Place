@@ -30,7 +30,7 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       const data = await login(email, password);
-      localStorage.setItem('token', data.token); // Token speichern
+      localStorage.setItem('token', data.token); 
       setMessage({ type: 'success', text: "Erfolgreicher Login!" });
       window.location.href = "/profile";
     } catch (err) {

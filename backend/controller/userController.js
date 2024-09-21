@@ -33,8 +33,8 @@ const register = async (req, res) => {
     });
 
     // Bestätigungs-E-Mail nach Registrierung
-    const subject = 'Willkommen bei DeinerApp!';
-    const text = `Hallo ${username},\n\nDanke, dass du dich bei DeinerApp registriert hast. Wir freuen uns, dich an Bord zu haben!`;
+    const subject = 'Willkommen bei Pixel Wars!';
+    const text = `Hallo ${username},\n\nDanke, dass du dich bei Pixel Wars registriert hast. Enjoy !`;
     await sendEmail(email, subject, text);
 
     res.status(201).json({
@@ -124,7 +124,7 @@ const deleteUser = async (req, res) => {
 
     // Besätigungs E-Mail nach Kontolöschung
     const subject = 'Bestätigung der Kontolöschung';
-    const text = `Hallo ${user.username},\n\nIhr Konto wurde erfolgreich gelöscht. Wir bedauern es, Sie zu verlieren. Falls Sie dies nicht waren, kontaktieren Sie bitte umgehend unseren Support.`;
+    const text = `Hallo ${user.username},\n\nDein Konto wurde erfolgreich gelöscht!`;
     await sendEmail(user.email, subject, text);
 
     res.json({ msg: 'Profil erfolgreich gelöscht. Bestätigungs-E-Mail gesendet.' });
@@ -153,7 +153,7 @@ const changePassword = async (req, res) => {
 
     // Bestätigungs Mail nach Passwortänderung
     const subject = 'Ihr Passwort wurde geändert';
-    const text = `Hallo ${user.username},\n\nIhr Passwort wurde erfolgreich geändert. Falls Sie dies nicht waren, kontaktieren Sie bitte umgehend unseren Support.`;
+    const text = `Hallo ${user.username},\n\n Dein Passwort wurde erfolgreich geändert.`;
     await sendEmail(user.email, subject, text);
 
     res.json({ msg: 'Passwort erfolgreich geändert. Bestätigungs-E-Mail gesendet.' });
