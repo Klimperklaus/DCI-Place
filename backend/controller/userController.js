@@ -1,6 +1,7 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import {sendEmail} from "../services/emailService.js";
 import { validationResult } from "express-validator";
 
 const handleError = (res, status, msg) => res.status(status).json({ msg });
@@ -15,12 +16,12 @@ const register = async (req, res) => {
   const { username, email, password, team } = req.body;
 
   if (!username || !email || !password)
-    return handleError(res, 400, "Bitte alle Felder ausfüllen.");
+    return handleError(res, 400, 'Bitte alle Felder ausfüllen.');
 
   try {
     const existingUser = await User.findOne({ email });
-    if (existingUser) return handleError(res, 400, "Benutzer existiert bereits.");
-    
+    if (existingUser) return handleError(res, 400, 'Benutzer existiert bereits.');
+
     const newUser = new User({ username, email, password, team });
     await newUser.save();
 
@@ -28,14 +29,23 @@ const register = async (req, res) => {
     res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      maxAge: 24 * 60 * 60 * 1000,
+      maxAge: 24 * 60 * 60 * 1000, // 1 Tag
     });
 
-    res.status(201).json({ msg: 'Registrierung erfolgreich.', user: { id: newUser._id, username: newUser.username, email: newUser.email } });
+    // Bestätigungs-E-Mail nach Registrierung
+    const subject = 'Willkommen bei DeinerApp!';
+    const text = `Hallo ${username},\n\nDanke, dass du dich bei DeinerApp registriert hast. Wir freuen uns, dich an Bord zu haben!`;
+    await sendEmail(email, subject, text);
+
+    res.status(201).json({
+      msg: 'Registrierung erfolgreich. Bestätigungs-E-Mail gesendet.',
+      user: { id: newUser._id, username: newUser.username, email: newUser.email },
+    });
   } catch (err) {
     res.status(500).json({ msg: err.message });
   }
 };
+
 
 // Login
 const login = async (req, res) => {
@@ -107,33 +117,48 @@ const editUser = async (req, res) => {
 // Profil löschen
 const deleteUser = async (req, res) => {
   try {
+    const user = await User.findById(req.user.id);
+    if (!user) return handleError(res, 404, 'Benutzer nicht gefunden.');
+
     await User.findByIdAndDelete(req.user.id);
-    res.json({ msg: "Profil erfolgreich gelöscht." });
+
+    // Besätigungs E-Mail nach Kontolöschung
+    const subject = 'Bestätigung der Kontolöschung';
+    const text = `Hallo ${user.username},\n\nIhr Konto wurde erfolgreich gelöscht. Wir bedauern es, Sie zu verlieren. Falls Sie dies nicht waren, kontaktieren Sie bitte umgehend unseren Support.`;
+    await sendEmail(user.email, subject, text);
+
+    res.json({ msg: 'Profil erfolgreich gelöscht. Bestätigungs-E-Mail gesendet.' });
   } catch (err) {
-    handleError(res, 500, "Serverfehler");
+    handleError(res, 500, 'Serverfehler');
   }
 };
 
 // Passwort ändern
 const changePassword = async (req, res) => {
   const { oldPassword, newPassword } = req.body;
+
   if (!oldPassword || !newPassword)
-    return handleError(res, 400, "Bitte alle Felder ausfüllen.");
+    return handleError(res, 400, 'Bitte alle Felder ausfüllen.');
 
   try {
     const user = await User.findById(req.user.id);
-    if (!user) return handleError(res, 404, "Benutzer nicht gefunden.");
+    if (!user) return handleError(res, 404, 'Benutzer nicht gefunden.');
 
     const isMatch = await bcrypt.compare(oldPassword, user.password);
-    if (!isMatch) return handleError(res, 400, "Ungültiges Passwort.");
+    if (!isMatch) return handleError(res, 400, 'Ungültiges Passwort.');
 
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);
     user.password = hashedNewPassword;
     await user.save();
 
-    res.json({ msg: "Passwort erfolgreich geändert." });
+    // Bestätigungs Mail nach Passwortänderung
+    const subject = 'Ihr Passwort wurde geändert';
+    const text = `Hallo ${user.username},\n\nIhr Passwort wurde erfolgreich geändert. Falls Sie dies nicht waren, kontaktieren Sie bitte umgehend unseren Support.`;
+    await sendEmail(user.email, subject, text);
+
+    res.json({ msg: 'Passwort erfolgreich geändert. Bestätigungs-E-Mail gesendet.' });
   } catch (err) {
-    handleError(res, 500, "Serverfehler");
+    handleError(res, 500, 'Serverfehler');
   }
 };
 
