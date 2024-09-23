@@ -12,17 +12,17 @@ const ProfilePage = () => {
   const [newPassword, setNewPassword] = useState('');
   const [message, setMessage] = useState(null);
 
-  // Error message reset
+  // Error Nachricht nach 5 Sekunden ausblenden
   useEffect(() => {
     const timer = setTimeout(() => setMessage(null), 5000);
     return () => clearTimeout(timer);
   }, [message]);
 
-  // Fetch user profile on load
+  // Die Profildaten beim Laden aufrufen
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const data = await getProfile(); // Get profile data
+        const data = await getProfile();
         setProfile(data);
         setUsername(data.username);
         setEmail(data.email);
@@ -35,7 +35,7 @@ const ProfilePage = () => {
     fetchProfile();
   }, []);
 
-  // Handle profile edit
+  // Profil bearbeiten
   const handleEditProfile = useCallback(async (e) => {
     e.preventDefault();
     try {
@@ -44,7 +44,7 @@ const ProfilePage = () => {
         return;
       }
 
-      await editProfile(username, email, team); // Update profile via API
+      await editProfile(username, email, team);
       setProfile({ ...profile, username, email, team });
       setEditing(false);
       setMessage({ type: 'success', text: 'Profil erfolgreich aktualisiert!' });
@@ -53,7 +53,7 @@ const ProfilePage = () => {
     }
   }, [username, email, team, profile]);
 
-  // Handle password change
+  // Passwort ändern
   const handleChangePassword = useCallback(async (e) => {
     e.preventDefault();
     if (!oldPassword || !newPassword) {
@@ -62,7 +62,7 @@ const ProfilePage = () => {
     }
 
     try {
-      await changePassword(oldPassword, newPassword); // Change password via API
+      await changePassword(oldPassword, newPassword); 
       setOldPassword('');
       setNewPassword('');
       setMessage({ type: 'success', text: 'Passwort erfolgreich geändert!' });
@@ -71,9 +71,9 @@ const ProfilePage = () => {
     }
   }, [oldPassword, newPassword]);
 
-  // Handle logout
+  // Logout
   const handleLogout = useCallback(() => {
-    localStorage.removeItem('token'); // Optional: Clear any local tokens if used
+    localStorage.removeItem('token'); // Remove JWT from local storage
     document.cookie = 'jwt=; Max-Age=0'; // Expire JWT cookie on logout
     window.location.href = '/login'; // Redirect to login
   }, []);
