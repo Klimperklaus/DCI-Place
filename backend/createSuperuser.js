@@ -13,8 +13,8 @@ mongoose.connect(process.env.MONGO_URI).then(async () => {
     process.exit();
   }
  // Admin-Benutzer erstellen 
- // danach das Skipt ausführen mit: node createSuperUser.js
- // daran denken die Admin Daten nicht zu commiten
+ // danach das Skript ausführen mit: node createSuperUser.js
+ // die Admin Daten nicht commiten
   const newUser = new User({
     username: '',
     email: '',
