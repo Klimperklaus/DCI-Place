@@ -7,7 +7,9 @@ const handleError = (res, status, msg) => res.status(status).json({ msg });
 
 // Token generieren
 const generateToken = (user) => {
-  return jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
+  return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: "24h",
+  });
 };
 
 // Registrieren
@@ -19,19 +21,27 @@ const register = async (req, res) => {
 
   try {
     const existingUser = await User.findOne({ email });
-    if (existingUser) return handleError(res, 400, "Benutzer existiert bereits.");
-    
+    if (existingUser)
+      return handleError(res, 400, "Benutzer existiert bereits.");
+
     const newUser = new User({ username, email, password, team });
     await newUser.save();
 
     const token = generateToken(newUser);
-    res.cookie('token', token, {
+    res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === "production",
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    res.status(201).json({ msg: 'Registrierung erfolgreich.', user: { id: newUser._id, username: newUser.username, email: newUser.email } });
+    res.status(201).json({
+      msg: "Registrierung erfolgreich.",
+      user: {
+        id: newUser._id,
+        username: newUser.username,
+        email: newUser.email,
+      },
+    });
   } catch (err) {
     res.status(500).json({ msg: err.message });
   }
@@ -46,23 +56,25 @@ const login = async (req, res) => {
 
   try {
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ msg: "Benutzer existiert nicht." });
+    if (!user)
+      return res.status(400).json({ msg: "Benutzer existiert nicht." });
 
     const isMatch = await bcrypt.compare(password, user.password);
 
-    if (!isMatch) return res.status(400).json({ msg: "Ungültige Anmeldedaten." });
+    if (!isMatch)
+      return res.status(400).json({ msg: "Ungültige Anmeldedaten." });
 
     const token = generateToken(user);
 
-    res.cookie('token', token, {
+    res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === "production",
       maxAge: 24 * 60 * 60 * 1000,
     });
 
     res.json({
       msg: "Login erfolgreich",
-      user: { id: user._id, username: user.username, email: user.email }
+      user: { id: user._id, username: user.username, email: user.email },
     });
   } catch (err) {
     res.status(500).json({ msg: err.message });
@@ -139,8 +151,12 @@ const changePassword = async (req, res) => {
 
 // Logout
 const logout = (req, res) => {
-  res.cookie('token', '', { httpOnly: true, secure: process.env.NODE_ENV === 'production', expires: new Date(0) });
-  res.json({ msg: 'Erfolgreich ausgeloggt' });
+  res.cookie("token", "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    expires: new Date(0),
+  });
+  res.json({ msg: "Erfolgreich ausgeloggt" });
 };
 
 export {
