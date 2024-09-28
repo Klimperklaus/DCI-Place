@@ -3,7 +3,6 @@ import {
   setBgColor,
   drawRectangle,
   zoomCanvas,
-  // setContext,
 } from "../utilities/CanvasFuncs.js";
 
 export default function App() {
