@@ -3,13 +3,13 @@ import {
   setBgColor,
   drawRectangle,
   zoomCanvas,
-  setContext,
+  // setContext,
 } from "../utilities/CanvasFuncs.js";
 
 export default function App() {
   const [canvas, SetCanvas] = useState(null);
   const [context, SetContext] = useState(null);
-  let color = "red";
+  let color = "black";
 
   let scale = 1;
   let canvasWidth = 400;
@@ -18,9 +18,10 @@ export default function App() {
   useEffect(() => {
     SetCanvas(document.querySelector("canvas"));
     if (canvas) {
-      SetContext(setContext(canvas));
       console.log("canvas set");
+      SetContext(canvas.getContext("2d"));
       if (context) {
+        setBgColor(context);
         console.log("context set");
       }
     }
@@ -64,8 +65,8 @@ export default function App() {
           <li
             style={{
               background: "yellow",
-              width: "3rem",
-              height: "3rem",
+              width: "2rem",
+              height: "2rem",
               borderRadius: "50%",
             }}
             onClick={(e) => {
@@ -82,8 +83,8 @@ export default function App() {
           <li
             style={{
               background: "red",
-              width: "3rem",
-              height: "3rem",
+              width: "2rem",
+              height: "2rem",
               borderRadius: "50%",
             }}
             onClick={(e) => {
@@ -100,8 +101,8 @@ export default function App() {
           <li
             style={{
               background: "green",
-              width: "3rem",
-              height: "3rem",
+              width: "2rem",
+              height: "2rem",
               borderRadius: "50%",
             }}
             onClick={(e) => {
@@ -118,8 +119,8 @@ export default function App() {
           <li
             style={{
               background: "purple",
-              width: "3rem",
-              height: "3rem",
+              width: "2rem",
+              height: "2rem",
               borderRadius: "50%",
             }}
             onClick={(e) => {
@@ -153,7 +154,7 @@ export default function App() {
             context.canvas.height = canvasHeight * scale;
           }}
           onClick={(e) => {
-            drawRectangle(context, e, scale, color);
+            drawRectangle(context, e, scale, color, 5);
           }}
         ></canvas>
       </div>

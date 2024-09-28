@@ -1,31 +1,23 @@
-let context = null;
-let savedCtx = null;
-
 /**
  *
  * @param canvas > canvas element
  * @returns > 2d context of canvas element
  */
-export function setContext(canvas) {
-  if (canvas) {
-    context = canvas.getContext("2d");
-    return context;
-  }
-}
-
-export function setSavedCtx(ctxToSave) {
-  console.log("save new ctx");
-  savedCtx = ctxToSave.save();
-}
-
-export function getSavedCtx() {
-  console.log("get savedCtx");
-  return savedCtx;
-}
 
 export function setBgColor(context) {
   if (context) {
     context.canvas.style = "background-color: white";
+  }
+}
+
+export function savePixel(posX, posY, color, size) {
+  {
+    console.log({
+      posX: posX,
+      posY: posY,
+      color: color,
+      size: size,
+    });
   }
 }
 
@@ -38,22 +30,20 @@ export function setBgColor(context) {
  * filled with user color placed at the current cursor location relative
  * to the canvas scale and position on screen. Rectangle size is 5x5.
  */
-export function drawRectangle(context, event, scale, color) {
+export function drawRectangle(context, event, scale, color, pixelSize) {
   if (context) {
     context.fillStyle = color;
     context.fillRect(
       parseInt(getCursorPosition(context, event, scale).X),
       parseInt(getCursorPosition(context, event, scale).Y),
-      1 * scale,
-      1 * scale
+      pixelSize * scale,
+      pixelSize * scale
     ); // x, y, w, h
-    setSavedCtx(context);
-    console.log(
-      `X: ${parseInt(
-        getCursorPosition(context, event, scale).X
-      )}, Y: ${parseInt(
-        getCursorPosition(context, event, scale).Y
-      )}, color: ${color}, Scale: ${scale.toFixed(2)}`
+    savePixel(
+      parseInt(getCursorPosition(context, event, scale).X),
+      parseInt(getCursorPosition(context, event, scale).Y),
+      color,
+      pixelSize
     );
   }
 }
