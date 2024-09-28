@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import teams from "../data/teams";
-import { register, login } from "../services/api.js";
+import { register, login, loginWithGoogle } from "../services/api.js";
 
 // Login und Signup 
 
@@ -123,6 +123,10 @@ const LoginPage = () => {
             />
             <button type="submit">Login</button>
           </form>
+          <button onClick={handleGoogleLogin}>
+        Mit Google anmelden
+      </button>
+          <hr />
         </div>
       </div>
     </div>

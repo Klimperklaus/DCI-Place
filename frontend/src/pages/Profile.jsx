@@ -73,9 +73,9 @@ const ProfilePage = () => {
 
   // Logout
   const handleLogout = useCallback(() => {
-    localStorage.removeItem('token'); // Remove JWT from local storage
-    document.cookie = 'jwt=; Max-Age=0'; // Expire JWT cookie on logout
-    window.location.href = '/login'; // Redirect to login
+    localStorage.removeItem('token'); 
+    document.cookie = 'jwt=; Max-Age=0'; 
+    window.location.href = '/login';
   }, []);
 
   return (

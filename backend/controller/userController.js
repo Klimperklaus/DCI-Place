@@ -1,8 +1,10 @@
+// userController.js 
+
 import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import {sendEmail} from "../services/emailService.js";
-import { validationResult } from "express-validator";
+
 
 const handleError = (res, status, msg) => res.status(status).json({ msg });
 
@@ -14,6 +16,12 @@ const generateToken = (user) => {
 // Registrieren
 const register = async (req, res) => {
   const { username, email, password, team } = req.body;
+
+   // Validierungsergebnisse prüfen
+   const errors = validationResult(req);
+   if (!errors.isEmpty()) {
+     return res.status(400).json({ errors: errors.array() });
+   }
 
   if (!username || !email || !password)
     return handleError(res, 400, 'Bitte alle Felder ausfüllen.');
@@ -50,6 +58,12 @@ const register = async (req, res) => {
 // Login
 const login = async (req, res) => {
   const { email, password } = req.body;
+
+  // Validierurung prüfen
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
 
   if (!email || !password)
     return res.status(400).json({ msg: "Bitte alle Felder ausfüllen." });
