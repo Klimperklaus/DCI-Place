@@ -39,6 +39,7 @@ const LoginPage = () => {
   };
 
   return (
+    
     <div className="loginwrap">
       {message && (
         <div className={`message ${message.type}`}>{message.text}</div>
@@ -122,11 +123,9 @@ const LoginPage = () => {
               required
             />
             <button type="submit">Login</button>
+            <button onClick={loginWithGoogle}>Login with Google</button>
+       
           </form>
-          <button onClick={handleGoogleLogin}>
-        Mit Google anmelden
-      </button>
-          <hr />
         </div>
       </div>
     </div>
