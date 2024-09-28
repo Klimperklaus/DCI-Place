@@ -17,7 +17,7 @@ const generateToken = (user) => {
 const register = async (req, res) => {
   const { username, email, password, team } = req.body;
 
-   // Validierungsergebnisse prüfen
+   // Validierung prüfen
    const errors = validationResult(req);
    if (!errors.isEmpty()) {
      return res.status(400).json({ errors: errors.array() });
@@ -59,7 +59,7 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   const { email, password } = req.body;
 
-  // Validierurung prüfen
+  // Validierung prüfen
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
