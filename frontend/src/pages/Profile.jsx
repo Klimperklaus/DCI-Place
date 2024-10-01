@@ -1,16 +1,16 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { getProfile, editProfile, changePassword } from '../services/api';
-import teams from '../data/teams';
+import React, { useState, useEffect, useCallback } from "react";
+import { getProfile, editProfile, changePassword } from "../services/api.js";
 
 const ProfilePage = () => {
   const [profile, setProfile] = useState(null);
   const [editing, setEditing] = useState(false);
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [team, setTeam] = useState('');
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [team, setTeam] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [message, setMessage] = useState(null);
+  const [ws, setWs] = useState(null);
 
   // Error message reset
   useEffect(() => {
@@ -27,8 +27,26 @@ const ProfilePage = () => {
         setUsername(data.username);
         setEmail(data.email);
         setTeam(data.team);
+
+        // WebSocket connection
+        const token = localStorage.getItem("token");
+        const ws = new WebSocket(`ws://localhost:3131?token=${token}`);
+        ws.onopen = () => {
+          console.log("WebSocket connection established");
+          ws.send(JSON.stringify({ type: "testMessage", message: "Hello from client" }));
+        };
+        ws.onmessage = (event) => {
+          console.log("Message from server:", event.data);
+        };
+        ws.onclose = () => {
+          console.log("WebSocket connection closed");
+        };
+        ws.onerror = (error) => {
+          console.error("WebSocket error:", error);
+        };
+        setWs(ws);
       } catch (err) {
-        setMessage({ type: 'error', text: 'Fehler beim Laden des Profils' });
+        setMessage({ type: "error", text: "Fehler beim Laden des Profils" });
       }
     };
 
@@ -36,46 +54,52 @@ const ProfilePage = () => {
   }, []);
 
   // Handle profile edit
-  const handleEditProfile = useCallback(async (e) => {
-    e.preventDefault();
-    try {
-      if (!username || !email || !team) {
-        setMessage({ type: 'error', text: 'Alle Felder müssen ausgefüllt werden' });
+  const handleEditProfile = useCallback(
+    async (e) => {
+      e.preventDefault();
+      try {
+        if (!username || !email || !team) {
+          setMessage({ type: "error", text: "Bitte alle Felder ausfüllen" });
+          return;
+        }
+
+        await editProfile(username, email, team); // Update profile via API
+        setProfile({ ...profile, username, email, team });
+        setEditing(false);
+        setMessage({ type: "success", text: "Profil erfolgreich aktualisiert!" });
+      } catch (err) {
+        setMessage({ type: "error", text: "Profilaktualisierung fehlgeschlagen" });
+      }
+    },
+    [username, email, team, profile]
+  );
+
+  // Handle password change
+  const handleChangePassword = useCallback(
+    async (e) => {
+      e.preventDefault();
+      if (!oldPassword || !newPassword) {
+        setMessage({ type: "error", text: "Beide Passwortfelder müssen ausgefüllt werden" });
         return;
       }
 
-      await editProfile(username, email, team); // Update profile via API
-      setProfile({ ...profile, username, email, team });
-      setEditing(false);
-      setMessage({ type: 'success', text: 'Profil erfolgreich aktualisiert!' });
-    } catch (err) {
-      setMessage({ type: 'error', text: 'Profilaktualisierung fehlgeschlagen' });
-    }
-  }, [username, email, team, profile]);
-
-  // Handle password change
-  const handleChangePassword = useCallback(async (e) => {
-    e.preventDefault();
-    if (!oldPassword || !newPassword) {
-      setMessage({ type: 'error', text: 'Beide Passwortfelder müssen ausgefüllt werden' });
-      return;
-    }
-
-    try {
-      await changePassword(oldPassword, newPassword); // Change password via API
-      setOldPassword('');
-      setNewPassword('');
-      setMessage({ type: 'success', text: 'Passwort erfolgreich geändert!' });
-    } catch (err) {
-      setMessage({ type: 'error', text: 'Passwortänderung fehlgeschlagen' });
-    }
-  }, [oldPassword, newPassword]);
+      try {
+        await changePassword(oldPassword, newPassword); // Change password via API
+        setOldPassword("");
+        setNewPassword("");
+        setMessage({ type: "success", text: "Passwort erfolgreich geändert!" });
+      } catch (err) {
+        setMessage({ type: "error", text: "Passwortänderung fehlgeschlagen" });
+      }
+    },
+    [oldPassword, newPassword]
+  );
 
   // Handle logout
   const handleLogout = useCallback(() => {
-    localStorage.removeItem('token'); // Optional: Clear any local tokens if used
-    document.cookie = 'jwt=; Max-Age=0'; // Expire JWT cookie on logout
-    window.location.href = '/login'; // Redirect to login
+    localStorage.removeItem("token"); // Optional: Clear any local tokens if used
+    document.cookie = "jwt=; Max-Age=0"; // Expire JWT cookie on logout
+    window.location.href = "/login"; // Redirect to login
   }, []);
 
   return (
@@ -84,8 +108,8 @@ const ProfilePage = () => {
       {profile ? (
         <div className="profile-content">
           <h1>Profil</h1>
-          <button onClick={() => setEditing(prev => !prev)}>
-            {editing ? 'Abbrechen' : 'Bearbeiten'}
+          <button onClick={() => setEditing((prev) => !prev)}>
+            {editing ? "Abbrechen" : "Bearbeiten"}
           </button>
           {editing ? (
             <form onSubmit={handleEditProfile}>
@@ -103,11 +127,7 @@ const ProfilePage = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
-              <select
-                value={team}
-                onChange={(e) => setTeam(e.target.value)}
-                required
-              >
+              <select value={team} onChange={(e) => setTeam(e.target.value)} required>
                 <option value="" disabled hidden>
                   Team auswählen
                 </option>
@@ -121,9 +141,15 @@ const ProfilePage = () => {
             </form>
           ) : (
             <div>
-              <p><strong>Benutzername:</strong> {profile.username}</p>
-              <p><strong>Email:</strong> {profile.email}</p>
-              <p><strong>Team:</strong> {profile.team}</p>
+              <p>
+                <strong>Benutzername:</strong> {profile.username}
+              </p>
+              <p>
+                <strong>Email:</strong> {profile.email}
+              </p>
+              <p>
+                <strong>Team:</strong> {profile.team}
+              </p>
             </div>
           )}
 

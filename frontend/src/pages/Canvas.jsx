@@ -62,6 +62,8 @@ const Canvas = () => {
     socket.onopen = () => {
       console.log("WebSocket connection established");
       setConnectionStatus("Connected");
+      // Senden einer Testnachricht
+      socket.send(JSON.stringify({ type: "testMessage", message: "Hello from client" }));
     };
 
     socket.onmessage = (event) => {

@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react";
 import { Stage, Layer, Rect } from "react-konva";
-import { SignJWT } from "jose";
 
-const SECRET_KEY = "test_key";
-
-const Canvas = ({ ws, selectedColor, setSelectedColor, incrementClickCount, rectangles, setRectangles }) => {
+const Canvas = ({ ws, selectedColor, incrementClickCount, rectangles, setRectangles }) => {
   const [canSetPixel, setCanSetPixel] = useState(true);
 
   useEffect(() => {
@@ -15,7 +12,25 @@ const Canvas = ({ ws, selectedColor, setSelectedColor, incrementClickCount, rect
     return () => clearTimeout(timer);
   }, [canSetPixel]);
 
-  const handleCanvasClick = async (e) => {
+  useEffect(() => {
+    if (ws) {
+      ws.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          console.log("Message received in Canvas:", data); // Log empfangene Nachrichten
+          if (data.type === "initialData") {
+            setRectangles(data.data);
+          } else {
+            setRectangles((prevRectangles) => [...prevRectangles, data]);
+          }
+        } catch (error) {
+          console.error("Error parsing message from server: ", error);
+        }
+      };
+    }
+  }, [ws]);
+
+  const handleCanvasClick = (e) => {
     if (!canSetPixel) return;
 
     const stage = e.target.getStage();
@@ -25,18 +40,9 @@ const Canvas = ({ ws, selectedColor, setSelectedColor, incrementClickCount, rect
         x: Math.round(pointerPosition.x),
         y: Math.round(pointerPosition.y),
       },
-      color: selectedColor,
+      color: selectedColor || "black", // Standardfarbe ist Schwarz
       timestamp: new Date().toLocaleString(),
     };
-
-    // Einfache Authentifizierung
-    const token = await new SignJWT({ user: "user" })
-      .setProtectedHeader({ alg: "HS256" })
-      .setIssuedAt()
-      .setExpirationTime("2h")
-      .sign(new TextEncoder().encode(SECRET_KEY));
-
-    newRectangle.token = token;
 
     setRectangles([...rectangles, newRectangle]);
     setCanSetPixel(false);
@@ -53,21 +59,23 @@ const Canvas = ({ ws, selectedColor, setSelectedColor, incrementClickCount, rect
   return (
     <div>
       <Stage
-        width={500}
-        height={500}
+        width={480}
+        height={320}
         onClick={handleCanvasClick}
         style={{ border: "5px solid black", cursor: "crosshair" }}
       >
         <Layer>
           {rectangles.map((rect, index) => (
-            <Rect
-              key={index}
-              x={rect.position.x}
-              y={rect.position.y}
-              width={1}
-              height={1}
-              fill={rect.color}
-            />
+            rect.position && typeof rect.position.x === 'number' && typeof rect.position.y === 'number' ? (
+              <Rect
+                key={index}
+                x={rect.position.x}
+                y={rect.position.y}
+                width={1}
+                height={1}
+                fill={rect.color}
+              />
+            ) : null
           ))}
         </Layer>
       </Stage>

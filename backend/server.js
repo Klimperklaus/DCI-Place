@@ -7,32 +7,28 @@ import routes from "./routes/routes.js";
 import errorHandler from "./middleware/errorMiddleware.js";
 import { WebSocketServer } from "ws";
 import jwt from "jsonwebtoken";
+import Canvas from "./models/canvasModel.js"; // Import Canvas model
 
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
-const SECRET_KEY_WS = process.env.SECRET_KEY_WS;
-
 const app = express();
 
+// CORS-Anfragen vom Frontend erlauben
 const corsOptions = {
-  origin: [
-    "http://localhost:3000",
-    "http://127.0.0.1:5500",
-    "http://localhost:5173",
-    "http://192.168.178.75:3000/",
-  ],
-  credentials: true,
+  origin: "http://localhost:3000", // Frontend URL
+  credentials: true, // Cookies erlauben
   optionsSuccessStatus: 200,
 };
 
+// Middleware
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use("/api", routes);
 app.use(errorHandler);
-app.use(express.static("public"));
 
+// MongoDB-Verbindungen
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -45,48 +41,57 @@ mongoose
     console.log(`MongoDB connection error: ${err.message}`);
   });
 
+const canvasConnection = mongoose.createConnection(
+  process.env.CANVAS_MONGO_URI
+);
+canvasConnection.on("connected", () => {
+  console.log("Canvas MongoDB connected");
+});
+canvasConnection.on("error", (err) => {
+  console.log(`Canvas MongoDB connection error: ${err.message}`);
+});
+
+// WebSocket-Server
 const wss = new WebSocketServer({ port: 3131 });
 
 wss.on("connection", function connection(ws, req) {
-  const token = new URLSearchParams(req.url.split("?")[1]).get("token");
-
+  const token = req.url.split("token=")[1];
   if (!token) {
-    console.error("No token provided");
     ws.close();
     return;
   }
 
   try {
-    const decoded = jwt.verify(token, SECRET_KEY_WS);
-    console.log("Authenticated user:", decoded.user);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    ws.user = decoded;
 
     ws.on("message", async function incoming(message) {
       try {
         const parsedMessage = JSON.parse(message);
 
-        if (
-          !parsedMessage.position ||
-          typeof parsedMessage.position.x !== "number" ||
-          typeof parsedMessage.position.y !== "number" ||
-          !parsedMessage.color ||
-          typeof parsedMessage.color !== "string" ||
-          !parsedMessage.timestamp ||
-          typeof parsedMessage.timestamp !== "string"
-        ) {
-          throw new Error("Invalid message format");
+        // Testnachricht empfangen
+        if (parsedMessage.type === "testMessage") {
+          console.log("Testnachricht empfangen:", parsedMessage.message);
+          ws.send("Testnachricht vom Server empfangen");
         }
 
-        clickCount += 1;
-        parsedMessage.clickCount = clickCount;
-
-        wss.clients.forEach(function each(client) {
-          if (client.readyState === ws.OPEN) {
-            client.send(JSON.stringify(parsedMessage));
+        // Canvas-Daten abrufen und ausgeben
+        if (parsedMessage.type === "fetchCanvas") {
+          const canvasEntry = await Canvas.findById("1_1");
+          if (canvasEntry) {
+            console.log("Canvas-Daten:", canvasEntry);
+            ws.send(JSON.stringify({ type: "canvasData", data: canvasEntry }));
+          } else {
+            ws.send(
+              JSON.stringify({
+                type: "error",
+                message: "Canvas entry not found",
+              })
+            );
           }
-        });
-      } catch (error) {
-        console.error("Error processing message: ", error);
-        ws.send(JSON.stringify({ error: error.message }));
+        }
+      } catch (err) {
+        ws.send(JSON.stringify({ type: "error", message: err.message }));
       }
     });
 
@@ -94,17 +99,12 @@ wss.on("connection", function connection(ws, req) {
       console.log("WebSocket connection closed");
     });
 
-    ws.send(
-      JSON.stringify({
-        message: "Testnachricht vom Server :)",
-        position: { x: 0, y: 0 },
-        color: "black",
-        timestamp: new Date().toISOString(),
-        clickCount: { clickCount },
-      })
-    );
-  } catch (error) {
-    console.error("JWT verification failed:", error);
+    ws.on("error", (error) => {
+      console.error("WebSocket error:", error);
+    });
+
+    ws.send("WebSocket connection established");
+  } catch (err) {
     ws.close();
   }
 });
