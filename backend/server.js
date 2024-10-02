@@ -24,8 +24,21 @@ const corsOptions = {
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
+
+// Routes
 app.use('/api', routes);
 app.use(errorHandler);
+
+// Session Middleware
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+}));
+
+// Passport initialisieren
+app.use(passport.initialize());
+app.use(passport.session());
 
 // MongoDB-Verbindung
 mongoose.connect(process.env.MONGO_URI)

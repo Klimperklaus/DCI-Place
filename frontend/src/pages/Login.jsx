@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import teams from "../data/teams";
-import { register, login } from "../services/api.js";
+import { register, login, loginWithGoogle } from "../services/api.js";
 
 // Login und Signup 
 
@@ -39,6 +39,7 @@ const LoginPage = () => {
   };
 
   return (
+    
     <div className="loginwrap">
       {message && (
         <div className={`message ${message.type}`}>{message.text}</div>
@@ -122,6 +123,8 @@ const LoginPage = () => {
               required
             />
             <button type="submit">Login</button>
+            <button onClick={loginWithGoogle}>Login with Google</button>
+       
           </form>
         </div>
       </div>
