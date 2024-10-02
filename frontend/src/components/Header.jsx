@@ -1,7 +1,7 @@
 
 function Header() {
   return (
-    <h1>Dotwars</h1>
+   <></>
   )
 }
 

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import "./Home.css"; // Dein CSS
+import "../styles/Home.scss"; // Dein CSS
 
 function Home() {
   // Verweise für die Elemente
@@ -114,7 +114,7 @@ return (
       <div className="divwrapperweilichzublödbineinbildohnedivzuzentrieren">
         <img
           className="bild"
-          src="/images/CarPixel.png"
+          src="../img/CarPixel.png"
           alt="a Pixled Car for a shop with a tree in background"
         />
       </div>
@@ -126,7 +126,7 @@ return (
         </div>
         <img
           className="controller"
-          src="/images/logocontroller.png"
+          src="../img/pixelbackground.png"
           alt="ein pixelier controller"
         />
         <div className="backend">
