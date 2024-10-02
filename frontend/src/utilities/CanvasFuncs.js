@@ -36,6 +36,7 @@ export function getCursorPosition(context, event, scale) {
  */
 export function drawRectangle(context, event, scale, color, pixelSize) {
   if (context) {
+    // context.scale(scale, scale);
     context.fillStyle = color;
     context.fillRect(
       parseInt(getCursorPosition(context, event, scale).X),
@@ -79,8 +80,27 @@ export function savePixel(posX, posY, color, size) {
  */
 export function zoomCanvas(context, event, scale) {
   if (context) {
-    scale += event.deltaY * -0.002;
-    scale = Math.min(Math.max(1, scale), 10);
+    scale += event.deltaY * -0.01;
+    scale = Math.min(Math.max(1, scale), 30);
     return scale;
+  }
+}
+
+export function drawGrid(context, scale) {
+  for (let x = scale; x < context.canvas.width; x += scale) {
+    // vertical
+    context.beginPath();
+    context.moveTo(x, scale);
+    context.lineTo(x, context.canvas.height);
+    context.closePath();
+    context.stroke();
+    for (let y = scale; y < context.canvas.height; y += scale) {
+      // horizontal
+      context.beginPath();
+      context.moveTo(scale, y);
+      context.lineTo(context.canvas.width, y);
+      context.closePath();
+      context.stroke();
+    }
   }
 }

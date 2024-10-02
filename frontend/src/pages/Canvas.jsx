@@ -3,6 +3,7 @@ import {
   setBgColor,
   drawRectangle,
   zoomCanvas,
+  drawGrid,
 } from "../utilities/CanvasFuncs.js";
 
 export default function App() {
@@ -151,9 +152,12 @@ export default function App() {
             scale = zoomCanvas(context, e, scale);
             context.canvas.width = canvasWidth * scale;
             context.canvas.height = canvasHeight * scale;
+            if (scale > 25) {
+              drawGrid(context, scale);
+            }
           }}
           onClick={(e) => {
-            drawRectangle(context, e, scale, color, 5);
+            drawRectangle(context, e, scale, color, 1);
           }}
         ></canvas>
       </div>
