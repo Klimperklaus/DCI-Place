@@ -1,0 +1,69 @@
+#grid-switch-button {
+  background-color: rgb(34, 0, 88);
+  color: rgb(151, 151, 151);
+  font-size: 1.5rem;
+  border: 3px solid rgb(0, 255, 34);
+  padding: 1rem;
+  cursor: pointer;
+}
+
+#layer {
+  border: 5ps solid red;
+}
+
+.canvas-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.color-picker {
+  height: 100vh;
+  width: 10vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  right: 0;
+  position: fixed;
+  background-color: rgb(40, 41, 41);
+}
+
+.color-picker h1 {
+  color: white;
+  padding-bottom: 2rem;
+}
+
+.color-picker ul {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style: none;
+  gap: 1rem;
+}
+
+.color-picker li {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.color-picker button {
+  margin-top: 2rem;
+  color: white;
+}
+
+.stage-container {
+  width: 90vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid rgb(0, 0, 0); 
+  padding: 0;
+}
