@@ -58,12 +58,15 @@
   color: white;
 }
 
+.react-transform-wrapper {
+  border: 3px solid rgb(56, 0, 108);
+}
+
 .stage-container {
-  width: 90vw;
-  height: 100vh;
+  width: 80vw;
+  height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 5px solid rgb(0, 0, 0); 
   padding: 0;
 }
