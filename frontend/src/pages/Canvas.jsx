@@ -9,9 +9,9 @@ const Canvas = () => {
   const [hoveredCell, setHoveredCell] = useState(null);
   const [showGrid, setShowGrid] = useState(false); // Zustand für das Raster
 
-  const canvasWidth = 800;
-  const canvasHeight = 600;
-  const cellSize = 10;
+  const canvasWidth = 1080;
+  const canvasHeight = 760;
+  const cellSize = 2;
 
   const handleMouseMove = (e) => {
     const { x, y } = e.target.getStage().getPointerPosition();
@@ -21,6 +21,7 @@ const Canvas = () => {
   };
 
   const handleClick = (e) => {
+  
     const { x, y } = e.target.getStage().getPointerPosition();
     const cellX = Math.floor(x / cellSize);
     const cellY = Math.floor(y / cellSize);
@@ -65,7 +66,10 @@ const Canvas = () => {
         </button>
       </div>
       <div className="stage-container">
-        <TransformWrapper>
+        <TransformWrapper
+          defaultScale={1}
+          panning={{ disabled: true }}
+        >
           <TransformComponent>
             <Stage
               width={canvasWidth}
@@ -75,7 +79,7 @@ const Canvas = () => {
             >
 {/* Layer ist eine Gruppe von Knoten, die zusammen gerendert werden. Überlegen wie wir auf arrays verzichten können */}
               <Layer>
-                {showGrid &&
+       {/*         {showGrid &&
                   Array.from({ length: canvasWidth / cellSize }, (_, rowIndex) =>
                     Array.from({ length: canvasHeight / cellSize }, (_, colIndex) => (
                       <Rect
@@ -89,7 +93,7 @@ const Canvas = () => {
                         fill="transparent"
                       />
                     ))
-                  )}
+                  )}  */}
                 {renderedRectangles}
                 {hoveredCell && (
                   <Rect
