@@ -68,9 +68,6 @@ const Canvas = () => {
             ></li>
           ))}
         </ul>
-        <button id="grid-switch-button" onClick={() => setShowGrid(!showGrid)}>
-          {showGrid ? "Raster ausblenden" : "Raster anzeigen"}
-        </button>
       </div>
       <div className="canvas-border-container">
       <div className="stage-container">

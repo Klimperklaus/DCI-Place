@@ -1,13 +1,23 @@
 // Homepage Styling
+$image-font-path: url('../assets/fontImage/abstract-pixel-background-8793634.jpg');
+
+
 .home{
     display: flex;
     flex-direction: column;
 }
 
 .home h1{
-        font-family: 'Courier New', Courier, monospace;
-        color: #dadfda;
+        font-family: 'PressStart2P', sans-serif;
+   
+  background-image: url('../assets/fontImage/abstract-pixel-background-8793634.jpg');
+  background-position: center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  
+  color: transparent;
         text-shadow: 1px 1px 2px black;
         text-align: center;
         padding: 1em;
+        font-size: 2rem;
 }
