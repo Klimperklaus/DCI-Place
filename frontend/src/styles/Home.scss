@@ -1,6 +1,9 @@
-// Homepage Styling
-$image-font-path: url('../assets/fontImage/abstract-pixel-background-8793634.jpg');
+@font-face {
+  font-family: 'PressStart2P';
+  src: url('../assets/fonts/press_start_2p/PressStart2P.ttf') format('truetype');
+}
 
+$url: '../assets/fontImage/abstract-pixel-background-8793634.jpg';
 
 .home{
     display: flex;
@@ -9,14 +12,12 @@ $image-font-path: url('../assets/fontImage/abstract-pixel-background-8793634.jpg
 
 .home h1{
         font-family: 'PressStart2P', sans-serif;
-   
-  background-image: url('../assets/fontImage/abstract-pixel-background-8793634.jpg');
-  background-position: center;
-  -webkit-background-clip: text;
-  background-clip: text;
-  
-  color: transparent;
-        text-shadow: 1px 1px 2px black;
+        background: url($url); ;
+        background-size: contain;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
         text-align: center;
         padding: 1em;
         font-size: 2rem;

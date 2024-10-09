@@ -3,17 +3,6 @@
   src: url('../assets/fonts/press_start_2p/PressStart2P.ttf') format('truetype');
 }
 
-$image-font-path: url('../assets/fontImage/abstract-pixel-background-8793634.jpg');
-
-.image-font {
-  font-size: 48px;
-  font-weight: bold;
-  background: url(#{$image-font-path});
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 * {
   margin: 0;
   padding: 0;
