@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function Canvas() {
-  // vllt in data auslagern
+  // Farben, die zur Auswahl stehen
   const colors = [
     "#ff4500",
     "#ffa800",
@@ -37,57 +37,129 @@ function Canvas() {
     "#515252",
   ];
 
+  // Zustand für die aktuell ausgewählte Farbe
   const [color, setColor] = useState("#ff4500");
-  const [canvas, setCanvas] = useState(
-    Array(140).fill(Array(250).fill("#ffffff")) // Größe Canvas festlegen
-  ); 
 
+  // Zustand für das Canvas (2D Array mit Farben)
+  const [canvas, setCanvas] = useState(
+    Array(140).fill(Array(250).fill("#ffffff")) // 140 x 250 weißes Canvas
+  );
+
+  // Zustand für die aktuelle Cursorposition im Canvas
+  const [cursorPosition, setCursorPosition] = useState({
+    row: null,
+    col: null,
+  });
+
+  // Zustand, ob der Cursor innerhalb des Canvas ist
+  const [isCursorInCanvas, setIsCursorInCanvas] = useState(false);
+
+  // Effekt, der den benutzerdefinierten Cursor nur innerhalb des Canvas anzeigt
+  useEffect(() => {
+    if (isCursorInCanvas) {
+      const cursorSize = 32; // Größe des Cursors
+      const halfSize = cursorSize / 2;
+
+      // SVG für den Cursor, der eine Kreuzlinie und einen farbigen Punkt in der Mitte zeigt
+      const svg = `<svg width="${cursorSize}" height="${cursorSize}" xmlns="http://www.w3.org/2000/svg">
+        <line x1="${halfSize}" y1="0" x2="${halfSize}" y2="${cursorSize}" stroke="black" stroke-width="2"/>
+        <line x1="0" y1="${halfSize}" x2="${cursorSize}" y2="${halfSize}" stroke="black" stroke-width="2"/>
+        <circle cx="${halfSize}" cy="${halfSize}" r="${
+        halfSize / 4
+      }" fill="${color}" />
+      </svg>`;
+
+      // SVG in eine URL umwandeln und als Cursor verwenden
+      const encodedSvg = encodeURIComponent(svg);
+      document.body.style.cursor = `url('data:image/svg+xml;utf8,${encodedSvg}') ${halfSize} ${halfSize}, auto`;
+    } else {
+      // Standard-Cursor anzeigen, wenn der Mauszeiger außerhalb des Canvas ist
+      document.body.style.cursor = "default";
+    }
+  }, [color, isCursorInCanvas]);
+
+  // Funktion, um die Cursorposition im Canvas zu verfolgen
+  const handleMouseMove = (row, col) => {
+    setCursorPosition({ row, col });
+  };
+
+  // Funktion, um beim Klick auf das Canvas die ausgewählte Farbe zu setzen
   const handleCanvasClick = (row, col) => {
     const updatedCanvas = canvas.map((currentRow, rowIndex) => {
       if (rowIndex === row) {
         return currentRow.map((currentCol, colIndex) => {
           if (colIndex === col) {
-            return color;
+            return color; // Setzt die aktuelle Farbe auf die angeklickte Stelle
           }
           return currentCol;
         });
       }
       return currentRow;
     });
-    setCanvas(updatedCanvas);
+    setCanvas(updatedCanvas); // Aktualisiert das Canvas mit der neuen Farbe
   };
 
+  // Funktion, um die ausgewählte Farbe zu ändern
   const handleButtonClick = (selectedColor) => {
     setColor(selectedColor);
   };
 
-  return ( 
+  // Funktion, die ausgelöst wird, wenn die Maus in das Canvas eintritt
+  const handleMouseEnterCanvas = () => {
+    setIsCursorInCanvas(true); // Aktiviert den benutzerdefinierten Cursor
+  };
+
+  // Funktion, die ausgelöst wird, wenn die Maus das Canvas verlässt
+  const handleMouseLeaveCanvas = () => {
+    setIsCursorInCanvas(false); // Deaktiviert den benutzerdefinierten Cursor
+    setCursorPosition({ row: null, col: null }); // Setzt die Cursorposition zurück
+  };
+
+  return (
+    <main>
       <div>
-        <div id="canvas">
+        {/* Canvas */}
+        <div
+          id="canvas"
+          onMouseEnter={handleMouseEnterCanvas} // Benutzerdefinierten Cursor aktivieren
+          onMouseLeave={handleMouseLeaveCanvas} // Benutzerdefinierten Cursor deaktivieren
+        >
           {canvas.map((row, rowIndex) => (
             <div key={rowIndex} className="canvas-row">
-              {row.map((col, colIndex) => (
-                <div
-                  key={colIndex}
-                  className="canvas-cell"
-                  style={{ backgroundColor: col }}
-                  onClick={() => handleCanvasClick(rowIndex, colIndex)}
-                ></div>
-              ))}
+              {row.map((col, colIndex) => {
+                const isCursorPixel =
+                  cursorPosition.row === rowIndex &&
+                  cursorPosition.col === colIndex; // Überprüfen, ob der Cursor über diesem Pixel ist
+
+                return (
+                  <div
+                    key={colIndex}
+                    className="canvas-cell"
+                    style={{
+                      backgroundColor: isCursorPixel ? color : col, // Zeigt die Farbe des Cursors oder die aktuelle Farbe des Pixels
+                    }}
+                    onClick={() => handleCanvasClick(rowIndex, colIndex)} // Klick auf das Pixel
+                    onMouseMove={() => handleMouseMove(rowIndex, colIndex)} // Verfolgt die Bewegung des Cursors
+                  ></div>
+                );
+              })}
             </div>
           ))}
         </div>
-        <div id="buttonwrap">
+
+        {/* Farbauswahl-Buttons */}
+        <div id="buttonWrap">
           {colors.map((color, index) => (
             <button
               id="colorButton"
               key={index}
               style={{ backgroundColor: color }}
-              onClick={() => handleButtonClick(color)}
+              onClick={() => handleButtonClick(color)} // Ändert die ausgewählte Farbe
             ></button>
           ))}
         </div>
-      </div> 
+      </div>
+    </main>
   );
 }
 
