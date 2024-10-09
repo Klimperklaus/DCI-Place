@@ -1,10 +1,5 @@
-# Basis Image
 FROM node:20.18.0-alpine
 
-# User (sollte nie root sein)
-# USER node
-
-# Arbeitsverzeichnis in welchem alle Befehle ausgefuehrt werden
 WORKDIR /app
 
 ADD package*.json .
