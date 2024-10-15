@@ -11,8 +11,6 @@
   border: 5ps solid red;
 }
 
-
-
 .canvas-container {
   height: 100vh;
   width: 100vw;
@@ -20,6 +18,7 @@
   justify-content: center;
   align-items: center;
   background-color: white;
+  image-rendering: pixelated;
 }
 
 .color-picker {
