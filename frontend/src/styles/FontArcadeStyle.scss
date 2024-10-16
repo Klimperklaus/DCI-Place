@@ -1,0 +1,51 @@
+@font-face {
+  font-family: 'PressStart2P';
+  src: url('../assets/fonts/press_start_2p/PressStart2P.ttf') format('truetype');
+}
+
+$colors1: (
+  #8B4513, 
+  #A0522D, 
+  #D2691E, 
+  #FF7F50, 
+  #FFD700
+);
+
+ 
+
+$colors2: (
+  #87CEFA,
+  #00CED1,
+  #1E90FF,
+  #4682B4
+);
+
+
+@mixin arcade-gradient($colors1, $colors2) {
+    $gradient-steps1: '';
+    @each $color in $colors1 {
+        $gradient-steps1: #{$gradient-steps1}, $color 5%;
+    }
+    $gradient-steps2: '';
+    @each $color in $colors2 {
+        $gradient-steps2: #{$gradient-steps2}, $color 20%;
+}
+
+    background: linear-gradient(
+        to bottom,
+        $gradient-steps1,
+        silver 50%, 
+        $gradient-steps2
+    );
+    background-size: 100% 100%;
+    image-rendering: pixelated;
+  }
+
+.arcade-text {
+  font-family: 'PressStart2P', sans-serif;
+  font-size: 60px;
+  @include arcade-gradient($colors1, $colors2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

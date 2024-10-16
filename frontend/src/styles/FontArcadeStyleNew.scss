@@ -1,0 +1,44 @@
+@font-face {    
+  font-family: 'PressStart2P';    
+  src: url('../assets/fonts/press_start_2p/PressStart2P.ttf') format('truetype');
+}
+
+$colors: (
+    color0: #7a7a7a,
+    color1: #329694,
+    color2: #329694,
+    color3: #eb8c80,
+    color4: #709795,
+    color5: silver,
+    color7: #945d4e,
+    color8: #6ba69c,
+    color10: #329694
+);
+
+@mixin pixel-gradient($colors) {
+    background: linear-gradient(
+        to bottom,
+        map-get($colors, color0) 0%,
+        map-get($colors, color1) 9.28%,
+        map-get($colors, color2) 29.28%,
+        map-get($colors, color4) 36.56%,
+        map-get($colors, color3) 41.84%,
+        map-get($colors, color5) 50.84%,
+        map-get($colors, color10) 59.12%,
+        map-get($colors, color8) 69.4%,
+        map-get($colors, color3) 79.68%,
+        map-get($colors, color7) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 100% 100%; 
+    background-position: 0 0; 
+
+}
+
+.arcade-text2 {
+    font-family: 'PressStart2P', sans-serif;
+    font-size: 60px;
+    @include pixel-gradient($colors);
+}

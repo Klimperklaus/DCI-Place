@@ -1,9 +1,11 @@
+import "../styles/FontArcadeStyleNew.scss"
+
 function Home() {
   return (
     <div className="home">
       <h1>Homepage</h1>
       <br />
-      <h1 className="home">Welcome to Dotwars!</h1>
+      <h2>Welcome to Dotwars!</h2>
     </div>
   );
 }
