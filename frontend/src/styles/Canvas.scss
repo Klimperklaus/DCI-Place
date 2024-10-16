@@ -17,7 +17,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: #83a8d0;
   image-rendering: pixelated;
 }
 
@@ -61,6 +61,8 @@
 
 .react-transform-wrapper {
   border: 3px solid rgb(56, 0, 108);
+  background-color: white;
+  cursor: crosshair;
 }
 
 .stage-container {

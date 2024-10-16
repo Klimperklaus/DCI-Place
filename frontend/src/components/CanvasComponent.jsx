@@ -51,13 +51,17 @@ const CanvasComponent = ({ selectedColor }) => {
   };
 
   const renderedRectangles = useMemo(() => {
-    return rectangles.map((rect, index) => (
-      <Rect key={index} {...rect} />
-    ));
+    return rectangles.map((rect, index) => <Rect key={index} {...rect} />);
   }, [rectangles]);
 
   return (
-    <TransformWrapper defaultScale={1} panning={{ allowLeftClickPan: false }}>
+    <TransformWrapper
+      defaultScale={1}
+      panning={{ allowLeftClickPan: false }}
+      wheel={{ smoothStep: 0.03 }}
+      maxScale={50}
+      doubleClick={{ disabled: true }}
+    >
       <TransformComponent>
         <Stage
           width={canvasWidth}
@@ -75,7 +79,7 @@ const CanvasComponent = ({ selectedColor }) => {
                 y={hoveredCell.y * cellSize}
                 width={cellSize}
                 height={cellSize}
-                fill="rgba(211, 211, 211, 0.5)"
+                fill="rgba(155, 155, 155, 0.7)"
               />
             )}
           </Layer>

@@ -14,9 +14,9 @@ const ColorPicker = ({ setSelectedColor }) => {
     <div className="color-picker">
       <h1>COLORS</h1>
       <ul>
-        {colors.map((color) => (
+        {colors.map((color, index) => (
           <li
-            key={color}
+            key={index + color}
             style={{ background: color }}
             onClick={() => setSelectedColor(color)}
             onMouseEnter={(e) => {
