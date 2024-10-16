@@ -5,15 +5,15 @@
 
 
 $colors: (
-    color0: #7a7a7a,
+    color0: #807a7a,
     color1: #329694,
-    color2: #329694,
-    color3: #eb8c80,
-    color4: #709795,
-    color5: #c0c0c0,
-    color7: #945d4e,
+    color2: #ebd1e9e6,
+    color3: #ebc6c6,
+    color4: #e3d3e0,
+    color5: #ffffff,
+    color7: #eb8c80,
     color8: #278273,
-    color10: #329694
+    color10: #5f9695,
 );
 
 @mixin pixel-gradient($colors) {
@@ -21,14 +21,15 @@ $colors: (
         to bottom,
         map-get($colors, color0) 0%,
         map-get($colors, color1) 9.28%,
-        map-get($colors, color2) 29.28%,
-        map-get($colors, color4) 36.56%,
-        map-get($colors, color3) 41.84%,
+        map-get($colors, color2) 18.28%,
+        map-get($colors, color4) 31.56%,
+        map-get($colors, color3) 42.84%,
         map-get($colors, color5) 50.84%,
         map-get($colors, color10) 59.12%,
-        map-get($colors, color8) 69.4%,
-        map-get($colors, color3) 79.68%,
-        map-get($colors, color7) 100%
+        map-get($colors, color8) 72.4%,
+        map-get($colors, color7) 84.68%,
+        map-get($colors, color3) 96.84%,
+        map-get($colors, color0) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -45,10 +46,10 @@ $colors: (
 .home h1{
   font-family: 'PressStart2P', sans-serif;
   font-size: 2rem;
-text-shadow: 0px 0px 2px rgba(39, 39, 39, 0.388);
+  filter: drop-shadow(0px 0px 1px #320000);
   @include pixel-gradient($colors);
   text-align: center;
-  padding: 1em;
+  padding: 0;
   margin: 1em;
   }
 
