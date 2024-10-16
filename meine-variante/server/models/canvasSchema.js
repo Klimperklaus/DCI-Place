@@ -1,13 +1,10 @@
 import mongoose from "mongoose";
 
 const canvasSchema = new mongoose.Schema({
-  position: {
-    x: Number,
-    y: Number,
-  },
+  x: Number,
+  y: Number,
   color: String,
-  timestamp: String,
-  clickCount: Number,
+  timestamp: { type: Date, default: Date.now },
   userID: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
