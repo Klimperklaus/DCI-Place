@@ -31,42 +31,74 @@ useEffect(() => {
   ];
 
   const handleMouseMove = (e) => {
+    let clientX, clientY; 
+   if (e.type === 'touchmove') {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    } else {
+      clientX = e.clientX;
+      clientY = e.clientY;
+    }
+  
     layers.forEach(layer => {
       layer.elements.forEach(star => {
         const rect = star.getBoundingClientRect();
         const starX = rect.left + rect.width / 2;
         const starY = rect.top + rect.height / 2;
-
-        const deltaX = e.clientX - starX;
-        const deltaY = e.clientY - starY;
-
+        const deltaX = clientX - starX;
+        const deltaY = clientY - starY;
         const newX = deltaX * layer.movementFactor;
         const newY = deltaY * layer.movementFactor;
-
         star.style.transform = `translate(${newX}px, ${newY}px)`;
       });
     });
   };
 
+  // const handleMouseMove = (e) => {
+  //   console.log("test")
+  //   layers.forEach(layer => {
+  //     layer.elements.forEach(star => {
+  //       const rect = star.getBoundingClientRect();
+  //       const starX = rect.left + rect.width / 2;
+  //       const starY = rect.top + rect.height / 2;
+
+  //       const deltaX = e.clientX - starX;
+  //       const deltaY = e.clientY - starY;
+
+  //       const newX = deltaX * layer.movementFactor;
+  //       const newY = deltaY * layer.movementFactor;
+
+  //       star.style.transform = `translate(${newX}px, ${newY}px)`;
+  //     });
+  //   });
+  // };
+
   document.addEventListener('mousemove', handleMouseMove);
+
+  document.addEventListener('touchmove', handleMouseMove);
+
+
 
   return () => {
     document.removeEventListener('mousemove', handleMouseMove);
+
+    document.addEventListener('touchmove', handleMouseMove);
   };
 }, []);
+
 
 return (
   <div className='body'>
     <header>
       <div className="headerDiv">
-        <div className="first">
+        <div className="first xl:container">
           <h1 id="title" ref={titleRef}>DCI</h1>
           <p id="catchphrase" ref={catchphraseRef}>DIGITAL CAREER INSTITUTE</p>
           <button className="play">
-            <h1 className="playFont">PLAY</h1>
+            <h1 className="playFont">LOG IN</h1>
           </button>
         </div>
-        <div className="second">
+        <div className="second xl:container">
           <h1 id="titlePixel">PIXEL</h1>
           <h1 id="titleWars">WARS</h1>
         </div>
@@ -79,7 +111,7 @@ return (
 
     <main>
       <h1 className="overview">OVERVIEW</h1>
-      <div className="container">
+      <div className="menue">
         <div className="side">
           <div className="topLeft">
             <h1 className="ranking">RANKING</h1>
@@ -122,6 +154,11 @@ return (
       </div>
 
       <h1 className="teamTitle">TEAM</h1>
+      <img
+            className="controllerhidden"
+            src="/images/logocontroller.png"
+            alt="ein pixelier controller"
+          />
       <div className="divwrapperweilichzublödbineinbildohnedivzuzentrierenzwei">
         <div className="frontend">
           <h1 className="dev">FRONTEND</h1>
