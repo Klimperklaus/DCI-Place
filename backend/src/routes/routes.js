@@ -1,9 +1,20 @@
 // routes.js
 
 import express from "express";
-import {getUsers, getProfile,  register,  login,  deleteUser,  editUser, 
-  changePassword,  logout,} from "../controller/userController.js";
-import { authMiddleware, adminMiddleware,} from "../middleware/authMiddleware.js";
+import {
+  getUsers,
+  getProfile,
+  register,
+  login,
+  deleteUser,
+  editUser,
+  changePassword,
+  logout,
+} from "../controller/userController.js";
+import {
+  authMiddleware,
+  adminMiddleware,
+} from "../middleware/authMiddleware.js";
 import { body } from "express-validator";
 
 const router = express.Router();
