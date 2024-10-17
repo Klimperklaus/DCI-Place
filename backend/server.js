@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+
 import routes from './routes/routes.js';
 import errorHandler from './middleware/errorMiddleware.js';
 
@@ -30,11 +31,11 @@ app.use('/api', routes);
 app.use(errorHandler);
 
 // Session Middleware
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-}));
+// app.use(session({
+//   secret: process.env.SESSION_SECRET,
+//   resave: false,
+//   saveUninitialized: false,
+// }));
 
 // Passport initialisieren
 app.use(passport.initialize());
