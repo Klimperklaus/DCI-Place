@@ -17,6 +17,9 @@ function Navbar() {
           <NavLink to="/canvas">Canvas</NavLink>
         </li>
         <li>
+          <NavLink to="/team">Team</NavLink>
+        </li>
+        <li>
           <NavLink to="/statistik">Statistik</NavLink>
         </li>
         <li>
