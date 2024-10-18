@@ -1,0 +1,15 @@
+
+
+const CanSetPixel = {
+    const [canSetPixel, setCanSetPixel] = useState(true);
+
+    useEffect(() => {
+    const timer = setTimeout(() => {
+      setCanSetPixel(true);
+    }, 100); // Throttling durch Setzen eines Timers
+
+    return () => clearTimeout(timer);
+  }, [canSetPixel]);
+
+  
+}
