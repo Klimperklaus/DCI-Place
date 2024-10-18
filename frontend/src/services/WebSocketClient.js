@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
-const WebSocketComponent = ({ setWs, setConnectionStatus, setWebsocketData }) => {
+const WebSocketComponent = ({
+  setWs,
+  setConnectionStatus,
+  setMessages,
+  setError,
+}) => {
   const [ws, setLocalWs] = useState(null);
 
   useEffect(() => {
@@ -13,10 +19,12 @@ const WebSocketComponent = ({ setWs, setConnectionStatus, setWebsocketData }) =>
         try {
           const data = JSON.parse(event.data);
           console.log("Data received from WebSocket:", data); // Log empfangene Nachrichten
+
           if (data.error) {
             console.error("Server error: ", data.error);
+            setError(data.error); // Fehlermeldung setzen
           } else {
-            setWebsocketData((prevWebsocketData) => [...prevWebsocketData, data]);
+            setMessages((prevMessages) => [...prevMessages, data]);
           }
         } catch (error) {
           console.error("Error parsing message from server: ", error);
@@ -35,20 +43,27 @@ const WebSocketComponent = ({ setWs, setConnectionStatus, setWebsocketData }) =>
   const connectWebSocket = () => {
     if (ws) {
       ws.close();
+      setLocalWs(null);
+      setWs(null);
+    } else {
+      const newWs = new WebSocket("ws://localhost:3131");
+      setLocalWs(newWs);
+      setWs(newWs);
     }
-    const newWs = new WebSocket("ws://localhost:3131");
-    setLocalWs(newWs);
-    setWs(newWs);
   };
 
   return (
-    <div>
-      <button onClick={() => (ws ? ws.close() : connectWebSocket())}>
-        {ws ? "Disconnect" : "Connect"}
-      </button>
-      <button onClick={connectWebSocket}>Reconnect</button>
-    </div>
+    <button onClick={connectWebSocket}>
+      {ws ? "Disconnect WebSocket" : "Connect WebSocket"}
+    </button>
   );
+};
+
+WebSocketComponent.propTypes = {
+  setWs: PropTypes.func.isRequired,
+  setConnectionStatus: PropTypes.func.isRequired,
+  setMessages: PropTypes.func.isRequired,
+  setError: PropTypes.func.isRequired,
 };
 
 export default WebSocketComponent;

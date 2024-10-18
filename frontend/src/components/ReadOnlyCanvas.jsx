@@ -1,4 +1,5 @@
 import { Stage, Layer, Rect } from "react-konva";
+import PropTypes from "prop-types";
 
 const ReadOnlyCanvas = ({ rectangles }) => {
   return (
@@ -12,8 +13,8 @@ const ReadOnlyCanvas = ({ rectangles }) => {
           {rectangles.map((rect, index) => (
             <Rect
               key={index}
-              x={rect.position.x}
-              y={rect.position.y}
+              x={rect.position_x}
+              y={rect.position_y}
               width={1}
               height={1}
               fill={rect.color}
@@ -23,6 +24,10 @@ const ReadOnlyCanvas = ({ rectangles }) => {
       </Stage>
     </div>
   );
+};
+
+ReadOnlyCanvas.propTypes = {
+  rectangles: PropTypes.array.isRequired,
 };
 
 export default ReadOnlyCanvas;

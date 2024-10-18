@@ -6,7 +6,7 @@ const useFetchCanvasData = () => {
 
   useEffect(() => {
     // Abrufen der bisherigen Pixel aus der Datenbank beim Laden der Seite
-    fetch("http://localhost:3000/api/canvas")
+    fetch("http://localhost:5000/api/canvas")
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched canvas data:", data); // Log abgerufene Daten
@@ -17,7 +17,7 @@ const useFetchCanvasData = () => {
   }, []);
 
   const fetchDbData = () => {
-    fetch("http://localhost:3000/api/canvas")
+    fetch("http://localhost:5000/api/canvas")
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched DB data:", data); // Log abgerufene Daten
