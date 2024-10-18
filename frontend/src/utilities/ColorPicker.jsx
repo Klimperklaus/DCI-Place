@@ -11,11 +11,10 @@ import colors from "./colors";
 
 const ColorPicker = ({ setSelectedColor }) => {
   return (
-    <div className="color-picker">
-      <h1>COLORS</h1>
-      <ul>
+    <div className="color-picker" >
+      <ul id="buttonwrap">
         {colors.map((color, index) => (
-          <li
+          <li  id="color-button"
             key={index + color}
             style={{ background: color }}
             onClick={() => setSelectedColor(color)}

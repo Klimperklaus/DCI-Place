@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 
-const WebSocketClient = ({
-  setWs,
-  setConnectionStatus,
-  setMessages,
-  setError,
-}) => {
+const WebSocketComponent = ({ setWs, setConnectionStatus, setMessages, setError }) => {
   const [ws, setLocalWs] = useState(null);
 
   useEffect(() => {
@@ -50,20 +44,7 @@ const WebSocketClient = ({
       setLocalWs(newWs);
       setWs(newWs);
     }
-  };
-
-  return (
-    <button onClick={connectWebSocket}>
-      {ws ? "Disconnect WebSocket" : "Connect WebSocket"}
-    </button>
-  );
+    };
 };
 
-WebSocketClient.propTypes = {
-  setWs: PropTypes.func.isRequired,
-  setConnectionStatus: PropTypes.func.isRequired,
-  setMessages: PropTypes.func.isRequired,
-  setError: PropTypes.func.isRequired,
-};
-
-export default WebSocketClient;
+export default WebSocketComponent;

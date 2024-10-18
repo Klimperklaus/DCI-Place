@@ -1,7 +1,12 @@
+
+
 import { useState } from "react";
 import "../styles/Canvas.scss"; 
 import ColorPicker from "../utilities/ColorPicker";
-import CanvasComponent from "../components/CanvasComponent"; // Importieren Sie die CanvasComponent
+import CanvasComponent from "../components/CanvasComponent"; 
+
+
+
 
 /**
  * Canvas component that includes a color picker and a canvas for drawing.

@@ -1,3 +1,8 @@
+/*
+
+import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import WebSocketClient from '../services/WebSocketClient';
 
 
 const CanSetPixel = {
@@ -13,3 +18,5 @@ const CanSetPixel = {
 
   
 }
+export default CanSetPixel;
+*/
