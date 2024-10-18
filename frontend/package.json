@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "serverStart": "cross-env NODE_ENV=production node ../backend/server.js"
+    "serverStart": "cross-env NODE_ENV=production node ../backend/src/index.js"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
