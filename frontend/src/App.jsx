@@ -20,9 +20,9 @@ function App() {
         <Route
           path="/canvas"
           element={
-            <PrivateRoute>
+            // <PrivateRoute>
               <Canvas />
-            </PrivateRoute>
+            // </PrivateRoute>
           }
         />
         <Route

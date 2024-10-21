@@ -15,7 +15,7 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
  * @returns {JSX.Element} The rendered CanvasComponent.
  */
 
-const CanvasComponent = ({ selectedColor }) => {
+const CanvasComponent = ({ selectedColor, setCoordinates }) => {
   const [rectangles, setRectangles] = useState([]);
   const [hoveredCell, setHoveredCell] = useState(null);
   const canvasWidth = 768;
@@ -27,6 +27,7 @@ const CanvasComponent = ({ selectedColor }) => {
     const cellX = Math.floor(x / cellSize);
     const cellY = Math.floor(y / cellSize);
     setHoveredCell({ x: cellX, y: cellY });
+    if (hoveredCell) setCoordinates(hoveredCell);
   };
 
   const handleClick = (e) => {
@@ -64,6 +65,7 @@ const CanvasComponent = ({ selectedColor }) => {
     >
       <TransformComponent>
         <Stage
+          style={{ imageRendering: "pixelated" }}
           width={canvasWidth}
           height={canvasHeight}
           onMouseMove={handleMouseMove}
