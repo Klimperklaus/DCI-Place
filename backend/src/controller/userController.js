@@ -1,92 +1,80 @@
-// userController.js 
-
 import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import {sendEmail} from "../services/emailService.js";
-
+import { validationResult } from "express-validator";
 
 const handleError = (res, status, msg) => res.status(status).json({ msg });
 
 // Token generieren
 const generateToken = (user) => {
-  return jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
+  return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: "24h",
+  });
 };
 
 // Registrieren
 const register = async (req, res) => {
   const { username, email, password, team } = req.body;
 
-   // Validierung prüfen
-   const errors = validationResult(req);
-   if (!errors.isEmpty()) {
-     return res.status(400).json({ errors: errors.array() });
-   }
-
   if (!username || !email || !password)
-    return handleError(res, 400, 'Bitte alle Felder ausfüllen.');
+    return handleError(res, 400, "Bitte alle Felder ausfüllen.");
 
   try {
     const existingUser = await User.findOne({ email });
-    if (existingUser) return handleError(res, 400, 'Benutzer existiert bereits.');
+    if (existingUser)
+      return handleError(res, 400, "Benutzer existiert bereits.");
 
     const newUser = new User({ username, email, password, team });
     await newUser.save();
 
     const token = generateToken(newUser);
-    res.cookie('token', token, {
+    res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 24 * 60 * 60 * 1000, // 1 Tag
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 24 * 60 * 60 * 1000,
     });
 
-    // Bestätigungs-E-Mail nach Registrierung
-    const subject = 'Willkommen bei Pixel Wars!';
-    const text = `Hallo ${username},\n\nDanke, dass du dich bei Pixel Wars registriert hast. Enjoy !`;
-    await sendEmail(email, subject, text);
-
     res.status(201).json({
-      msg: 'Registrierung erfolgreich. Bestätigungs-E-Mail gesendet.',
-      user: { id: newUser._id, username: newUser.username, email: newUser.email },
+      msg: "Registrierung erfolgreich.",
+      user: {
+        id: newUser._id,
+        username: newUser.username,
+        email: newUser.email,
+      },
     });
   } catch (err) {
     res.status(500).json({ msg: err.message });
   }
 };
 
-
 // Login
 const login = async (req, res) => {
   const { email, password } = req.body;
-
-  // Validierung prüfen
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
 
   if (!email || !password)
     return res.status(400).json({ msg: "Bitte alle Felder ausfüllen." });
 
   try {
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ msg: "Benutzer existiert nicht." });
+    if (!user)
+      return res.status(400).json({ msg: "Benutzer existiert nicht." });
 
     const isMatch = await bcrypt.compare(password, user.password);
 
-    if (!isMatch) return res.status(400).json({ msg: "Ungültige Anmeldedaten." });
+    if (!isMatch)
+      return res.status(400).json({ msg: "Ungültige Anmeldedaten." });
 
     const token = generateToken(user);
 
-    res.cookie('token', token, {
+    res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === "production",
       maxAge: 24 * 60 * 60 * 1000,
     });
 
     res.json({
       msg: "Login erfolgreich",
-      user: { id: user._id, username: user.username, email: user.email }
+      user: { id: user._id, username: user.username, email: user.email },
     });
   } catch (err) {
     res.status(500).json({ msg: err.message });
@@ -131,55 +119,44 @@ const editUser = async (req, res) => {
 // Profil löschen
 const deleteUser = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id);
-    if (!user) return handleError(res, 404, 'Benutzer nicht gefunden.');
-
     await User.findByIdAndDelete(req.user.id);
-
-    // Besätigungs E-Mail nach Kontolöschung
-    const subject = 'Bestätigung der Kontolöschung';
-    const text = `Hallo ${user.username},\n\nDein Konto wurde erfolgreich gelöscht!`;
-    await sendEmail(user.email, subject, text);
-
-    res.json({ msg: 'Profil erfolgreich gelöscht. Bestätigungs-E-Mail gesendet.' });
+    res.json({ msg: "Profil erfolgreich gelöscht." });
   } catch (err) {
-    handleError(res, 500, 'Serverfehler');
+    handleError(res, 500, "Serverfehler");
   }
 };
 
 // Passwort ändern
 const changePassword = async (req, res) => {
   const { oldPassword, newPassword } = req.body;
-
   if (!oldPassword || !newPassword)
-    return handleError(res, 400, 'Bitte alle Felder ausfüllen.');
+    return handleError(res, 400, "Bitte alle Felder ausfüllen.");
 
   try {
     const user = await User.findById(req.user.id);
-    if (!user) return handleError(res, 404, 'Benutzer nicht gefunden.');
+    if (!user) return handleError(res, 404, "Benutzer nicht gefunden.");
 
     const isMatch = await bcrypt.compare(oldPassword, user.password);
-    if (!isMatch) return handleError(res, 400, 'Ungültiges Passwort.');
+    if (!isMatch) return handleError(res, 400, "Ungültiges Passwort.");
 
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);
     user.password = hashedNewPassword;
     await user.save();
 
-    // Bestätigungs Mail nach Passwortänderung
-    const subject = 'Ihr Passwort wurde geändert';
-    const text = `Hallo ${user.username},\n\n Dein Passwort wurde erfolgreich geändert.`;
-    await sendEmail(user.email, subject, text);
-
-    res.json({ msg: 'Passwort erfolgreich geändert. Bestätigungs-E-Mail gesendet.' });
+    res.json({ msg: "Passwort erfolgreich geändert." });
   } catch (err) {
-    handleError(res, 500, 'Serverfehler');
+    handleError(res, 500, "Serverfehler");
   }
 };
 
 // Logout
 const logout = (req, res) => {
-  res.cookie('token', '', { httpOnly: true, secure: process.env.NODE_ENV === 'production', expires: new Date(0) });
-  res.json({ msg: 'Erfolgreich ausgeloggt' });
+  res.cookie("token", "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    expires: new Date(0),
+  });
+  res.json({ msg: "Erfolgreich ausgeloggt" });
 };
 
 export {

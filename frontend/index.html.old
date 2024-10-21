@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verbindungstests</title>
+    <script>
+      async function testConnections() {
+        const API_URL = "http://localhost:5000/api/login";
+        const WS_URL = "ws://localhost:3131";
+        const output = document.getElementById("output");
+
+        // Funktion zum Auslesen des Cookies
+        const getCookie = (name) => {
+          const value = `; ${document.cookie}`;
+          const parts = value.split(`; ${name}=`);
+          if (parts.length === 2) return parts.pop().split(";").shift();
+        };
+
+        try {
+          // Read and display the cookie
+          const cookieToken = getCookie("token");
+          if (!cookieToken) {
+            throw new Error("No token found in cookies");
+          }
+          output.innerHTML += `<p>Token from cookie: ${cookieToken}</p>`;
+
+          // Test user login and get JWT token
+          const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: "testuser",
+              password: "testpassword",
+            }),
+          });
+
+          const data = await response.json();
+          if (!data.token) {
+            throw new Error("Login failed, no token received");
+          }
+
+          const token = data.token;
+          output.innerHTML += `<p>Login successful, token received: ${token}</p>`;
+
+          // Test WebSocket connection
+          const ws = new WebSocket(`${WS_URL}?token=${token}`);
+
+          ws.onopen = () => {
+            output.innerHTML += "<p>WebSocket connection established</p>";
+            ws.send(JSON.stringify({ message: "Test message from client" }));
+          };
+
+          ws.onmessage = (event) => {
+            output.innerHTML += `<p>Message from server: ${event.data}</p>`;
+            ws.close();
+          };
+
+          ws.onclose = () => {
+            output.innerHTML += "<p>WebSocket connection closed</p>";
+          };
+
+          ws.onerror = (error) => {
+            output.innerHTML += `<p>WebSocket error: ${error.message}</p>`;
+          };
+        } catch (error) {
+          output.innerHTML += `<p>Error during connection tests: ${error.message}</p>`;
+        }
+      }
+
+      window.onload = () => {
+        testConnections();
+      };
+    </script>
+  </head>
+  <body>
+    <h1>Verbindungstests</h1>
+    <div id="output"></div>
+  </body>
+</html>

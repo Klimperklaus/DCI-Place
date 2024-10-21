@@ -7,24 +7,35 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "serverStart": "cross-env NODE_ENV=production node ../backend/src/index.js"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
+    "js-cookie": "^3.0.5",
+    "konva": "^9.3.15",
+    "mongoose": "^8.6.3",
+    "nodemon": "^3.1.7",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react-dom": "^18.3.1",
+    "react-konva": "^18.2.10",
     "react-router-dom": "^6.23.1",
-    "serve": "^13.0.4"
+    "react-zoom-pan-pinch": "^3.6.1",
+    "serve": "^13.0.4",
+    "ws": "^8.18.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.20",
+    "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "postcss": "^8.4.47",
+    "node-fetch": "^3.3.2",
     "sass": "^1.77.6",
     "tailwindcss": "^3.4.14",
     "vite": "^5.2.0",
