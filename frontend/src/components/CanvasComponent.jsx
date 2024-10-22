@@ -51,7 +51,7 @@ const CanvasComponent = ({ selectedColor, ws, setCoordinates }) => {
         alert("WebSocket-Verbindung geschlossen.");
       };
     }
-  }, [ws]);
+  }, [ws, setRectangles]);
 
   const handleMouseMove = (e) => {
     const { x, y } = e.target.getStage().getPointerPosition();

@@ -7,7 +7,6 @@ const useFetchCanvasData = () => {
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem("token"); // Token aus dem lokalen Speicher abrufen
-      console.log(token);
       if (!token) {
         console.error("Kein Token im lokalen Speicher gefunden.");
         return;

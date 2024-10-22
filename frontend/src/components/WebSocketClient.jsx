@@ -38,7 +38,7 @@ const WebSocketClient = ({
         setConnectionStatus("Disconnected");
       };
     }
-  }, [ws]);
+  }, [ws, setConnectionStatus, setError, setMessages]);
 
   const connectWebSocket = () => {
     const token = localStorage.getItem("token"); // Token aus dem lokalen Speicher abrufen

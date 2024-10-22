@@ -32,7 +32,9 @@ const LoginPage = () => {
       const data = await login(email, password);
       localStorage.setItem('token', data.token); 
       setMessage({ type: 'success', text: "Erfolgreicher Login!" });
-      window.location.href = "/profile";
+      console.log(localStorage.getItem('token'));
+      console.log(data.token)
+     // window.location.href = "/profile";
     } catch (err) {
       setMessage({ type: 'error', text: err.message });
     }
