@@ -1,0 +1,22 @@
+/*
+
+import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import WebSocketClient from '../services/WebSocketClient';
+
+
+const CanSetPixel = {
+    const [canSetPixel, setCanSetPixel] = useState(true);
+
+    useEffect(() => {
+    const timer = setTimeout(() => {
+      setCanSetPixel(true);
+    }, 100); // Throttling durch Setzen eines Timers
+
+    return () => clearTimeout(timer);
+  }, [canSetPixel]);
+
+  
+}
+export default CanSetPixel;
+*/

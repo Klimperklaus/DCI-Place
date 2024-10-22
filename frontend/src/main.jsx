@@ -11,6 +11,8 @@ import "./styles/Home.scss";
 import "./styles/Statistik.scss";
 import "./styles/DevDesk.scss";
 import "./styles/Profile.scss";
+import "./styles/Team.scss";
+import "./styles/AGB.scss";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

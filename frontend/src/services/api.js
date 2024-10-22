@@ -7,7 +7,7 @@ const parseJSON = async (response) => {
   try {
     return await response.json();
   } catch (e) {
-    throw new Error('Unexpected response format from server');
+    throw new Error('Unerwartetes Antwortformat vom Server');
   }
 };
 
@@ -24,12 +24,12 @@ export const register = async (username, email, password, team) => {
     const data = await parseJSON(response);
 
     if (!response.ok) {
-      throw new Error(data.msg || 'Registration failed');
+      throw new Error(data.msg || 'Registrierung fehlgeschlagen');
     }
 
     return data;
   } catch (error) {
-    console.error('Registration error:', error.message);
+    console.error('Registrierungsfehler:', error.message);
     throw error;
   }
 };
@@ -47,7 +47,7 @@ export const login = async (email, password) => {
     const data = await parseJSON(response);
 
     if (!response.ok) {
-      throw new Error(data.msg || 'Login failed');
+      throw new Error(data.msg || 'Login fehlgeschlagen');
     }
 
     return data;
@@ -171,4 +171,9 @@ export const logout = async () => {
     console.error('Fehler beim Logout:', error.message);
     throw error;
   }
+};
+
+// Weiterleitung zur Google OAuth2-Authentifizierung
+export const loginWithGoogle = () => {
+  window.location.href = `${API_URL}/auth/google`;
 };

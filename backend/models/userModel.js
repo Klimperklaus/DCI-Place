@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
   },
   password : {
     type : String,
-    required : true
+    required : true // für den Google-Login nicht nötig
   },
   email : {
     type : String,
@@ -26,16 +26,26 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-});
+  googleId: {
+    type: String,
+    unique: true,
+    sparse: true,
+  },
+}, { timestamps: true });
 
-// Password hashing vor dem Speichern
+
+// Passwort vor dem Speichern hashen (nur wenn geändert)
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
+  
+  if (this.password) { 
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+  }
   next();
 });
 
 const User = mongoose.model('User', userSchema);
 
 export default User;
+

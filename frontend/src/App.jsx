@@ -8,6 +8,8 @@ import Home from "./pages/Home.jsx";
 import Statistik from "./pages/Statistik.jsx";
 import Profile from "./pages/Profile.jsx";
 import DevDesk from "./pages/DevDesk.jsx";
+import Team from "./pages/Team.jsx";
+import AGB from "./pages/AGB.jsx";
 import Pagenotfound from "./components/Pagenotfound.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 
@@ -20,9 +22,9 @@ function App() {
         <Route
           path="/canvas"
           element={
-            <PrivateRoute>
+            // <PrivateRoute>
               <Canvas />
-            </PrivateRoute>
+            // </PrivateRoute>
           }
         />
         <Route
@@ -49,6 +51,8 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="/team" element={<Team />} />
+        <Route path="/agb" element={<AGB />} />
         <Route path="*" element={<Pagenotfound />} />
       </Route>
     </Routes>

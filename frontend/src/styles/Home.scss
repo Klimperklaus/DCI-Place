@@ -1,31 +1,27 @@
 @import url(https://fonts.bunny.net/css?family=actor:400|gluten:600);
 
-html, body {
-
-    margin: 0;
-    overflow-x: hidden;
-    position: relative;
+html,
+body {
+  margin: 0;
+  overflow-x: hidden;
+  position: relative;
 }
 
 .body {
-    
-    /*background: rgb(255,255,255);
+  /*background: rgb(255,255,255);
     background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(251,236,224,0.6334908963585435) 50%, rgba(245,207,176,0.4682247899159664) 100%);
     */
-    background-color: #f5cfb0;
-    width: 100vw;
-   
-    }
-
+  background-color: #f5cfb0;
+  width: 100vw;
+}
 
 /*-----------------------------------------------------Header-----------------------------------------------------------------*/
 
-
 .headerDiv {
-    display: flex;
-    position: relative;
-    justify-content: flex-start;
-    align-items: center;
+  display: flex;
+  position: relative;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .whiteDiv {
@@ -56,47 +52,46 @@ html, body {
 }
 
 .play {
-    position: absolute; 
-    bottom: 10px;
-    right: 10px;
-    color: #ffff;
-    width: 7vw;
-    height: 7vw; 
-    background-color: #d1645b; 
-    border-radius: 50%; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    cursor: pointer; 
-    border: none; 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
-    transition: background-color 0.3s; 
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: #ffff;
+  width: 7vw;
+  height: 7vw;
+  background-color: #d1645b;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s;
 }
 
 .play:hover {
-    background-color: #2e8c7c; 
+  background-color: #2e8c7c;
 }
 
-.playFont{
-    font-family: 'Actor', sans-serif;
-    margin-top: 10%;
-    color: #ffff;
-    text-align: center;
-    font-size: calc(0.5rem + 1vw);
-    letter-spacing: 0.1em;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 
-                 0 0 20px rgba(255, 255, 255, 0.6), 
-                 0 0 30px rgba(255, 255, 255, 0.4); 
+.playFont {
+  font-family: "Actor", sans-serif;
+  margin-top: 10%;
+  color: #ffff;
+  text-align: center;
+  font-size: calc(0.5rem + 1vw);
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
 }
 
 #title {
-    color: #f5cfb0;
+  color: #f5cfb0;
   font-size: calc(1rem + 14vw);
-    font-family: 'Gluten', display;
-    text-align: center;
-    text-shadow: 4px 3px darkgray;
-    margin-bottom: 1em; 
-    margin: -1%;
+  font-family: "Gluten", display;
+  text-align: center;
+  text-shadow: 4px 3px darkgray;
+  margin-bottom: 1em;
+  margin: -1%;
 }
 
 #catchphrase {
@@ -109,13 +104,13 @@ html, body {
 }
 
 #titlePixel {
-    font-family: 'Gluten', display;
-    text-align: center;
-    color: #329694;
-    font-size: calc(1rem + 9vw);
-    text-shadow: 4px 3px rgba(0, 0, 0, 0.678);
-    margin-bottom: 1rem; 
-    margin: 1%;
+  font-family: "Gluten", display;
+  text-align: center;
+  color: #329694;
+  font-size: calc(1rem + 9vw);
+  text-shadow: 4px 3px rgba(0, 0, 0, 0.678);
+  margin-bottom: 1rem;
+  margin: 1%;
 }
 
 #titleWars {
@@ -127,16 +122,15 @@ html, body {
     margin-top: -6rem;
 }
 
-
 /*-------------------------------------------------------Main-------------------------------------------------------------------*/
 
-.overview{
-    font-family: 'Actor', sans-serif;
-    margin-top: 5%;
-    color: #ffff;
-    text-align: center;
-    font-size: calc(1rem + 4vw);
-    letter-spacing: 0.1em;
+.overview {
+  font-family: "Actor", sans-serif;
+  margin-top: 5%;
+  color: #ffff;
+  text-align: center;
+  font-size: calc(1rem + 4vw);
+  letter-spacing: 0.1em;
 }
 
 main {
@@ -148,73 +142,95 @@ main {
 }
 
 .container {
-    margin-top: 5%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative; 
-
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 /*-----------------------------------------------------Div Button-----------------------------------------------------------------*/
 
 .side {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 45%; 
-    position: relative; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 45%;
+  position: relative;
 }
 
-.topLeft, .bottomLeft, .topRight, .bottomRight {
-    flex: 1; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    border-radius: 50px; 
-    margin: 15px 0; 
-    z-index: 1; 
-   
+.topLeft,
+.bottomLeft,
+.topRight,
+.bottomRight {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 50px;
+  margin: 15px 0;
+  z-index: 1;
 }
 
 .bottomLeft {
-    -webkit-mask-image: radial-gradient(circle 150px at 100% 0, transparent 0, transparent 230px, black 21px);
-    background-color: #945d4e;
+  -webkit-mask-image: radial-gradient(
+    circle 150px at 100% 0,
+    transparent 0,
+    transparent 230px,
+    black 21px
+  );
+  background-color: #945d4e;
 }
 
 .topLeft {
-    -webkit-mask-image: radial-gradient(circle 150px at 100% 100%, transparent 0, transparent 230px, black 21px);
-    background-color: #d1645b;
+  -webkit-mask-image: radial-gradient(
+    circle 150px at 100% 100%,
+    transparent 0,
+    transparent 230px,
+    black 21px
+  );
+  background-color: #d1645b;
 }
 
-.topRight, .bottomRight {
-    flex: 1;
+.topRight,
+.bottomRight {
+  flex: 1;
 }
 
 .topRight {
-    -webkit-mask-image: radial-gradient(circle 150px at 0 100%, transparent 0, transparent 230px, black 21px);
-    background-color: #945d4e;
+  -webkit-mask-image: radial-gradient(
+    circle 150px at 0 100%,
+    transparent 0,
+    transparent 230px,
+    black 21px
+  );
+  background-color: #945d4e;
 }
 
 .bottomRight {
-    -webkit-mask-image: radial-gradient(circle 150px at 0 0, transparent 0, transparent 230px, black 21px);
-    background-color: #d1645b;
+  -webkit-mask-image: radial-gradient(
+    circle 150px at 0 0,
+    transparent 0,
+    transparent 230px,
+    black 21px
+  );
+  background-color: #d1645b;
 }
 
 .middle {
-    width: 22vw;
-    height: 22vw;
-    background-color: #d1645b; 
-    border-radius: 50%;
-    color: white;
-    display: flex; 
-    justify-content: center; 
-    align-items: center;
-    position: absolute;
-    z-index: 2; 
-    border: 30px solid #eb8c80;
-    box-sizing: border-box;
+  width: 22vw;
+  height: 22vw;
+  background-color: #d1645b;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 2;
+  border: 30px solid #eb8c80;
+  box-sizing: border-box;
 }
 
 .ranking{
@@ -225,68 +241,66 @@ main {
    margin-right: 1px;
 }
 
-.coding{
-    color: #f5cfb0;
-    font-family: 'Gluten', display;
-    text-shadow: 4px 3px rgba(0, 0, 0, 0.678);
-    font-size: calc(1rem + 4vw);
+.coding {
+  color: #f5cfb0;
+  font-family: "Gluten", display;
+  text-shadow: 4px 3px rgba(0, 0, 0, 0.678);
+  font-size: calc(1rem + 4vw);
 }
 
-.team{
-    font-family: 'Gluten', display;
-    text-shadow: 4px 3px rgba(0, 0, 0, 0.678);
-    color: #329694;
-    font-size: calc(1rem + 4vw);
+.team {
+  font-family: "Gluten", display;
+  text-shadow: 4px 3px rgba(0, 0, 0, 0.678);
+  color: #329694;
+  font-size: calc(1rem + 4vw);
 }
 
-.AGB{
-    color: #f5cfb0;
-    font-family: 'Gluten', display;
-    text-shadow: 4px 3px rgba(0, 0, 0, 0.678);
-    font-size: calc(1rem + 4vw);
+.AGB {
+  color: #f5cfb0;
+  font-family: "Gluten", display;
+  text-shadow: 4px 3px rgba(0, 0, 0, 0.678);
+  font-size: calc(1rem + 4vw);
 }
 
 .game {
   cursor: pointer;
-    font-family: 'Actor', sans-serif;
-    margin-top: 10%;
-    color: #ffff;
-    text-align: center;
-    font-size: calc(1rem + 3vw);
-    letter-spacing: 0.1em;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 
-                 0 0 20px rgba(255, 255, 255, 0.6), 
-                 0 0 30px rgba(255, 255, 255, 0.4); 
+  font-family: "Actor", sans-serif;
+  margin-top: 10%;
+  color: #ffff;
+  text-align: center;
+  font-size: calc(1rem + 3vw);
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
 }
 
-.game:hover{
-    color: #329694;
-     text-shadow: 0 0 10px rgba(50, 150, 148, 0.8),  /* Hellerer Schatten */
-                 0 0 20px rgba(50, 150, 148, 0.6),  /* Mittelstarker Schatten */
-                 0 0 30px rgba(50, 150, 148, 0.4); 
+.game:hover {
+  color: #329694;
+  text-shadow: 0 0 10px rgba(50, 150, 148, 0.8),
+    /* Hellerer Schatten */ 0 0 20px rgba(50, 150, 148, 0.6),
+    /* Mittelstarker Schatten */ 0 0 30px rgba(50, 150, 148, 0.4);
 }
 
 /*-----------------------------------------------------Main Final Project Container------------------------------------------------------------*/
 
-.finalproject{
-    font-family: 'Actor', sans-serif;
-    margin-top: 5%;
-    color: #ffff;
-    text-align: center;
-    font-size: calc(1rem + 4vw);
-    letter-spacing: 0.1em;
+.finalproject {
+  font-family: "Actor", sans-serif;
+  margin-top: 5%;
+  color: #ffff;
+  text-align: center;
+  font-size: calc(1rem + 4vw);
+  letter-spacing: 0.1em;
 }
 
 .lorem {
-    font-size: calc(0.5rem + 1vw);
-    font-family: 'Actor', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    width: 50%;
-    margin: 0 auto; 
-   
+  font-size: calc(0.5rem + 1vw);
+  font-family: "Actor", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 50%;
+  margin: 0 auto;
 }
 
 .middleWrapper{
@@ -296,26 +310,24 @@ main {
     height: 70vh; 
 }
 
-.bild{
-    transform: scale(0.7);
-    max-width: 100%;       
-    height: auto;  
+.bild {
+  transform: scale(0.7);
+  max-width: 100%;
+  height: auto;
 }
-
 
 /*-----------------------------------------------------Main Team Container-----------------------------------------------------------------*/
 
 /* @todo: Implement the team member pictures */
 
-.teamTitle{
-    font-family: 'Actor', sans-serif;
-    margin-top: 5%;
-    color: #ffff;
-    text-align: center;
-    font-size: calc(1rem + 4vw);
-    letter-spacing: 0.1em;
+.teamTitle {
+  font-family: "Actor", sans-serif;
+  margin-top: 5%;
+  color: #ffff;
+  text-align: center;
+  font-size: calc(1rem + 4vw);
+  letter-spacing: 0.1em;
 }
-
 
 .teamWrapper{
     display: flex;
@@ -324,297 +336,317 @@ main {
     height: 70vh;  
     margin-top: -5%;
 }
-.controllerhidden{
-    display: none;
+.controllerhidden {
+  display: none;
 }
 
-.controller{
-    transform: scale(0.8);
-    max-width: 100%;       
-    height: auto;  
+.controller {
+  transform: scale(0.8);
+  max-width: 100%;
+  height: auto;
 }
 
-.frontend{
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+.frontend {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-.backend{
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+.backend {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-.names{
-    font-size: calc(1rem + 2vw);
-    font-family: 'Actor', sans-serif;
-    font-family: 'Gluten', display;
-    color: #329694;
-    text-shadow: 4px 3px rgba(0, 0, 0, 0.678);
+.names {
+  font-size: calc(1rem + 2vw);
+  font-family: "Actor", sans-serif;
+  font-family: "Gluten", display;
+  color: #329694;
+  text-shadow: 4px 3px rgba(0, 0, 0, 0.678);
 }
-
 
 .dev {
-    font-family: 'Actor', sans-serif;
-    margin-top: 10%;
-    color: #ffff;
-    font-size: calc(1rem + 4vw);
-    letter-spacing: 0.1em;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 
-                 0 0 20px rgba(255, 255, 255, 0.6), 
-                 0 0 30px rgba(255, 255, 255, 0.4); 
+  font-family: "Actor", sans-serif;
+  margin-top: 10%;
+  color: #ffff;
+  font-size: calc(1rem + 4vw);
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
 }
 
 /*-----------------------------------------------------Media Query-----------------------------------------------------------------*/
 
-
-
-  
 /*-------------------Mobile--------------------*/
-  
- @media only screen and (min-width: 390px) and (max-width: 480px) {
 
-    /*--------Header-------*/
-    .first {
-        height: 15vh;
-    }
-    .second {
-        height: 15vh;
-    }
-
-    .play {
-        height: 9vw; 
-    }
-
-    .playFont{
-     margin-top: 8px;
-    }
-
-    #catchphrase {
-        font-size: calc(0.5rem + 1vw);
-        margin-right: 15px;
-    }
-
-     /*--------Div Button-------*/
-
-     .topLeft, .bottomLeft, .topRight, .bottomRight {
-        margin: 5px 0; 
-    }
-
-    .bottomLeft {
-        -webkit-mask-image: radial-gradient(circle 150px at 100% 0, transparent 0, transparent 55px, black 21px);
-        background-color: #945d4e;
-    }
-    
-    .topLeft {
-        -webkit-mask-image: radial-gradient(circle 150px at 100% 100%, transparent 0, transparent 55px, black 21px);
-        background-color: #d1645b;
-    }
-    
-    .topRight, .bottomRight {
-        flex: 1;
-    }
-    
-    .topRight {
-        -webkit-mask-image: radial-gradient(circle 150px at 0 100%, transparent 0, transparent 55px, black 21px);
-        background-color: #945d4e;
-    }
-    
-    .bottomRight {
-        -webkit-mask-image: radial-gradient(circle 150px at 0 0, transparent 0, transparent 55px, black 21px);
-        background-color: #d1645b;
-    }
-
-  
-    .controller{
-      
-        max-width: 35%;       
-       
-    }
-
-
-    .middle {
-        background-color: #d1645b;
-        border: 8px solid #eb8c80;
-        width: 24vw;
-        height: 26vw;
-       
-    }
-
-    .ranking{
-        font-size: calc(0.2rem + 4vw);
-        margin-right: 28%;
-    }
-    
-    .coding{
-        margin-right: 22%;
-        font-size: calc(0.2rem + 4vw);
-    }
-    
-    .team{
-    
-        font-size: calc(0.2rem + 4vw);
-    }
-    
-    .AGB{
-
-        font-size: calc(0.2rem + 4vw);
-    }
-    
-    .game {
-        margin-top: 10px;
-        font-size: calc(0.2rem + 4vw);
-    }
-
-       /*--------Main Team Container-------*/
-
-       .dev {
-   
-        font-size: calc(1rem + 1vw);
-    
-    }
-
-    .uwezwei{
-        display: table;
-        margin: 0 auto;
-    }
-    
-    .controller{
-        display: none;
-    }
-
-    .uwe{
-  height: 25vh;
-    }
-    
-    .bild{
-        transform: scale(0.7);
-        max-width: 100%;       
-        height: auto;  
-    }
-
-    .controllerhidden{
-        display: block;
-        width: 25vw;
-        margin: 0 auto;
-     }
-
-   
-
-
+@media only screen and (min-width: 390px) and (max-width: 480px) {
+  /*--------Header-------*/
+  .first {
+    height: 15vh;
   }
+  .second {
+    height: 15vh;
+  }
+
+  .play {
+    height: 9vw;
+  }
+
+  .playFont {
+    margin-top: 8px;
+  }
+
+  #catchphrase {
+    font-size: calc(0.5rem + 1vw);
+    margin-right: 15px;
+  }
+
+  /*--------Div Button-------*/
+
+  .topLeft,
+  .bottomLeft,
+  .topRight,
+  .bottomRight {
+    margin: 5px 0;
+  }
+
+  .bottomLeft {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 100% 0,
+      transparent 0,
+      transparent 55px,
+      black 21px
+    );
+    background-color: #945d4e;
+  }
+
+  .topLeft {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 100% 100%,
+      transparent 0,
+      transparent 55px,
+      black 21px
+    );
+    background-color: #d1645b;
+  }
+
+  .topRight,
+  .bottomRight {
+    flex: 1;
+  }
+
+  .topRight {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 0 100%,
+      transparent 0,
+      transparent 55px,
+      black 21px
+    );
+    background-color: #945d4e;
+  }
+
+  .bottomRight {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 0 0,
+      transparent 0,
+      transparent 55px,
+      black 21px
+    );
+    background-color: #d1645b;
+  }
+
+  .controller {
+    max-width: 35%;
+  }
+
+  .middle {
+    background-color: #d1645b;
+    border: 8px solid #eb8c80;
+    width: 24vw;
+    height: 26vw;
+  }
+
+  .ranking {
+    font-size: calc(0.2rem + 4vw);
+    margin-right: 28%;
+  }
+
+  .coding {
+    margin-right: 22%;
+    font-size: calc(0.2rem + 4vw);
+  }
+
+  .team {
+    font-size: calc(0.2rem + 4vw);
+  }
+
+  .AGB {
+    font-size: calc(0.2rem + 4vw);
+  }
+
+  .game {
+    margin-top: 10px;
+    font-size: calc(0.2rem + 4vw);
+  }
+
+  /*--------Main Team Container-------*/
+
+  .dev {
+    font-size: calc(1rem + 1vw);
+  }
+
+  .uwezwei {
+    display: table;
+    margin: 0 auto;
+  }
+
+  .controller {
+    display: none;
+  }
+
+  .uwe {
+    height: 25vh;
+  }
+
+  .bild {
+    transform: scale(0.7);
+    max-width: 100%;
+    height: auto;
+  }
+
+  .controllerhidden {
+    display: block;
+    width: 25vw;
+    margin: 0 auto;
+  }
+}
 
 /*-------------------Mobile groß--------------------*/
 
-  @media only screen and (min-width: 481px) and (max-width: 767px) {
-
-    /*--------Header-------*/
-    .first {
-        height: 20vh;
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+  /*--------Header-------*/
+  .first {
+    height: 20vh;
   }
   .second {
     height: 20vh;
-}
+  }
 
-/*--------Div Button-------*/
+  /*--------Div Button-------*/
 
-.topLeft, .bottomLeft, .topRight, .bottomRight {
-    margin: 5px 0; 
-}
+  .topLeft,
+  .bottomLeft,
+  .topRight,
+  .bottomRight {
+    margin: 5px 0;
+  }
 
-.bottomLeft {
-    -webkit-mask-image: radial-gradient(circle 150px at 100% 0, transparent 0, transparent 80px, black 21px);
+  .bottomLeft {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 100% 0,
+      transparent 0,
+      transparent 80px,
+      black 21px
+    );
     background-color: #945d4e;
-}
+  }
 
-.topLeft {
-    -webkit-mask-image: radial-gradient(circle 150px at 100% 100%, transparent 0, transparent 80px, black 21px);
+  .topLeft {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 100% 100%,
+      transparent 0,
+      transparent 80px,
+      black 21px
+    );
     background-color: #d1645b;
-}
+  }
 
-.topRight, .bottomRight {
+  .topRight,
+  .bottomRight {
     flex: 1;
-}
+  }
 
-.topRight {
-    -webkit-mask-image: radial-gradient(circle 150px at 0 100%, transparent 0, transparent 80px, black 21px);
+  .topRight {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 0 100%,
+      transparent 0,
+      transparent 80px,
+      black 21px
+    );
     background-color: #945d4e;
-}
+  }
 
-.bottomRight {
-    -webkit-mask-image: radial-gradient(circle 150px at 0 0, transparent 0, transparent 80px, black 21px);
+  .bottomRight {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 0 0,
+      transparent 0,
+      transparent 80px,
+      black 21px
+    );
     background-color: #d1645b;
-}
+  }
 
-.ranking{
-  
+  .ranking {
     margin-right: 18%;
-}
+  }
 
-.coding{
-margin-right: 10%;
-}
+  .coding {
+    margin-right: 10%;
+  }
 
-.middle {
+  .middle {
     background-color: #d1645b;
     border: 10px solid #eb8c80;
     width: 27vw;
     height: 27vw;
-   
-}
+  }
 
-.ranking{
+  .ranking {
     font-size: calc(0.2rem + 4vw);
     margin-right: 28%;
-}
+  }
 
-.coding{
+  .coding {
     margin-right: 22%;
     font-size: calc(0.2rem + 4vw);
-}
+  }
 
-.team{
-
+  .team {
     font-size: calc(0.2rem + 4vw);
-}
+  }
 
-.AGB{
-
+  .AGB {
     font-size: calc(0.2rem + 4vw);
-}
+  }
 
-.game {
+  .game {
     margin-top: 10px;
     font-size: calc(0.2rem + 4vw);
-}
+  }
 
+  /*--------Main Team Container-------*/
 
-/*--------Main Team Container-------*/
-
-
-.uwe{
+  .uwe {
     height: 45vh;
-      }
+  }
 
-
-.uwezwei{
+  .uwezwei {
     display: table;
     margin: 0 auto;
-}
+  }
 
-.controller{
+  .controller {
     display: none;
-}
+  }
 
-.controllerhidden{
+  .controllerhidden {
     display: block;
     width: 25vw;
     margin: 0 auto;
- }
-
+  }
 }
-  
+
 /*-------------------Tablet--------------------*/
   
   @media only screen and (min-width: 768px) and (max-width: 1024px) {
@@ -743,7 +775,14 @@ margin-right: 10%;
     }
     
 
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  /*--------header-------*/
 
+  .first {
+    height: 20vh;
+  }
+  .second {
+    height: 20vh;
   }
 
 /*-------------------Small Laptops--------------------*/
@@ -836,292 +875,461 @@ margin-right: 10%;
     .coding{
     margin-right: 12%;
     }
-    
   }
-  
+
+  /*--------Div Button-------*/
+
+  .finalproject {
+    margin-top: 10%;
+  }
+
+  .topLeft,
+  .bottomLeft,
+  .topRight,
+  .bottomRight {
+    margin: 5px 0;
+  }
+
+  .bottomLeft {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 100% 0,
+      transparent 0,
+      transparent 120px,
+      black 21px
+    );
+    background-color: #945d4e;
+  }
+
+  .topLeft {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 100% 100%,
+      transparent 0,
+      transparent 120px,
+      black 21px
+    );
+    background-color: #d1645b;
+  }
+
+  .topRight,
+  .bottomRight {
+    flex: 1;
+  }
+
+  .topRight {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 0 100%,
+      transparent 0,
+      transparent 120px,
+      black 21px
+    );
+    background-color: #945d4e;
+  }
+
+  .bottomRight {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 0 0,
+      transparent 0,
+      transparent 120px,
+      black 21px
+    );
+    background-color: #d1645b;
+  }
+
+  .middle {
+    width: 22vw;
+    height: 22vw;
+    background-color: #d1645b;
+    border: 10px solid #eb8c80;
+  }
+
+  .ranking {
+    font-size: calc(0.2rem + 4vw);
+    margin-right: 28%;
+  }
+
+  .coding {
+    margin-right: 22%;
+    font-size: calc(0.2rem + 4vw);
+  }
+
+  .team {
+    font-size: calc(0.2rem + 4vw);
+  }
+
+  .AGB {
+    font-size: calc(0.2rem + 4vw);
+  }
+
+  .game {
+    margin-top: 10px;
+    font-size: calc(0.2rem + 4vw);
+  }
+
+  .middle {
+    width: 22vw;
+    height: 22vw;
+    background-color: #d1645b;
+    border: 10px solid #eb8c80;
+  }
+
+  /*--------Main Team Container-------*/
+
+  .teamTitle {
+    font-family: "Actor", sans-serif;
+    margin-top: 5%;
+    color: #ffff;
+    text-align: center;
+    font-size: calc(1rem + 4vw);
+    letter-spacing: 0.1em;
+  }
+
+  .uwe {
+    height: 45vh;
+  }
+
+  .uwezwei {
+    display: table;
+    margin: 0 auto;
+  }
+
+  .controllerhidden {
+    display: block;
+    width: 25vw;
+    margin: 0 auto;
+  }
+
+  .controller {
+    display: none;
+  }
+}
+
+/*-------------------Small Laptops--------------------*/
+
+@media only screen and (min-width: 1025px) and (max-width: 1200px) {
+  /*--------Header-------*/
+
+  .first {
+    height: 25vh;
+  }
+  .second {
+    height: 25vh;
+  }
+
+  /*--------Div Button-------*/
+
+  .bottomLeft {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 100% 0,
+      transparent 0,
+      transparent 150px,
+      black 21px
+    );
+    background-color: #945d4e;
+  }
+
+  .topLeft {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 100% 100%,
+      transparent 0,
+      transparent 150px,
+      black 21px
+    );
+    background-color: #d1645b;
+  }
+
+  .topRight,
+  .bottomRight {
+    flex: 1;
+  }
+
+  .topRight {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 0 100%,
+      transparent 0,
+      transparent 150px,
+      black 21px
+    );
+    background-color: #945d4e;
+  }
+
+  .bottomRight {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 0 0,
+      transparent 0,
+      transparent 150px,
+      black 21px
+    );
+    background-color: #d1645b;
+  }
+
+  .ranking {
+    margin-right: 22%;
+  }
+
+  .coding {
+    margin-right: 12%;
+  }
+}
+
+/*-------------------Desktop--------------------*/
+
+@media only screen and (min-width: 1201px) and (max-width: 1600px) {
+  /*--------Div Button-------*/
+
+  .bottomLeft {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 100% 0,
+      transparent 0,
+      transparent 175px,
+      black 21px
+    );
+    background-color: #945d4e;
+  }
+
+  .topLeft {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 100% 100%,
+      transparent 0,
+      transparent 175px,
+      black 21px
+    );
+    background-color: #d1645b;
+  }
+
+  .topRight,
+  .bottomRight {
+    flex: 1;
+  }
+
+  .topRight {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 0 100%,
+      transparent 0,
+      transparent 175px,
+      black 21px
+    );
+    background-color: #945d4e;
+  }
+
+  .bottomRight {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 0 0,
+      transparent 0,
+      transparent 175px,
+      black 21px
+    );
+    background-color: #d1645b;
+  }
+
+  .ranking {
+    margin-right: 20%;
+  }
+
+  .coding {
+    margin-right: 12%;
+  }
+}
+
 /*-------------------Ultra Wide--------------------*/
-  
-  @media only screen and (min-width: 1601px) {
 
-    /*--------Div Button-------*/
+@media only screen and (min-width: 1601px) {
+  /*--------Div Button-------*/
 
-    .bottomLeft {
-        -webkit-mask-image: radial-gradient(circle 150px at 100% 0, transparent 0, transparent 230px, black 21px);
-        background-color: #945d4e;
-    }
-    
-    .topLeft {
-        -webkit-mask-image: radial-gradient(circle 150px at 100% 100%, transparent 0, transparent 230px, black 21px);
-        background-color: #d1645b;
-    }
-    
-    .topRight, .bottomRight {
-        flex: 1;
-    }
-    
-    .topRight {
-        -webkit-mask-image: radial-gradient(circle 150px at 0 100%, transparent 0, transparent 230px, black 21px);
-        background-color: #945d4e;
-    }
-    
-    .bottomRight {
-        -webkit-mask-image: radial-gradient(circle 150px at 0 0, transparent 0, transparent 230px, black 21px);
-        background-color: #d1645b;
-    }
-    .ranking{
-  
-        margin-right: 15%;
-    }
-    
-    .coding{
-    margin-right: 10%;
-    }
-
-    .middle {
-        width: 22vw;
-        height: 24vw;
-        background-color: #d1645b;
-        border: 20px solid #eb8c80;
-    }
-
+  .bottomLeft {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 100% 0,
+      transparent 0,
+      transparent 230px,
+      black 21px
+    );
+    background-color: #945d4e;
   }
 
+  .topLeft {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 100% 100%,
+      transparent 0,
+      transparent 230px,
+      black 21px
+    );
+    background-color: #d1645b;
+  }
 
+  .topRight,
+  .bottomRight {
+    flex: 1;
+  }
 
+  .topRight {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 0 100%,
+      transparent 0,
+      transparent 230px,
+      black 21px
+    );
+    background-color: #945d4e;
+  }
 
+  .bottomRight {
+    -webkit-mask-image: radial-gradient(
+      circle 150px at 0 0,
+      transparent 0,
+      transparent 230px,
+      black 21px
+    );
+    background-color: #d1645b;
+  }
+  .ranking {
+    margin-right: 15%;
+  }
 
+  .coding {
+    margin-right: 10%;
+  }
 
-
-
-
-
-
-
-
-
-
+  .middle {
+    width: 22vw;
+    height: 24vw;
+    background-color: #d1645b;
+    border: 20px solid #eb8c80;
+  }
+}
 
 /*-------------------Stars--------------------*/
 
-#stars, #stars2, #stars3 {
-    position: absolute;
-    pointer-events: none;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
+#stars,
+#stars2,
+#stars3 {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
-
-
 
 #stars {
-    width: 5px;
-    height: 5px;
-    background: transparent;
-    box-shadow: 
-        100px 200px rgba(113, 124, 179, 0.25), 
-        250px 400px rgba(209, 100, 91, 0.25),   
-        300px 50px rgba(231, 200, 140, 0.25),   
-        800px 300px rgba(240, 154, 100, 0.25), 
-        700px 500px rgba(50, 150, 148, 0.25),   
-        50px 600px rgba(148, 93, 78, 0.25),     
-        600px 150px rgba(235, 140, 128, 0.25),  
-        950px 450px rgba(113, 124, 179, 0.25),  
-        400px 800px rgba(209, 100, 91, 0.25),  
-        500px 200px rgba(231, 200, 140, 0.25),  
-        850px 650px rgba(240, 154, 100, 0.25),  
-        750px 50px rgba(50, 150, 148, 0.25),    
-        650px 900px rgba(148, 93, 78, 0.25),   
-        200px 100px rgba(235, 140, 128, 0.25),  
-        850px 150px rgba(113, 124, 179, 0.25),  
-        300px 500px rgba(209, 100, 91, 0.25),   
-        100px 850px rgba(231, 200, 140, 0.25),  
-        400px 600px rgba(240, 154, 100, 0.25),  
-        500px 750px rgba(50, 150, 148, 0.25),   
-        700px 950px rgba(148, 93, 78, 0.25),    
-        800px 1050px rgba(235, 140, 128, 0.25), 
-        150px 1100px rgba(113, 124, 179, 0.25), 
-        900px 1150px rgba(209, 100, 91, 0.25),  
-        1000px 1200px rgba(231, 200, 140, 0.25),
-        750px 1250px rgba(240, 154, 100, 0.25), 
-        500px 1300px rgba(50, 150, 148, 0.25),  
-        200px 1350px rgba(148, 93, 78, 0.25),   
-        300px 1400px rgba(235, 140, 128, 0.25), 
-        450px 1450px rgba(113, 124, 179, 0.25), 
-        600px 1500px rgba(209, 100, 91, 0.25),  
-        700px 1550px rgba(231, 200, 140, 0.25), 
-        800px 1600px rgba(240, 154, 100, 0.25),
-
-        400px 1600px rgba(240, 154, 100, 0.25),  
-        500px 1750px rgba(50, 150, 148, 0.25),   
-        700px 1950px rgba(148, 93, 78, 0.25),    
-        800px 1850px rgba(235, 140, 128, 0.25), 
-        1150px 1500px rgba(113, 124, 179, 0.25), 
-        900px 1450px rgba(209, 100, 91, 0.25),  
-        1000px 1600px rgba(231, 200, 140, 0.25),
-        750px 2250px rgba(240, 154, 100, 0.25), 
-        500px 2100px rgba(50, 150, 148, 0.25),  
-        1200px 2350px rgba(148, 93, 78, 0.25),   
-        300px 2150px rgba(235, 140, 128, 0.25), 
-        450px 1950px rgba(113, 124, 179, 0.25), 
-        1600px 2300px rgba(209, 100, 91, 0.25),  
-        700px 2150px rgba(231, 200, 140, 0.25), 
-        800px 1980px rgba(240, 154, 100, 0.25),
-
-        1000px 2600px rgba(231, 200, 140, 0.25),
-        750px 2750px rgba(240, 154, 100, 0.25), 
-        1500px 2500px rgba(50, 150, 148, 0.25),  
-        1200px 2650px rgba(148, 93, 78, 0.25),   
-        300px 2350px rgba(235, 140, 128, 0.25), 
-        450px 2850px rgba(113, 124, 179, 0.25), 
-        600px 2600px rgba(209, 100, 91, 0.25),  
-        1700px 2550px rgba(231, 200, 140, 0.25), 
-        800px 2480px rgba(240, 154, 100, 0.25); 
+  width: 5px;
+  height: 5px;
+  background: transparent;
+  box-shadow: 100px 200px rgba(113, 124, 179, 0.25),
+    250px 400px rgba(209, 100, 91, 0.25), 300px 50px rgba(231, 200, 140, 0.25),
+    800px 300px rgba(240, 154, 100, 0.25), 700px 500px rgba(50, 150, 148, 0.25),
+    50px 600px rgba(148, 93, 78, 0.25), 600px 150px rgba(235, 140, 128, 0.25),
+    950px 450px rgba(113, 124, 179, 0.25), 400px 800px rgba(209, 100, 91, 0.25),
+    500px 200px rgba(231, 200, 140, 0.25), 850px 650px rgba(240, 154, 100, 0.25),
+    750px 50px rgba(50, 150, 148, 0.25), 650px 900px rgba(148, 93, 78, 0.25),
+    200px 100px rgba(235, 140, 128, 0.25), 850px 150px rgba(113, 124, 179, 0.25),
+    300px 500px rgba(209, 100, 91, 0.25), 100px 850px rgba(231, 200, 140, 0.25),
+    400px 600px rgba(240, 154, 100, 0.25), 500px 750px rgba(50, 150, 148, 0.25),
+    700px 950px rgba(148, 93, 78, 0.25), 800px 1050px rgba(235, 140, 128, 0.25),
+    150px 1100px rgba(113, 124, 179, 0.25),
+    900px 1150px rgba(209, 100, 91, 0.25),
+    1000px 1200px rgba(231, 200, 140, 0.25),
+    750px 1250px rgba(240, 154, 100, 0.25),
+    500px 1300px rgba(50, 150, 148, 0.25), 200px 1350px rgba(148, 93, 78, 0.25),
+    300px 1400px rgba(235, 140, 128, 0.25),
+    450px 1450px rgba(113, 124, 179, 0.25),
+    600px 1500px rgba(209, 100, 91, 0.25),
+    700px 1550px rgba(231, 200, 140, 0.25),
+    800px 1600px rgba(240, 154, 100, 0.25),
+    400px 1600px rgba(240, 154, 100, 0.25),
+    500px 1750px rgba(50, 150, 148, 0.25), 700px 1950px rgba(148, 93, 78, 0.25),
+    800px 1850px rgba(235, 140, 128, 0.25),
+    1150px 1500px rgba(113, 124, 179, 0.25),
+    900px 1450px rgba(209, 100, 91, 0.25),
+    1000px 1600px rgba(231, 200, 140, 0.25),
+    750px 2250px rgba(240, 154, 100, 0.25),
+    500px 2100px rgba(50, 150, 148, 0.25), 1200px 2350px rgba(148, 93, 78, 0.25),
+    300px 2150px rgba(235, 140, 128, 0.25),
+    450px 1950px rgba(113, 124, 179, 0.25),
+    1600px 2300px rgba(209, 100, 91, 0.25),
+    700px 2150px rgba(231, 200, 140, 0.25),
+    800px 1980px rgba(240, 154, 100, 0.25),
+    1000px 2600px rgba(231, 200, 140, 0.25),
+    750px 2750px rgba(240, 154, 100, 0.25),
+    1500px 2500px rgba(50, 150, 148, 0.25),
+    1200px 2650px rgba(148, 93, 78, 0.25),
+    300px 2350px rgba(235, 140, 128, 0.25),
+    450px 2850px rgba(113, 124, 179, 0.25),
+    600px 2600px rgba(209, 100, 91, 0.25),
+    1700px 2550px rgba(231, 200, 140, 0.25),
+    800px 2480px rgba(240, 154, 100, 0.25);
 }
-
-
 
 #stars2 {
-    width: 10px;
-    height: 10px;
-    background: transparent;
-    box-shadow: 
-        50px 750px rgba(113, 124, 179, 0.5),  
-        800px 400px rgba(209, 100, 91, 0.5),  
-        1300px 600px rgba(231, 200, 140, 0.5), 
-        1400px 50px rgba(240, 154, 100, 0.5), 
-        150px 500px rgba(50, 150, 148, 0.5),   
-        250px 850px rgba(148, 93, 78, 0.5),    
-        500px 900px rgba(235, 140, 128, 0.5),  
-        1600px 50px rgba(113, 124, 179, 0.5),  
-        950px 800px rgba(209, 100, 91, 0.5),   
-        700px 150px rgba(231, 200, 140, 0.5),  
-        1650px 300px rgba(240, 154, 100, 0.5), 
-        200px 950px rgba(50, 150, 148, 0.5),   
-        1750px 400px rgba(148, 93, 78, 0.5),  
-        100px 600px rgba(235, 140, 128, 0.5),  
-        850px 150px rgba(113, 124, 179, 0.5), 
-        300px 1050px rgba(209, 100, 91, 0.5),  
-        1000px 450px rgba(231, 200, 140, 0.5), 
-        1700px 250px rgba(240, 154, 100, 0.5), 
-        900px 750px rgba(50, 150, 148, 0.5),   
-        800px 500px rgba(148, 93, 78, 0.5),    
-        400px 800px rgba(235, 140, 128, 0.5),  
-        200px 1150px rgba(113, 124, 179, 0.5), 
-        600px 1000px rgba(209, 100, 91, 0.5),  
-        300px 1200px rgba(231, 200, 140, 0.5), 
-        850px 100px rgba(240, 154, 100, 0.5),  
-        750px 600px rgba(50, 150, 148, 0.5),   
-        150px 1300px rgba(148, 93, 78, 0.5),   
-        950px 200px rgba(235, 140, 128, 0.5),  
-        450px 1250px rgba(113, 124, 179, 0.5), 
-        1050px 300px rgba(209, 100, 91, 0.5),  
-        1500px 700px rgba(231, 200, 140, 0.5), 
-        1600px 1600px rgba(240, 154, 100, 0.5),
-
-        300px 1950px rgba(209, 100, 91, 0.5),  
-        1000px 1450px rgba(231, 200, 140, 0.5), 
-        1700px 1250px rgba(240, 154, 100, 0.5), 
-        900px 1750px rgba(50, 150, 148, 0.5),   
-        800px 1500px rgba(148, 93, 78, 0.5),    
-        400px 1800px rgba(235, 140, 128, 0.5),  
-        200px 1950px rgba(113, 124, 179, 0.5), 
-        600px 1800px rgba(209, 100, 91, 0.5),  
-        300px 1700px rgba(231, 200, 140, 0.5), 
-        850px 1780px rgba(240, 154, 100, 0.5),  
-        750px 1600px rgba(50, 150, 148, 0.5),   
-        150px 1630px rgba(148, 93, 78, 0.5),   
-        950px 1280px rgba(235, 140, 128, 0.5),  
-        450px 1750px rgba(113, 124, 179, 0.5), 
-        1050px 1300px rgba(209, 100, 91, 0.5),  
-        1500px 1700px rgba(231, 200, 140, 0.5), 
-        1600px 1800px rgba(240, 154, 100, 0.5),
-
-        600px 2800px rgba(209, 100, 91, 0.5),  
-        300px 2500px rgba(231, 200, 140, 0.5), 
-        850px 2480px rgba(240, 154, 100, 0.5),  
-        750px 2200px rgba(50, 150, 148, 0.5),   
-        150px 2530px rgba(148, 93, 78, 0.5),   
-        950px 2280px rgba(235, 140, 128, 0.5),  
-        450px 2750px rgba(113, 124, 179, 0.5), 
-        1050px 2300px rgba(209, 100, 91, 0.5),  
-        1500px 2200px rgba(231, 200, 140, 0.5), 
-        1600px 2100px rgba(240, 154, 100, 0.5);
+  width: 10px;
+  height: 10px;
+  background: transparent;
+  box-shadow: 50px 750px rgba(113, 124, 179, 0.5),
+    800px 400px rgba(209, 100, 91, 0.5), 1300px 600px rgba(231, 200, 140, 0.5),
+    1400px 50px rgba(240, 154, 100, 0.5), 150px 500px rgba(50, 150, 148, 0.5),
+    250px 850px rgba(148, 93, 78, 0.5), 500px 900px rgba(235, 140, 128, 0.5),
+    1600px 50px rgba(113, 124, 179, 0.5), 950px 800px rgba(209, 100, 91, 0.5),
+    700px 150px rgba(231, 200, 140, 0.5), 1650px 300px rgba(240, 154, 100, 0.5),
+    200px 950px rgba(50, 150, 148, 0.5), 1750px 400px rgba(148, 93, 78, 0.5),
+    100px 600px rgba(235, 140, 128, 0.5), 850px 150px rgba(113, 124, 179, 0.5),
+    300px 1050px rgba(209, 100, 91, 0.5), 1000px 450px rgba(231, 200, 140, 0.5),
+    1700px 250px rgba(240, 154, 100, 0.5), 900px 750px rgba(50, 150, 148, 0.5),
+    800px 500px rgba(148, 93, 78, 0.5), 400px 800px rgba(235, 140, 128, 0.5),
+    200px 1150px rgba(113, 124, 179, 0.5), 600px 1000px rgba(209, 100, 91, 0.5),
+    300px 1200px rgba(231, 200, 140, 0.5), 850px 100px rgba(240, 154, 100, 0.5),
+    750px 600px rgba(50, 150, 148, 0.5), 150px 1300px rgba(148, 93, 78, 0.5),
+    950px 200px rgba(235, 140, 128, 0.5), 450px 1250px rgba(113, 124, 179, 0.5),
+    1050px 300px rgba(209, 100, 91, 0.5), 1500px 700px rgba(231, 200, 140, 0.5),
+    1600px 1600px rgba(240, 154, 100, 0.5), 300px 1950px rgba(209, 100, 91, 0.5),
+    1000px 1450px rgba(231, 200, 140, 0.5),
+    1700px 1250px rgba(240, 154, 100, 0.5), 900px 1750px rgba(50, 150, 148, 0.5),
+    800px 1500px rgba(148, 93, 78, 0.5), 400px 1800px rgba(235, 140, 128, 0.5),
+    200px 1950px rgba(113, 124, 179, 0.5), 600px 1800px rgba(209, 100, 91, 0.5),
+    300px 1700px rgba(231, 200, 140, 0.5), 850px 1780px rgba(240, 154, 100, 0.5),
+    750px 1600px rgba(50, 150, 148, 0.5), 150px 1630px rgba(148, 93, 78, 0.5),
+    950px 1280px rgba(235, 140, 128, 0.5), 450px 1750px rgba(113, 124, 179, 0.5),
+    1050px 1300px rgba(209, 100, 91, 0.5),
+    1500px 1700px rgba(231, 200, 140, 0.5),
+    1600px 1800px rgba(240, 154, 100, 0.5), 600px 2800px rgba(209, 100, 91, 0.5),
+    300px 2500px rgba(231, 200, 140, 0.5), 850px 2480px rgba(240, 154, 100, 0.5),
+    750px 2200px rgba(50, 150, 148, 0.5), 150px 2530px rgba(148, 93, 78, 0.5),
+    950px 2280px rgba(235, 140, 128, 0.5), 450px 2750px rgba(113, 124, 179, 0.5),
+    1050px 2300px rgba(209, 100, 91, 0.5),
+    1500px 2200px rgba(231, 200, 140, 0.5),
+    1600px 2100px rgba(240, 154, 100, 0.5);
 }
-
-
 
 #stars3 {
-    width: 20px;
-    height: 20px;
-    background: transparent;
-    box-shadow: 
-        200px 950px rgba(113, 124, 179, 1), 
-        1400px 500px rgba(209, 100, 91, 1),  
-        1600px 800px rgba(231, 200, 140, 1), 
-        1100px 50px rgba(240, 154, 100, 1),  
-        300px 700px rgba(50, 150, 148, 1),   
-        1850px 450px rgba(148, 93, 78, 1),   
-        800px 400px rgba(235, 140, 128, 1),  
-        50px 600px rgba(113, 124, 179, 1),   
-        900px 300px rgba(209, 100, 91, 1),   
-        250px 150px rgba(231, 200, 140, 1),  
-        600px 950px rgba(240, 154, 100, 1),  
-        1000px 800px rgba(50, 150, 148, 1),  
-        150px 50px rgba(148, 93, 78, 1),     
-        500px 600px rgba(235, 140, 128, 1),  
-        450px 750px rgba(113, 124, 179, 1),  
-        700px 400px rgba(209, 100, 91, 1),   
-        400px 1050px rgba(231, 200, 140, 1), 
-        1800px 650px rgba(240, 154, 100, 1), 
-        1400px 200px rgba(50, 150, 148, 1),  
-        1700px 150px rgba(148, 93, 78, 1),  
-        850px 700px rgba(235, 140, 128, 1),  
-        150px 400px rgba(113, 124, 179, 1),  
-        100px 250px rgba(209, 100, 91, 1),   
-        1600px 300px rgba(231, 200, 140, 1), 
-        950px 500px rgba(240, 154, 100, 1),  
-        200px 1000px rgba(50, 150, 148, 1),  
-        800px 150px rgba(148, 93, 78, 1),    
-        450px 400px rgba(235, 140, 128, 1),  
-        1500px 950px rgba(113, 124, 179, 1), 
-        1300px 300px rgba(209, 100, 91, 1),  
-        1400px 200px rgba(231, 200, 140, 1), 
-        1700px 150px rgba(240, 154, 100, 1),
-
-        450px 1750px rgba(113, 124, 179, 1),  
-        700px 1400px rgba(209, 100, 91, 1),   
-        400px 1950px rgba(231, 200, 140, 1), 
-        1800px 1650px rgba(240, 154, 100, 1), 
-        1400px 1200px rgba(50, 150, 148, 1),  
-        1700px 1150px rgba(148, 93, 78, 1),  
-        850px 1700px rgba(235, 140, 128, 1),  
-        150px 1400px rgba(113, 124, 179, 1),  
-        100px 1250px rgba(209, 100, 91, 1),   
-        1600px 1300px rgba(231, 200, 140, 1), 
-        950px 1500px rgba(240, 154, 100, 1),  
-        200px 1100px rgba(50, 150, 148, 1),  
-        800px 1150px rgba(148, 93, 78, 1),    
-        450px 1400px rgba(235, 140, 128, 1),  
-        1500px 1950px rgba(113, 124, 179, 1), 
-        1300px 1300px rgba(209, 100, 91, 1),  
-        1400px 1200px rgba(231, 200, 140, 1), 
-        1700px 1150px rgba(240, 154, 100, 1), 
-
-        150px 2400px rgba(113, 124, 179, 1),  
-        100px 2250px rgba(209, 100, 91, 1),   
-        1600px 2300px rgba(231, 200, 140, 1), 
-        950px 2500px rgba(240, 154, 100, 1),  
-        200px 2100px rgba(50, 150, 148, 1),  
-        800px 2150px rgba(148, 93, 78, 1),    
-        450px 2400px rgba(235, 140, 128, 1),  
-        1500px 2950px rgba(113, 124, 179, 1), 
-        1300px 2300px rgba(209, 100, 91, 1),  
-        1400px 2200px rgba(231, 200, 140, 1), 
-        1700px 2150px rgba(240, 154, 100, 1); 
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  box-shadow: 200px 950px rgba(113, 124, 179, 1),
+    1400px 500px rgba(209, 100, 91, 1), 1600px 800px rgba(231, 200, 140, 1),
+    1100px 50px rgba(240, 154, 100, 1), 300px 700px rgba(50, 150, 148, 1),
+    1850px 450px rgba(148, 93, 78, 1), 800px 400px rgba(235, 140, 128, 1),
+    50px 600px rgba(113, 124, 179, 1), 900px 300px rgba(209, 100, 91, 1),
+    250px 150px rgba(231, 200, 140, 1), 600px 950px rgba(240, 154, 100, 1),
+    1000px 800px rgba(50, 150, 148, 1), 150px 50px rgba(148, 93, 78, 1),
+    500px 600px rgba(235, 140, 128, 1), 450px 750px rgba(113, 124, 179, 1),
+    700px 400px rgba(209, 100, 91, 1), 400px 1050px rgba(231, 200, 140, 1),
+    1800px 650px rgba(240, 154, 100, 1), 1400px 200px rgba(50, 150, 148, 1),
+    1700px 150px rgba(148, 93, 78, 1), 850px 700px rgba(235, 140, 128, 1),
+    150px 400px rgba(113, 124, 179, 1), 100px 250px rgba(209, 100, 91, 1),
+    1600px 300px rgba(231, 200, 140, 1), 950px 500px rgba(240, 154, 100, 1),
+    200px 1000px rgba(50, 150, 148, 1), 800px 150px rgba(148, 93, 78, 1),
+    450px 400px rgba(235, 140, 128, 1), 1500px 950px rgba(113, 124, 179, 1),
+    1300px 300px rgba(209, 100, 91, 1), 1400px 200px rgba(231, 200, 140, 1),
+    1700px 150px rgba(240, 154, 100, 1), 450px 1750px rgba(113, 124, 179, 1),
+    700px 1400px rgba(209, 100, 91, 1), 400px 1950px rgba(231, 200, 140, 1),
+    1800px 1650px rgba(240, 154, 100, 1), 1400px 1200px rgba(50, 150, 148, 1),
+    1700px 1150px rgba(148, 93, 78, 1), 850px 1700px rgba(235, 140, 128, 1),
+    150px 1400px rgba(113, 124, 179, 1), 100px 1250px rgba(209, 100, 91, 1),
+    1600px 1300px rgba(231, 200, 140, 1), 950px 1500px rgba(240, 154, 100, 1),
+    200px 1100px rgba(50, 150, 148, 1), 800px 1150px rgba(148, 93, 78, 1),
+    450px 1400px rgba(235, 140, 128, 1), 1500px 1950px rgba(113, 124, 179, 1),
+    1300px 1300px rgba(209, 100, 91, 1), 1400px 1200px rgba(231, 200, 140, 1),
+    1700px 1150px rgba(240, 154, 100, 1), 150px 2400px rgba(113, 124, 179, 1),
+    100px 2250px rgba(209, 100, 91, 1), 1600px 2300px rgba(231, 200, 140, 1),
+    950px 2500px rgba(240, 154, 100, 1), 200px 2100px rgba(50, 150, 148, 1),
+    800px 2150px rgba(148, 93, 78, 1), 450px 2400px rgba(235, 140, 128, 1),
+    1500px 2950px rgba(113, 124, 179, 1), 1300px 2300px rgba(209, 100, 91, 1),
+    1400px 2200px rgba(231, 200, 140, 1), 1700px 2150px rgba(240, 154, 100, 1);
 }
-
-
-
-

@@ -19,9 +19,6 @@ const teams = {
     team18: 'Team Sigma',
     team19: 'Team Tau',
     team20: 'Team Upsilon',
-    team21: 'Team Phi',
-    team22: 'Team Chi',
-    team23: 'Team Psi',
 };
 
 // Klassen Teams für die Registrierung 
