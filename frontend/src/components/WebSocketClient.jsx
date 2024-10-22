@@ -41,12 +41,18 @@ const WebSocketClient = ({
   }, [ws]);
 
   const connectWebSocket = () => {
+    const token = localStorage.getItem("token"); // Token aus dem lokalen Speicher abrufen
+    if (!token) {
+      console.error("Kein Token im lokalen Speicher gefunden.");
+      return;
+    }
+
     if (ws) {
       ws.close();
       setLocalWs(null);
       setWs(null);
     } else {
-      const newWs = new WebSocket("ws://localhost:3131");
+      const newWs = new WebSocket(`ws://localhost:3131?token=${token}`);
       setLocalWs(newWs);
       setWs(newWs);
     }

@@ -18,6 +18,12 @@ const useFetchCanvasData = () => {
       },
     })
       .then((response) => {
+        if (response.status === 401) {
+          console.error("Token abgelaufen oder ungültig.");
+          localStorage.removeItem("token");
+          window.location.href = "/login"; // Weiterleitung zur Login-Seite
+          return;
+        }
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -48,6 +54,12 @@ const useFetchCanvasData = () => {
       },
     })
       .then((response) => {
+        if (response.status === 401) {
+          console.error("Token abgelaufen oder ungültig.");
+          localStorage.removeItem("token");
+          window.location.href = "/login"; // Weiterleitung zur Login-Seite
+          return;
+        }
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }

@@ -40,6 +40,16 @@ const CanvasComponent = ({ selectedColor, ws, setCoordinates }) => {
           console.error("Error parsing message from server: ", error);
         }
       };
+
+      ws.onerror = (error) => {
+        console.error("WebSocket error: ", error);
+        alert("WebSocket-Verbindung fehlgeschlagen. Bitte versuchen Sie es erneut.");
+      };
+
+      ws.onclose = () => {
+        console.log("WebSocket connection closed");
+        alert("WebSocket-Verbindung geschlossen.");
+      };
     }
   }, [ws]);
 
@@ -48,7 +58,7 @@ const CanvasComponent = ({ selectedColor, ws, setCoordinates }) => {
     const cellX = Math.floor(x / cellSize);
     const cellY = Math.floor(y / cellSize);
     setHoveredCell({ x: cellX, y: cellY });
-    if (hoveredCell) setCoordinates(hoveredCell);
+    setCoordinates({ x: cellX, y: cellY });
   };
 
   const handleClick = (e) => {
