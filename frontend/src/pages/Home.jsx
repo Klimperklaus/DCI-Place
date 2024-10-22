@@ -91,14 +91,14 @@ return (
   <div className='body'>
   <header>
     <div className="headerDiv">
-      <div className="first">
+      <div className="whiteDiv">
         <h1 id="title" ref={titleRef}>DCI</h1>
         <p id="catchphrase" ref={catchphraseRef}>DIGITAL CAREER INSTITUTE</p>
         <button className="play">
           <h1 className="playFont">PLAY</h1>
         </button>
       </div>
-      <div className="second">
+      <div className="redDiv">
         <h1 id="titlePixel">PIXEL</h1>
         <h1 id="titleWars">WARS</h1>
       </div>
@@ -145,7 +145,7 @@ return (
       eigentlich? Außerdem steht Lorem Ipsum immer und überall bereit.
     </p>
 
-    <div className="uwe">
+    <div className="middleWrapper">
       <img
         className="bild"
         src="CarPixel"
@@ -159,7 +159,7 @@ return (
         src="logocontroller"
         alt="ein pixelier controller"
       />
-    <div className="uwezwei">
+    <div className="teamWrapper">
       <div className="frontend">
         <h1 className="dev">FRONTEND</h1>
         <p className='names'>Lea</p>

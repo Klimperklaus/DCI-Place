@@ -28,7 +28,7 @@ html, body {
     align-items: center;
 }
 
-.first {
+.whiteDiv {
     position: relative;
     width: 55vw;
     height: 40vh;
@@ -39,7 +39,7 @@ html, body {
 }
 
 
-.second {
+.redDiv {
     background-image: url(/images/pixel.png);
     background-position: center;
     background-repeat: no-repeat;
@@ -289,7 +289,7 @@ main {
    
 }
 
-.uwe{
+.middleWrapper{
     display: flex;
     justify-content: center;  
     align-items: center;     
@@ -317,7 +317,7 @@ main {
 }
 
 
-.uwezwei{
+.teamWrapper{
     display: flex;
     justify-content: center;  
     align-items: center;  
@@ -621,10 +621,10 @@ margin-right: 10%;
 
     /*--------header-------*/
 
-    .first {
+    .whitDiv {
         height: 20vh;
     }
-    .second {
+    .redDiv {
         height: 20vh;
     }
 
@@ -721,13 +721,13 @@ margin-right: 10%;
     }
 
 
-    .uwe{
+    .middleWrapper{
         height: 45vh;
 
     }
     
     
-    .uwezwei{
+    .teamWrapper{
         display: table;
         margin: 0 auto;
     }
@@ -752,10 +752,10 @@ margin-right: 10%;
 
     /*--------Header-------*/
 
-    .first {
+    .whitDiv {
         height: 25vh;
     }
-    .second {
+    .redDiv {
         height: 25vh;
     }
 
