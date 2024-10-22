@@ -6,22 +6,60 @@ const useFetchCanvasData = () => {
 
   useEffect(() => {
     // Abrufen der bisherigen Pixel aus der Datenbank beim Laden der Seite
-    fetch("http://localhost:5000/api/canvas")
-      .then((response) => response.json())
+    const token = localStorage.getItem("token"); // Token aus dem lokalen Speicher abrufen
+    if (!token) {
+      console.error("Kein Token im lokalen Speicher gefunden.");
+      return;
+    }
+
+    fetch("http://localhost:5000/api/canvas", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
       .then((data) => {
-        console.log("Fetched canvas data:", data); // Log abgerufene Daten
-        setRectangles(data);
-        setDbRectangles(data);
+        if (Array.isArray(data)) {
+          console.log("Fetched canvas data:", data); // Log abgerufene Daten
+          setRectangles(data);
+          setDbRectangles(data);
+        } else {
+          console.error("Error fetching canvas data: ", data.msg);
+        }
       })
       .catch((error) => console.error("Error fetching canvas data: ", error));
   }, []);
 
   const fetchDbData = () => {
-    fetch("http://localhost:5000/api/canvas")
-      .then((response) => response.json())
+    const token = localStorage.getItem("token"); // Token aus dem lokalen Speicher abrufen
+    if (!token) {
+      console.error("No Token Found.");
+      return;
+    }
+
+    fetch("http://localhost:5000/api/canvas", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
       .then((data) => {
-        console.log("Fetched DB data:", data); // Log abgerufene Daten
-        setDbRectangles(data);
+        if (Array.isArray(data)) {
+          console.log("Fetched DB data:", data); // Log abgerufene Daten
+          setDbRectangles(data);
+        } else {
+          console.error("Error fetching canvas data: ", data.msg);
+        }
       })
       .catch((error) => console.error("Error fetching canvas data: ", error));
   };
