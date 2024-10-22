@@ -105,7 +105,7 @@ html, body {
     font-family: 'Actor', sans-serif;
     font-weight: bold;
     text-align: center;
-    margin-top: 0;
+    margin-top: -5rem;
 }
 
 #titlePixel {
@@ -124,7 +124,7 @@ html, body {
     color: #f5cfb0;
     font-size: calc(1rem + 9vw);
     text-shadow: 4px 3px rgba(0, 0, 0, 0.678);
-    margin-top: 0;
+    margin-top: -6rem;
 }
 
 
@@ -142,7 +142,9 @@ html, body {
 main {
     position: relative;
     z-index: 3;
-  
+    justify-content: center;
+    align-items: center;
+    position: relative; 
 }
 
 .container {
@@ -220,7 +222,7 @@ main {
     text-shadow: 4px 3px rgba(0, 0, 0, 0.678);
     color: #329694;
     font-size: calc(1rem + 4vw);
-    margin-right: 5%;
+   margin-right: 1px;
 }
 
 .coding{
