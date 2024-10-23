@@ -18,6 +18,7 @@ const useFetchCanvasData = () => {
         const response = await fetch("http://localhost:5000/api/canvas", {
           headers: {
             Authorization: `Bearer ${token}`,
+            credentials: "include",
           },
         });
 
