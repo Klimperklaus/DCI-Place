@@ -1,4 +1,4 @@
-
+// Diese Funktion wird bislang 
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Cookies from "js-cookie";

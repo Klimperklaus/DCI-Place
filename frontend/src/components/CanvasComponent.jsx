@@ -5,12 +5,22 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import useFetchCanvasData from "../hooks/useFetchCanvasData";
 
 const CanvasComponent = ({ selectedColor, ws, setCoordinates }) => {
+  // TO-DO: useFetchCanvasData-Hook nicht hier verwenden sondern erst cache überprüfen!!!
+  // und sicherstellen, dass die Daten nur einmal geladen werden. Außerdem sollte noch 
+  // sichergestllt werden, dass nur x,y und farbe im cache gespeichert werden und nicht die gesamten
+  // Daten. Der cache wird im modul cache.js verwaltet. MUSS NOCH IMPLEMENTIERT WERDEN!!!
+  // Die Abfrage geschieht über die Funktion fetchCanvasData in Canvas.jsx. MUSS NOCH IMPLEMENTIERT WERDEN!!!
   const { rectangles, setRectangles } = useFetchCanvasData();
   const [hoveredCell, setHoveredCell] = useState(null);
   const canvasWidth = 768;
   const canvasHeight = 512;
   const cellSize = 2;
 
+  //TO-DO: Die useEffect Funktion so anpassen, dass die Daten nur einmal geladen werden
+  // und nur die x,y und farbe Werte im cache gespeichert werden.
+  // Sicherstellen, dass die ws verbindung beim betreten des Canvas aufgebaut wird und
+  // beim verlassen des Canvas geschlossen wird.
+  // Dazu noch WebSocketClient.jsx anpassen und hier importieren. MUSS NOCH IMPLEMENTIERT WERDEN!!!
   useEffect(() => {
     if (ws) {
       ws.onmessage = (event) => {

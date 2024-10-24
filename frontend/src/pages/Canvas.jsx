@@ -37,6 +37,15 @@ const Canvas = () => {
 }
   }, []);
 
+// TO-DO: die fetchCanvasData Funktion implementieren. Diese soll zuerst überprüfen
+// ob Daten im localStorage vorhanden sind und diese zurückgeben. MUSS NOCH IMPLEMENTIERT WERDEN!!!
+  // Ansonsten soll sie das modul useFetchCanvasData verwenden, um die Daten vom Server zu holen und 
+  // im localStorage zu speichern. 
+  // Die Funktion soll nur ausgeführt werden, wenn der Token vorhanden 
+  // ist und die Daten noch nicht geladen wurden. MUSS NOCH IMPLEMENTIERT WERDEN!!!
+// TO-DO: ws-Verbindung beim betreten des Canvas aufbauen und beim verlassen des Canvas schließen.
+// entweder hier oder in CanvasComponent.jsx implementieren. MUSS NOCH IMPLEMENTIERT WERDEN!!!
+
   return (
     <div className="canvas-container">
       <ColorPicker setSelectedColor={setSelectedColor} />
