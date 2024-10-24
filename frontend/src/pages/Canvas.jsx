@@ -29,7 +29,7 @@ const Canvas = () => {
         setCanvasData(JSON.parse(cachedCanvasData));
       }
       else {
-        fetchCanvasData(token);
+        console.log(token);
       }
     }
     else {

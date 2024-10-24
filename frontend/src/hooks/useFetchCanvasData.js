@@ -7,7 +7,6 @@ const useFetchCanvasData = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      // await new Promise((resolve) => setTimeout(resolve, 3000));
       const token = Cookies.get("token_js"); // Token aus dem Cookie abrufen
       console.log(`Token: ${token}`);
       if (!token) {
