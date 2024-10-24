@@ -1,20 +1,12 @@
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import "../styles/Canvas.scss";
 import ColorPicker from "../utilities/ColorPicker";
 import CanvasComponent from "../components/CanvasComponent";
 import Coordinates from "../utilities/Coordinates";
 import WebSocketClient from "../components/WebSocketClient.jsx";
-
-/**
- * Canvas component that includes a color picker and a canvas for drawing.
- *
- * @component
- * @returns {JSX.Element} The rendered Canvas component.
- *
- * @param {Object} props - The properties object.
- * @param {string} props.selectedColor - The currently selected color for drawing.
- * @param {function} props.setSelectedColor - Function to update the selected color.
- */
+import useFetchCanvasData from "../hooks/useFetchCanvasData.js";
+import Cookies from "js-cookie";
 
 const Canvas = () => {
   const [selectedColor, setSelectedColor] = useState("black");
@@ -23,6 +15,27 @@ const Canvas = () => {
   const [connectionStatus, setConnectionStatus] = useState("Disconnected");
   const [messages, setMessages] = useState([]);
   const [error, setError] = useState(null);
+  const [canvasData, setCanvasData] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isReadOnly, setIsReadOnly] = useState(true);
+
+  useEffect(() => {
+    const token = Cookies.get("token_js");
+    if (token) {
+      setIsAuthenticated(true);
+      // Wenn vorhanden, Daten aus dem Cache laden
+      const cachedCanvasData = localStorage.getItem("canvasData");
+      if (cachedCanvasData) {
+        setCanvasData(JSON.parse(cachedCanvasData));
+      }
+      else {
+        fetchCanvasData(token);
+      }
+    }
+    else {
+      setIsReadOnly(true);
+}
+  }, []);
 
   return (
     <div className="canvas-container">

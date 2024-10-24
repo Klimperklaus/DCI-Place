@@ -1,5 +1,7 @@
+
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import Cookies from "js-cookie";
 
 const WebSocketClient = ({
   setWs,
@@ -41,7 +43,7 @@ const WebSocketClient = ({
   }, [ws, setConnectionStatus, setError, setMessages]);
 
   const connectWebSocket = () => {
-    const token = localStorage.getItem("token"); // Token aus dem lokalen Speicher abrufen
+    const token = Cookies.get("token_js"); // Token aus dem lokalen Speicher abrufen
     if (!token) {
       console.error("Kein Token im lokalen Speicher gefunden.");
       return;

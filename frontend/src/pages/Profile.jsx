@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { getProfile, editProfile, changePassword } from "../services/api.js";
 
 const ProfilePage = () => {
@@ -32,7 +32,7 @@ const ProfilePage = () => {
       }
     };
 
-    console.log(localStorage.getItem("token"));
+
     
     fetchProfile();
   }, []);

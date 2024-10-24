@@ -4,20 +4,6 @@ import { Stage, Layer, Rect } from "react-konva";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import useFetchCanvasData from "../hooks/useFetchCanvasData";
 
-/**
- * CanvasComponent is a React component that renders an interactive canvas
- * where users can draw rectangles by clicking on the canvas. The canvas
- * supports zooming and panning.
- *
- * @component
- * @param {Object} props - The properties object.
- * @param {string} props.selectedColor - The color to be used for drawing rectangles.
- * @param {Object} props.ws - The WebSocket connection.
- * @param {function} props.setCoordinates - Function to update the coordinates.
- *
- * @returns {JSX.Element} The rendered CanvasComponent.
- */
-
 const CanvasComponent = ({ selectedColor, ws, setCoordinates }) => {
   const { rectangles, setRectangles } = useFetchCanvasData();
   const [hoveredCell, setHoveredCell] = useState(null);
