@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import "../styles/Canvas.scss";
 import ColorPicker from "../utilities/ColorPicker";
 import CanvasComponent from "../components/CanvasComponent";
@@ -6,54 +6,71 @@ import Coordinates from "../utilities/Coordinates";
 import useFetchCanvasData from "../hooks/useFetchCanvasData.js";
 import Cookies from "js-cookie";
 import ReadOnlyCanvas from "../components/ReadOnlyCanvas";
+import WebSocketClient from "../components/WebSocketClient";
 
 const Canvas = () => {
   const [selectedColor, setSelectedColor] = useState("black");
   const [coordinates, setCoordinates] = useState({ x: 0, y: 0 });
   const [ws, setWs] = useState(null);
-  const [connectionStatus, setConnectionStatus] = useState("Disconnected");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { rectangles, setRectangles, fetchDbData } = useFetchCanvasData();
+  const [connectionStatus, setConnectionStatus] = useState("Disconnected");
+  const [messages, setMessages] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const token = Cookies.get("token_js");
     if (token) {
-      setIsAuthenticated(true);
-      // Wenn vorhanden, Daten aus dem Cache laden
+      if (!isAuthenticated) {
+        setIsAuthenticated(true);
+      }
       const cachedCanvasData = localStorage.getItem("canvasData");
       if (cachedCanvasData) {
-        setRectangles(JSON.parse(cachedCanvasData));
+        try {
+          const parsedData = JSON.parse(cachedCanvasData);
+          if (Array.isArray(parsedData)) {
+            setRectangles(parsedData);
+          } else {
+            console.warn("Cached data is not an array");
+          }
+        } catch (error) {
+          console.error("Error parsing cached data:", error);
+          localStorage.removeItem("canvasData");
+        }
       } else {
         fetchDbData();
       }
+    } else {
+      if (isAuthenticated) {
+        setIsAuthenticated(false);
+      }
     }
-  }, [fetchDbData, setRectangles]);
+  }, [fetchDbData, setRectangles, isAuthenticated]);
 
   useEffect(() => {
     if (ws) {
       ws.onopen = () => {
         console.log("WebSocket connection established");
         setConnectionStatus("Connected");
-        ws.send(JSON.stringify({ type: "testMessage", message: "Hello from client" }));
       };
-
       ws.onmessage = (event) => {
         try {
           const data = JSON.parse(event.data);
           console.log("Data received from WebSocket:", data);
           if (data.type === "canvasUpdate") {
-            setRectangles(data.data);
-            localStorage.setItem("canvasData", JSON.stringify(data.data)); // Aktualisieren der Daten im lokalen Speicher
+            setRectangles((prevRectangles) => {
+              const updatedRectangles = [...prevRectangles, data.data];
+              localStorage.setItem("canvasData", JSON.stringify(updatedRectangles));
+              return updatedRectangles;
+            });
           }
         } catch (error) {
           console.error("Error parsing message from server: ", error);
         }
       };
-
       ws.onerror = (error) => {
         console.error("WebSocket error: ", error);
       };
-
       ws.onclose = () => {
         console.log("WebSocket connection closed");
         setConnectionStatus("Disconnected");
@@ -61,31 +78,18 @@ const Canvas = () => {
     }
   }, [ws, setRectangles]);
 
-  const handleWebSocketConnect = () => {
-    const token = Cookies.get("token_js");
-    if (!token) {
-      console.error("Kein Token im Cookie gefunden.");
-      return;
-    }
-
-    if (ws) {
-      ws.close();
-      setWs(null);
-    } else {
-      const newWs = new WebSocket(`ws://localhost:3131?token=${token}`);
-      setWs(newWs);
-    }
-  };
-
   return (
     <div className="canvas-container">
       {isAuthenticated ? (
         <>
           <ColorPicker setSelectedColor={setSelectedColor} />
           <Coordinates coordinates={coordinates} />
-          <button onClick={handleWebSocketConnect}>
-            {ws ? "Disconnect WebSocket" : "Connect WebSocket"}
-          </button>
+          <WebSocketClient
+            setWs={setWs}
+            setConnectionStatus={setConnectionStatus}
+            setMessages={setMessages}
+            setError={setError}
+          />
           <div className="stage-container">
             <CanvasComponent
               selectedColor={selectedColor}
@@ -104,56 +108,3 @@ const Canvas = () => {
 };
 
 export default Canvas;
-
-
-/*
-import { useEffect, useState } from "react";
-import "../styles/Canvas.scss";
-import ColorPicker from "../utilities/ColorPicker";
-import CanvasComponent from "../components/CanvasComponent";
-import Coordinates from "../utilities/Coordinates";
-import WebSocketClient from "../components/WebSocketClient.jsx";
-import useFetchCanvasData from "../hooks/useFetchCanvasData.js";
-import Cookies from "js-cookie";
-
-const Canvas = () => {
-  const [selectedColor, setSelectedColor] = useState("black");
-  const [coordinates, setCoordinates] = useState({ x: 0, y: 0 });
-  const [ws, setWs] = useState(null);
-  const [connectionStatus, setConnectionStatus] = useState("Disconnected");
-  const [messages, setMessages] = useState([]);
-  const [error, setError] = useState(null);
-
-
-// TO-DO: die fetchCanvasData Funktion implementieren. Diese soll zuerst überprüfen
-// ob Daten im localStorage vorhanden sind und diese zurückgeben. MUSS NOCH IMPLEMENTIERT WERDEN!!!
-  // Ansonsten soll sie das modul useFetchCanvasData verwenden, um die Daten vom Server zu holen und 
-  // im localStorage zu speichern. 
-  // Die Funktion soll nur ausgeführt werden, wenn der Token vorhanden 
-  // ist und die Daten noch nicht geladen wurden. MUSS NOCH IMPLEMENTIERT WERDEN!!!
-// TO-DO: ws-Verbindung beim betreten des Canvas aufbauen und beim verlassen des Canvas schließen.
-// entweder hier oder in CanvasComponent.jsx implementieren. MUSS NOCH IMPLEMENTIERT WERDEN!!!
-
-  return (
-    <div className="canvas-container">
-      <ColorPicker setSelectedColor={setSelectedColor} />
-      <Coordinates coordinates={coordinates} />
-      <WebSocketClient
-        setWs={setWs}
-        setConnectionStatus={setConnectionStatus}
-        setMessages={setMessages}
-        setError={setError}
-      />
-      <div className="stage-container">
-        <CanvasComponent
-          selectedColor={selectedColor}
-          ws={ws}
-          setCoordinates={setCoordinates}
-        />
-      </div>
-    </div>
-  );
-};
-
-export default Canvas;
-*/

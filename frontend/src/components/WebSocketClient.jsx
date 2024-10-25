@@ -8,23 +8,22 @@ const WebSocketClient = ({
   setMessages,
   setError,
 }) => {
-  const [ws, setLocalWs] = useState(null);
+  const [localWs, setLocalWs] = useState(null);
 
   useEffect(() => {
-    if (ws) {
-      ws.onopen = () => {
+    if (localWs) {
+      localWs.onopen = () => {
         console.log("WebSocket connection established");
         setConnectionStatus("Connected");
-        console.log("Connection status set to 'Connected'");
       };
-      ws.onmessage = (event) => {
+
+      localWs.onmessage = (event) => {
         try {
           const data = JSON.parse(event.data);
-          console.log("Data received from WebSocket:", data); // Log empfangene Nachrichten
-
+          console.log("Data received from WebSocket:", data);
           if (data.error) {
             console.error("Server error: ", data.error);
-            setError(data.error); // Fehlermeldung setzen
+            setError(data.error);
           } else {
             setMessages((prevMessages) => [...prevMessages, data]);
           }
@@ -32,36 +31,49 @@ const WebSocketClient = ({
           console.error("Error parsing message from server: ", error);
         }
       };
-      ws.onerror = (error) => {
+
+      localWs.onerror = (error) => {
         console.error("WebSocket error: ", error);
       };
-      ws.onclose = () => {
+
+      localWs.onclose = () => {
         console.log("WebSocket connection closed");
         setConnectionStatus("Disconnected");
-        console.log("Connection status set to 'Disconnected'");
       };
     }
-  }, [ws, setConnectionStatus, setError, setMessages]);
+  }, [localWs, setConnectionStatus, setError, setMessages]);
 
-  const connectWebSocket = () => {
-    const token = Cookies.get("token_js"); // Token aus dem lokalen Speicher abrufen
-    if (!token) {
-      console.error("Kein Token im lokalen Speicher gefunden.");
-      return;
-    }
-
-    if (ws) {
-      ws.close();
-      setLocalWs(null);
-      setWs(null);
-      console.log('WebSocket connection closed');
-    } else {
-      const newWs = new WebSocket(`ws://localhost:3131?token=${token}`);
-      setLocalWs(newWs);
+const connectWebSocket = () => {
+  const token = Cookies.get("token_js");
+  if (!token) {
+    console.error("Kein Token im lokalen Speicher gefunden.");
+    return;
+  }
+  if (localWs && localWs.readyState !== WebSocket.CLOSED && localWs.readyState !== WebSocket.CLOSING) {
+    localWs.close();
+    setLocalWs(null);
+    setWs(null);
+    console.log('WebSocket connection closed');
+  } else {
+    const newWs = new WebSocket(`ws://localhost:3131?token=${token}`);
+    newWs.onopen = () => {
+      console.log('WebSocket connection established');
       setWs(newWs);
-      console.log('WebSocket connection initiated');
-    }
-  };
+      setLocalWs(newWs);
+    };
+    newWs.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+    console.log('WebSocket connection initiated');
+  }
+};
+
+
+  return (
+    <button onClick={connectWebSocket}>
+      {localWs ? "Disconnect WebSocket" : "Connect WebSocket"}
+    </button>
+  );
 };
 
 WebSocketClient.propTypes = {
