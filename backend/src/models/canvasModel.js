@@ -10,10 +10,14 @@ const canvasConnection = mongoose.createConnection(
 
 const canvasSchema = new mongoose.Schema({
   _id: String,
-  position_x: Number,
-  position_y: Number,
-  color: String,
-  timestamp: String,
+  rectangles: [
+    {
+      position_x: Number,
+      position_y: Number,
+      color: String,
+      timestamp: String,
+    },
+  ],
 });
 
 const Canvas = canvasConnection.model("Canvas", canvasSchema);

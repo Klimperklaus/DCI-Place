@@ -16,7 +16,6 @@ const WebSocketClient = ({
         console.log("WebSocket connection established");
         setConnectionStatus("Connected");
       };
-
       localWs.onmessage = (event) => {
         try {
           const data = JSON.parse(event.data);
@@ -31,11 +30,9 @@ const WebSocketClient = ({
           console.error("Error parsing message from server: ", error);
         }
       };
-
       localWs.onerror = (error) => {
         console.error("WebSocket error: ", error);
       };
-
       localWs.onclose = () => {
         console.log("WebSocket connection closed");
         setConnectionStatus("Disconnected");
@@ -43,31 +40,24 @@ const WebSocketClient = ({
     }
   }, [localWs, setConnectionStatus, setError, setMessages]);
 
-const connectWebSocket = () => {
-  const token = Cookies.get("token_js");
-  if (!token) {
-    console.error("Kein Token im lokalen Speicher gefunden.");
-    return;
-  }
-  if (localWs && localWs.readyState !== WebSocket.CLOSED && localWs.readyState !== WebSocket.CLOSING) {
-    localWs.close();
-    setLocalWs(null);
-    setWs(null);
-    console.log('WebSocket connection closed');
-  } else {
-    const newWs = new WebSocket(`ws://localhost:3131?token=${token}`);
-    newWs.onopen = () => {
-      console.log('WebSocket connection established');
-      setWs(newWs);
+  const connectWebSocket = () => {
+    const token = Cookies.get("token_js");
+    if (!token) {
+      console.error("Kein Token im lokalen Speicher gefunden.");
+      return;
+    }
+    if (localWs) {
+      localWs.close();
+      setLocalWs(null);
+      setWs(null);
+      console.log('WebSocket connection closed');
+    } else {
+      const newWs = new WebSocket(`ws://localhost:3131?token=${token}`);
       setLocalWs(newWs);
-    };
-    newWs.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
-    console.log('WebSocket connection initiated');
-  }
-};
-
+      setWs(newWs);
+      console.log('WebSocket connection initiated');
+    }
+  };
 
   return (
     <button onClick={connectWebSocket}>

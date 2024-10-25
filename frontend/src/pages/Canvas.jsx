@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import "../styles/Canvas.scss";
 import ColorPicker from "../utilities/ColorPicker";
 import CanvasComponent from "../components/CanvasComponent";
@@ -77,17 +77,6 @@ const Canvas = () => {
       };
     }
   }, [ws, setRectangles]);
-
-  console.log(
-    "Canvas component rendered with rectangles:",
-    rectangles,
-    "and connection status:",
-    connectionStatus
-  );
-
-  console.log("Messages from WebSocket:", messages);
-  console.log("Error from WebSocket:", error);
-  
 
   return (
     <div className="canvas-container">
