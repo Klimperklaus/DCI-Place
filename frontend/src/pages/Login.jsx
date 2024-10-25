@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import teams from "../data/teams";
 import { register, login, loginWithGoogle } from "../services/api.js";
 import Cookies from "js-cookie"; // Import js-cookie
