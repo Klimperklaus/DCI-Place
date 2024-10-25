@@ -1,4 +1,112 @@
+import { useEffect, useState } from "react";
+import "../styles/Canvas.scss";
+import ColorPicker from "../utilities/ColorPicker";
+import CanvasComponent from "../components/CanvasComponent";
+import Coordinates from "../utilities/Coordinates";
+import useFetchCanvasData from "../hooks/useFetchCanvasData.js";
+import Cookies from "js-cookie";
+import ReadOnlyCanvas from "../components/ReadOnlyCanvas";
 
+const Canvas = () => {
+  const [selectedColor, setSelectedColor] = useState("black");
+  const [coordinates, setCoordinates] = useState({ x: 0, y: 0 });
+  const [ws, setWs] = useState(null);
+  const [connectionStatus, setConnectionStatus] = useState("Disconnected");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { rectangles, setRectangles, fetchDbData } = useFetchCanvasData();
+
+  useEffect(() => {
+    const token = Cookies.get("token_js");
+    if (token) {
+      setIsAuthenticated(true);
+      // Wenn vorhanden, Daten aus dem Cache laden
+      const cachedCanvasData = localStorage.getItem("canvasData");
+      if (cachedCanvasData) {
+        setRectangles(JSON.parse(cachedCanvasData));
+      } else {
+        fetchDbData();
+      }
+    }
+  }, [fetchDbData, setRectangles]);
+
+  useEffect(() => {
+    if (ws) {
+      ws.onopen = () => {
+        console.log("WebSocket connection established");
+        setConnectionStatus("Connected");
+        ws.send(JSON.stringify({ type: "testMessage", message: "Hello from client" }));
+      };
+
+      ws.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          console.log("Data received from WebSocket:", data);
+          if (data.type === "canvasUpdate") {
+            setRectangles(data.data);
+            localStorage.setItem("canvasData", JSON.stringify(data.data)); // Aktualisieren der Daten im lokalen Speicher
+          }
+        } catch (error) {
+          console.error("Error parsing message from server: ", error);
+        }
+      };
+
+      ws.onerror = (error) => {
+        console.error("WebSocket error: ", error);
+      };
+
+      ws.onclose = () => {
+        console.log("WebSocket connection closed");
+        setConnectionStatus("Disconnected");
+      };
+    }
+  }, [ws, setRectangles]);
+
+  const handleWebSocketConnect = () => {
+    const token = Cookies.get("token_js");
+    if (!token) {
+      console.error("Kein Token im Cookie gefunden.");
+      return;
+    }
+
+    if (ws) {
+      ws.close();
+      setWs(null);
+    } else {
+      const newWs = new WebSocket(`ws://localhost:3131?token=${token}`);
+      setWs(newWs);
+    }
+  };
+
+  return (
+    <div className="canvas-container">
+      {isAuthenticated ? (
+        <>
+          <ColorPicker setSelectedColor={setSelectedColor} />
+          <Coordinates coordinates={coordinates} />
+          <button onClick={handleWebSocketConnect}>
+            {ws ? "Disconnect WebSocket" : "Connect WebSocket"}
+          </button>
+          <div className="stage-container">
+            <CanvasComponent
+              selectedColor={selectedColor}
+              ws={ws}
+              setCoordinates={setCoordinates}
+              rectangles={rectangles}
+              setRectangles={setRectangles}
+            />
+          </div>
+        </>
+      ) : (
+        <ReadOnlyCanvas rectangles={rectangles} />
+      )}
+    </div>
+  );
+};
+
+export default Canvas;
+
+
+/*
 import { useEffect, useState } from "react";
 import "../styles/Canvas.scss";
 import ColorPicker from "../utilities/ColorPicker";
@@ -15,27 +123,7 @@ const Canvas = () => {
   const [connectionStatus, setConnectionStatus] = useState("Disconnected");
   const [messages, setMessages] = useState([]);
   const [error, setError] = useState(null);
-  const [canvasData, setCanvasData] = useState([]);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isReadOnly, setIsReadOnly] = useState(true);
 
-  useEffect(() => {
-    const token = Cookies.get("token_js");
-    if (token) {
-      setIsAuthenticated(true);
-      // Wenn vorhanden, Daten aus dem Cache laden
-      const cachedCanvasData = localStorage.getItem("canvasData");
-      if (cachedCanvasData) {
-        setCanvasData(JSON.parse(cachedCanvasData));
-      }
-      else {
-        console.log(token);
-      }
-    }
-    else {
-      setIsReadOnly(true);
-}
-  }, []);
 
 // TO-DO: die fetchCanvasData Funktion implementieren. Diese soll zuerst überprüfen
 // ob Daten im localStorage vorhanden sind und diese zurückgeben. MUSS NOCH IMPLEMENTIERT WERDEN!!!
@@ -68,3 +156,4 @@ const Canvas = () => {
 };
 
 export default Canvas;
+*/

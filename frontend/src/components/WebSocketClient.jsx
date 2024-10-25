@@ -1,4 +1,3 @@
-// Diese Funktion wird bislang 
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Cookies from "js-cookie";
@@ -16,6 +15,7 @@ const WebSocketClient = ({
       ws.onopen = () => {
         console.log("WebSocket connection established");
         setConnectionStatus("Connected");
+        console.log("Connection status set to 'Connected'");
       };
       ws.onmessage = (event) => {
         try {
@@ -38,6 +38,7 @@ const WebSocketClient = ({
       ws.onclose = () => {
         console.log("WebSocket connection closed");
         setConnectionStatus("Disconnected");
+        console.log("Connection status set to 'Disconnected'");
       };
     }
   }, [ws, setConnectionStatus, setError, setMessages]);
@@ -53,18 +54,14 @@ const WebSocketClient = ({
       ws.close();
       setLocalWs(null);
       setWs(null);
+      console.log('WebSocket connection closed');
     } else {
       const newWs = new WebSocket(`ws://localhost:3131?token=${token}`);
       setLocalWs(newWs);
       setWs(newWs);
+      console.log('WebSocket connection initiated');
     }
   };
-
-  return (
-    <button onClick={connectWebSocket}>
-      {ws ? "Disconnect WebSocket" : "Connect WebSocket"}
-    </button>
-  );
 };
 
 WebSocketClient.propTypes = {
