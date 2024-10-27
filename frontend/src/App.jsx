@@ -23,7 +23,7 @@ function App() {
           path="/canvas"
           element={
             // <PrivateRoute>
-              <Canvas />
+            <Canvas />
             // </PrivateRoute>
           }
         />

@@ -1,51 +1,52 @@
-// userModel.js
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
-import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
+// Definieren des Mongoose-Schemas für die User-Datenbank
+const userSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String, // Typ der Eigenschaft ist ein String
+      required: true, // Diese Eigenschaft ist Pflichtfeld
+      unique: true, // Der Wert muss eindeutig sein
+    },
+    password: {
+      type: String, // Typ der Eigenschaft ist ein String
+      required: true, // Diese Eigenschaft ist Pflichtfeld
+    },
+    email: {
+      type: String, // Typ der Eigenschaft ist ein String
+      required: true, // Diese Eigenschaft ist Pflichtfeld
+      unique: true, // Der Wert muss eindeutig sein
+    },
+    team: {
+      type: String, // Typ der Eigenschaft ist ein String
+      required: false, // Diese Eigenschaft ist nicht zwingend erforderlich
+    },
+    isAdmin: {
+      type: Boolean, // Typ der Eigenschaft ist ein Boolean
+      default: false, // Standardwert ist falsch (false)
+    },
+    googleId: {
+      type: String, // Typ der Eigenschaft ist ein String
+      unique: true, // Der Wert muss eindeutig sein
+      sparse: true, // Es können null-Werte zugelassen werden (sparse index)
+    },
+  },
+  { timestamps: true }
+); // Zusatzfeld 'createdAt' und 'updatedAt' werden automatisch erstellt
 
-const userSchema = new mongoose.Schema({
-  username : {
-    type : String,
-    required : true,
-    unique : true
-  },
-  password : {
-    type : String,
-    required : true // für den Google-Login nicht nötig
-  },
-  email : {
-    type : String,
-    required : true,
-    unique : true
-  },
-  team : {
-    type : String,
-    required : false
-  },
-  isAdmin: {
-    type: Boolean,
-    default: false
-  },
-  googleId: {
-    type: String,
-    unique: true,
-    sparse: true,
-  },
-}, { timestamps: true });
+// Vor dem Speichern des Dokuments wird das Passwort, falls geändert, mit einem Salt hashed
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next(); // Wenn das Passwort nicht modifiziert wurde, dann weiter
 
-
-// Passwort vor dem Speichern hashen (nur wenn geändert)
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
-  
-  if (this.password) { 
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
+  if (this.password) {
+    const salt = await bcrypt.genSalt(10); // Salz erstellen
+    this.password = await bcrypt.hash(this.password, salt); // Passwort hashen
   }
-  next();
+  next(); // Weiter zur nächsten Middleware oder zum Speichern
 });
 
-const User = mongoose.model('User', userSchema);
+// Das Modell basierend auf dem Schema wird erstellt und exportiert
+const User = mongoose.model("User", userSchema);
 
 export default User;
-
