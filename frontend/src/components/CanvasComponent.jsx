@@ -1,4 +1,3 @@
-
 import { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import { Stage, Layer, Rect } from "react-konva";
@@ -25,7 +24,7 @@ const CanvasComponent = ({ selectedColor, ws, setCoordinates, rectangles, setRec
       const cellX = Math.floor(x / cellSize);
       const cellY = Math.floor(y / cellSize);
       const newRect = {
-        _id: `${cellX}_${cellY}`,
+        _id: `${cellX}_${cellY}`,  // Hier sollte _id korrekt gesetzt sein
         x: cellX * cellSize,
         y: cellY * cellSize,
         width: cellSize,
@@ -54,6 +53,7 @@ const CanvasComponent = ({ selectedColor, ws, setCoordinates, rectangles, setRec
       <Rect key={index} {...rect} />
     ));
   }, [rectangles]);
+
 
   return (
     <TransformWrapper

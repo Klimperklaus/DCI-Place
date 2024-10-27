@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Cookies from "js-cookie";
@@ -17,6 +16,7 @@ const WebSocketClient = ({
         console.log("WebSocket connection established");
         setConnectionStatus("Connected");
       };
+
       localWs.onmessage = (event) => {
         try {
           const data = JSON.parse(event.data);
@@ -31,9 +31,11 @@ const WebSocketClient = ({
           console.error("Error parsing message from server: ", error);
         }
       };
+
       localWs.onerror = (error) => {
-        console.error("WebSocket error: ", error);
+        console.error("WebSocket error:", error);
       };
+
       localWs.onclose = () => {
         console.log("WebSocket connection closed");
         setConnectionStatus("Disconnected");
@@ -53,10 +55,24 @@ const WebSocketClient = ({
       setWs(null);
       console.log('WebSocket connection closed');
     } else {
+      console.log('Initiating WebSocket connection'); // Log hinzugefügt
       const newWs = new WebSocket(`ws://localhost:3131?token=${token}`);
-      setLocalWs(newWs);
-      setWs(newWs);
-      console.log('WebSocket connection initiated');
+      newWs.onopen = () => {
+        console.log('WebSocket connection established'); // Log hinzugefügt
+        setWs(newWs);
+        setLocalWs(newWs);
+      };
+      newWs.onerror = (error) => {
+        console.error('WebSocket connection error:', error);
+      };
+      // Hinzufügen von onmessage, onclose und onerror
+      newWs.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        console.log("Received data:", data);
+      };
+      newWs.onclose = () => {
+        console.log("WebSocket connection closed");
+      };
     }
   };
 
