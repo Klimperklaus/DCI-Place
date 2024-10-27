@@ -25,6 +25,7 @@ const CanvasComponent = ({ selectedColor, ws, setCoordinates, rectangles, setRec
       const cellX = Math.floor(x / cellSize);
       const cellY = Math.floor(y / cellSize);
       const newRect = {
+        _id: `${cellX}_${cellY}`,
         x: cellX * cellSize,
         y: cellY * cellSize,
         width: cellSize,

@@ -34,22 +34,29 @@ wss.on("connection", function connection(ws, req) {
 
         if (parsedMessage.type === "canvasUpdate") {
           const newRect = parsedMessage.data;
-          let canvasEntry = await Canvas.findById("1_1");
-          if (!canvasEntry) {
-            // Erstellen Sie den Canvas-Eintrag, wenn er nicht existiert
-            canvasEntry = new Canvas({
-              _id: "1_1",
-              rectangles: [],
-            });
-          }
-          canvasEntry.rectangles.push(newRect);
+          const canvasEntry = new Canvas(
+            {
+              _id: newRect._id,
+              position_y: newRect.y,
+              position_x: newRect.x,
+              color: newRect.fill,
+            },
+            { timestamps: true }
+          );
+
           await canvasEntry.save();
+
           wss.clients.forEach((client) => {
             if (client.readyState === WebSocket.OPEN) {
               client.send(
                 JSON.stringify({
                   type: "canvasUpdate",
-                  data: canvasEntry.rectangles,
+                  data: {
+                    _id: canvasEntry._id,
+                    position_x: canvasEntry.position_x,
+                    position_y: canvasEntry.position_y,
+                    color: canvasEntry.color,
+                  },
                 })
               );
             }
