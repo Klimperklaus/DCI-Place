@@ -3,7 +3,13 @@ import PropTypes from "prop-types";
 import { Stage, Layer, Rect } from "react-konva";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
-const CanvasComponent = ({ selectedColor, ws, setCoordinates, rectangles, setRectangles }) => {
+const CanvasComponent = ({
+  selectedColor,
+  ws,
+  setCoordinates,
+  rectangles,
+  setRectangles,
+}) => {
   const [hoveredCell, setHoveredCell] = useState(null);
   const canvasWidth = 768;
   const canvasHeight = 512;
@@ -48,10 +54,21 @@ const CanvasComponent = ({ selectedColor, ws, setCoordinates, rectangles, setRec
     e.evt.preventDefault();
   };
 
+  // TODO attribute von rect eingefügt, weiterhin noch keinen erfolg gehabt...
+  // eventuell fehlender useEffect um daten aus dem localStorage abzugreifen vor nutzung ?
   const renderedRectangles = useMemo(() => {
-    return rectangles.map((rect, index) => (
-      <Rect key={index} {...rect} />
-    ));
+    return rectangles.map((rect, index) => {
+      <Rect
+        key={index}
+        x={rect.position_x}
+        y={rect.position_y}
+        width={cellSize}
+        height={cellSize}
+        fill={rect.color}
+      />;
+
+      console.log("useMemo used !");
+    });
   }, [rectangles]);
 
 
