@@ -54,21 +54,10 @@ const CanvasComponent = ({
     e.evt.preventDefault();
   };
 
-  // TODO attribute von rect eingefügt, weiterhin noch keinen erfolg gehabt...
-  // eventuell fehlender useEffect um daten aus dem localStorage abzugreifen vor nutzung ?
   const renderedRectangles = useMemo(() => {
-    return rectangles.map((rect, index) => {
-      <Rect
-        key={index}
-        x={rect.position_x}
-        y={rect.position_y}
-        width={cellSize}
-        height={cellSize}
-        fill={rect.color}
-      />;
-
-      console.log("useMemo used !");
-    });
+    return rectangles.map((rect, index) => (
+      <Rect key={index} {...rect} />
+    ));
   }, [rectangles]);
 
 
@@ -117,5 +106,3 @@ CanvasComponent.propTypes = {
 };
 
 export default CanvasComponent;
-
-// TODO Musicplayer Dirk Laptop aufsetzen gpodder drtauf
