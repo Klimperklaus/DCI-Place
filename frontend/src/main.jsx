@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import "./styles/Main.scss";
-import "./styles/Login.scss";
+import "./styles/LoginPage.scss";
 import "./styles/Navbar.scss";
 import "./styles/Canvas.scss";
 import "./styles/ColorButtons.scss";
