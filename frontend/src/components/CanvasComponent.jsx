@@ -1,10 +1,15 @@
-
 import { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import { Stage, Layer, Rect } from "react-konva";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
-const CanvasComponent = ({ selectedColor, ws, setCoordinates, rectangles, setRectangles }) => {
+const CanvasComponent = ({
+  selectedColor,
+  ws,
+  setCoordinates,
+  rectangles,
+  setRectangles,
+}) => {
   const [hoveredCell, setHoveredCell] = useState(null);
   const canvasWidth = 768;
   const canvasHeight = 512;
@@ -25,7 +30,7 @@ const CanvasComponent = ({ selectedColor, ws, setCoordinates, rectangles, setRec
       const cellX = Math.floor(x / cellSize);
       const cellY = Math.floor(y / cellSize);
       const newRect = {
-        _id: `${cellX}_${cellY}`,
+        _id: `${cellX}_${cellY}`,  // Hier sollte _id korrekt gesetzt sein
         x: cellX * cellSize,
         y: cellY * cellSize,
         width: cellSize,
@@ -38,7 +43,7 @@ const CanvasComponent = ({ selectedColor, ws, setCoordinates, rectangles, setRec
         return updatedRectangles;
       });
       if (ws && ws.readyState === WebSocket.OPEN) {
-        ws.send(JSON.stringify({ type: "canvasUpdate", data: newRect }));
+        ws.send(JSON.stringify({ type: "canvasUpdate", data: newRect })); // Hier wird bei offener ws Verbindung ein neues Rechteck an den Server gesendet
       } else {
         console.error("WebSocket connection is not open.");
       }
@@ -49,11 +54,23 @@ const CanvasComponent = ({ selectedColor, ws, setCoordinates, rectangles, setRec
     e.evt.preventDefault();
   };
 
+  // TODO attribute von rect eingefügt, weiterhin noch keinen erfolg gehabt...
+  // eventuell fehlender useEffect um daten aus dem localStorage abzugreifen vor nutzung ?
   const renderedRectangles = useMemo(() => {
-    return rectangles.map((rect, index) => (
-      <Rect key={index} {...rect} />
-    ));
+    return rectangles.map((rect, index) => {
+      <Rect
+        key={index}
+        x={rect.position_x}
+        y={rect.position_y}
+        width={cellSize}
+        height={cellSize}
+        fill={rect.color}
+      />;
+
+      console.log("useMemo used !");
+    });
   }, [rectangles]);
+
 
   return (
     <TransformWrapper
@@ -100,3 +117,5 @@ CanvasComponent.propTypes = {
 };
 
 export default CanvasComponent;
+
+// TODO Musicplayer Dirk Laptop aufsetzen gpodder drtauf

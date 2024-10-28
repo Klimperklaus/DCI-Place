@@ -109,6 +109,7 @@ const Canvas = () => {
 
 export default Canvas;
 
+
 /*
 import { useEffect, useState, useCallback } from "react";
 import "../styles/Canvas.scss";

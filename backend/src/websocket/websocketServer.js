@@ -40,6 +40,8 @@ wss.on("connection", function connection(ws, req) {
               position_y: newRect.y,
               position_x: newRect.x,
               color: newRect.fill,
+              width: newRect.width,
+              height: newRect.height,
             },
             { timestamps: true }
           );
@@ -56,6 +58,8 @@ wss.on("connection", function connection(ws, req) {
                     position_x: canvasEntry.position_x,
                     position_y: canvasEntry.position_y,
                     color: canvasEntry.color,
+                    width: canvasEntry.width,
+                    height: canvasEntry.height,
                   },
                 })
               );
