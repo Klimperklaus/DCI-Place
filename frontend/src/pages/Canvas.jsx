@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import "../styles/Canvas.scss";
 import ColorPicker from "../utilities/ColorPicker";
 import CanvasComponent from "../components/CanvasComponent";
@@ -58,8 +58,9 @@ const Canvas = () => {
           const data = JSON.parse(event.data);
           console.log("Data received from WebSocket:", data);
           if (data.type === "canvasUpdate") {
+            // TODO Hier werden die Daten nicht korrekt verarbeitet. Es wird ein Array erwartet, aber nur ein Objekt wird empfangen.
             setRectangles((prevRectangles) => {
-              const updatedRectangles = [...prevRectangles, data.data];
+              const updatedRectangles = [...prevRectangles, ...data.data];
               localStorage.setItem("canvasData", JSON.stringify(updatedRectangles));
               return updatedRectangles;
             });
@@ -108,7 +109,6 @@ const Canvas = () => {
 };
 
 export default Canvas;
-
 
 /*
 import { useEffect, useState, useCallback } from "react";
