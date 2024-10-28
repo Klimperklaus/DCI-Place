@@ -37,7 +37,7 @@ const CanvasComponent = ({ selectedColor, ws, setCoordinates, rectangles, setRec
         return updatedRectangles;
       });
       if (ws && ws.readyState === WebSocket.OPEN) {
-        ws.send(JSON.stringify({ type: "canvasUpdate", data: newRect }));
+        ws.send(JSON.stringify({ type: "canvasUpdate", data: newRect })); // Hier wird bei offener ws Verbindung ein neues Rechteck an den Server gesendet
       } else {
         console.error("WebSocket connection is not open.");
       }
@@ -100,3 +100,5 @@ CanvasComponent.propTypes = {
 };
 
 export default CanvasComponent;
+
+// TODO Musicplayer Dirk Laptop aufsetzen gpodder drtauf

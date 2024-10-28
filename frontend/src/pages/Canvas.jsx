@@ -47,45 +47,36 @@ const Canvas = () => {
     }
   }, [fetchDbData, setRectangles, isAuthenticated]);
 
-useEffect(() => {
-  if (ws) {
-    ws.onopen = () => {
-      console.log("WebSocket connection established");
-      setConnectionStatus("Connected");
-    };
-
-    ws.onmessage = (event) => {
-      try {
-        console.log("Raw WebSocket message:", event); // Rohes Event-Log
-        const data = JSON.parse(event.data);
-        console.log("Data received from WebSocket:", data);
-
-        if (data.type === "canvasUpdate") {
-          console.log("Canvas update data:", data.data);
-          setRectangles((prevRectangles) => {
-            const updatedRectangles = [...prevRectangles, data.data];
-            localStorage.setItem("canvasData", JSON.stringify(updatedRectangles));
-            return updatedRectangles;
-          });
+  useEffect(() => {
+    if (ws) {
+      ws.onopen = () => {
+        console.log("WebSocket connection established");
+        setConnectionStatus("Connected");
+      };
+      ws.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          console.log("Data received from WebSocket:", data);
+          if (data.type === "canvasUpdate") {
+            setRectangles((prevRectangles) => {
+              const updatedRectangles = [...prevRectangles, data.data];
+              localStorage.setItem("canvasData", JSON.stringify(updatedRectangles));
+              return updatedRectangles;
+            });
+          }
+        } catch (error) {
+          console.error("Error parsing message from server: ", error);
         }
-        if (data.type === "error") {
-          console.error("Server error: ", data.message);
-        }
-      } catch (error) {
-        console.error("Error parsing message from server: ", error);
-      }
-    };
-
-    ws.onerror = (error) => {
-      console.error("WebSocket error:", error);
-    };
-
-    ws.onclose = () => {
-      console.log("WebSocket connection closed");
-      setConnectionStatus("Disconnected");
-    };
-  }
-}, [ws, setRectangles]);
+      };
+      ws.onerror = (error) => {
+        console.error("WebSocket error: ", error);
+      };
+      ws.onclose = () => {
+        console.log("WebSocket connection closed");
+        setConnectionStatus("Disconnected");
+      };
+    }
+  }, [ws, setRectangles]);
 
   return (
     <div className="canvas-container">
