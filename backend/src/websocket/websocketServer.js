@@ -32,24 +32,7 @@ wss.on("connection", function connection(ws, req) {
           );
         }
 
-        if (
-          parsedMessage.type === "canvasUpdate" &&
-          parsedMessage.data &&
-          parsedMessage.data.x &&
-          parsedMessage.data.y &&
-          parsedMessage.data.fill &&
-          parsedMessage.data.width &&
-          parsedMessage.data.height &&
-          typeof parsedMessage.data.x === "number" &&
-          typeof parsedMessage.data.y === "number" &&
-          typeof parsedMessage.data.fill === "string" &&
-          typeof parsedMessage.data.width === "number" &&
-          typeof parsedMessage.data.height === "number" &&
-          parsedMessage.data.x >= 0 &&
-          parsedMessage.data.y >= 0 &&
-          parsedMessage.data.width >= 0 &&
-          parsedMessage.data.height >= 0
-        ) {
+        if (parsedMessage.type === "canvasUpdate") {
           const newRect = parsedMessage.data;
           const updatedCanvasEntry = await Canvas.findOneAndUpdate(
             { position_x: newRect.x, position_y: newRect.y },
