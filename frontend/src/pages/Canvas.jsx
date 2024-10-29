@@ -244,3 +244,7 @@ const renderedRectangles = useMemo(() => {
 };
 
 export default Canvas;
+// TODO fetchen automatisch
+// TODO localStorage löschen damit keine alten Daten angezeigt oder Daten ohne Anmeldung angenommen bzw angezeigt werden
+// TODO Ampel für Verbindungszustand (grün, gelb, rot) neben dem Canvas
+// TODO Ohne Anmeldung nur lesen, keine Schreibrechte. ReadOnlyCanvas.jsx Komponente in Canvas.jsx auflösen
