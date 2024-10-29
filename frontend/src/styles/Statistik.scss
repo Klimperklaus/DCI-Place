@@ -213,7 +213,7 @@ display: flex;
 
 
 /* Smartphones im Hochformat und kleine Geräte */
-@media only screen and (max-width: 390px) { 
+@media only screen and (min-width: 390px) and (max-width: 480px) { 
 
   nav ul {
     display: flex;
@@ -234,20 +234,173 @@ display: flex;
 }
 
 /* Smartphones im Querformat und kleinere Tablets */
-@media only screen and (min-width: 481px) and (max-width: 767px) { }
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+
+  .templang-image-box{
+    background-size: 14rem;
+  }
+
+  .tempranking-image-box{
+    background-size: 15rem;
+    height: 70vw;
+  }
+
+  #einhornbanner{
+    width: 50vw;
+  }
+
+  #the{
+  margin-top: 6px;
+  }
+
+.redDiv{
+  width: 100vw;
+}
+
+.headerWrapper{
+  margin-left: 9%;
+}
+
+#banner{
+  width: 50vw;
+  height: 30vw;
+}
+
+#shop{
+  margin-top: 142px;
+}
+
+#baum{
+  margin-left: 5%;
+  margin-top: 130px;
+}
+ }
 
 /* Tablets im Hochformat */
-@media only screen and (min-width: 768px) and (max-width: 1024px) { }
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+
+  .templang-image-box{
+    background-size: 19rem;
+  }
+
+  .tempranking-image-box{
+    background-size: 21rem;
+    height: 70vw;
+  }
+
+  #einhornbanner{
+    width: 50vw;
+  }
+
+  #the{
+  margin-top: 6px;
+  }
+
+.redDiv{
+  width: 100vw;
+}
+
+.headerWrapper{
+  margin-left: 9%;
+}
+
+#banner{
+  width: 50vw;
+  height: 30vw;
+}
+
+#shop{
+  margin-top: 142px;
+}
+
+#baum{
+  margin-left: 15%;
+  margin-top: 130px;
+}
+
+.custom-table {
+  margin-top: 10%;
+  width: 98%;
+  height: 70%;
+}
+
+.custom-table td {
+  font-size: 2rem;
+}
+
+.templang-image-text{
+ font-size: 1.5rem;
+}
+
+
+
+ }
 
 /* Laptops und kleinere Desktops */
-@media only screen and (min-width: 1025px) and (max-width: 1280px) { }
+@media only screen and (min-width: 1024px) and (max-width: 1280px) { 
+
+  .templang-image-box{
+    background-size: 25rem;
+  }
+
+  .tempranking-image-box{
+    background-size: 28rem;
+    height: 70vw;
+  }
+
+  #einhornbanner{
+    width: 50vw;
+  }
+
+  #the{
+  margin-top: 6px;
+  }
+
+.redDiv{
+  width: 100vw;
+}
+
+.headerWrapper{
+  margin-left: 9%;
+}
+
+#banner{
+  width: 50vw;
+  height: 30vw;
+}
+
+#shop{
+  margin-top: 142px;
+}
+
+#baum{
+  margin-left: 15%;
+  margin-top: 130px;
+}
+
+.custom-table {
+  margin-top: 10%;
+  width: 98%;
+  height: 70%;
+}
+
+.custom-table td {
+  font-size: 2rem;
+}
+
+.templang-image-text{
+ font-size: 1.5rem;
+}
+
+#rankingtabelle{
+  width: 100%;
+}
+
+
+}
 
 /* Größere Desktops und Bildschirme */
 @media only screen and (min-width: 1281px) { }
-
-
-
-
 
 
 
