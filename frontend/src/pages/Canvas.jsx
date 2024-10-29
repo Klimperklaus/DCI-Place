@@ -199,8 +199,8 @@ const renderedRectangles = useMemo(() => {
             setMessages={setMessages}
             setError={setError}
           />
-          <button onClick={handleFetchDbData}>Fetch Data from DB</button>
-          <button onClick={handleRenderLocalStorageData}>Render Data from Local Storage</button>
+          <button className="testButtons" onClick={handleFetchDbData}>Fetch Data from DB</button>
+          <button className="testButtons" onClick={handleRenderLocalStorageData}>Render Data from Local Storage</button>
           <div className="stage-container">
             <TransformWrapper
               defaultScale={1}
