@@ -1,11 +1,11 @@
 import { useEffect, useState, useMemo } from "react";
 import "../styles/Canvas.scss";
-import ColorPicker from "../utilities/ColorPicker.jsx";
-import Coordinates from "../utilities/Coordinates.jsx";
+import ColorPicker from "../utilities/ColorPicker";
+import Coordinates from "../utilities/Coordinates";
 import useFetchCanvasData from "../hooks/useFetchCanvasData.js";
 import Cookies from "js-cookie";
-import ReadOnlyCanvas from "../components/ReadOnlyCanvas.jsx";
-import WebSocketClient from "../components/WebSocketClient.jsx";
+import ReadOnlyCanvas from "../components/ReadOnlyCanvas";
+import WebSocketClient from "../components/WebSocketClient";
 import { Stage, Layer, Rect } from "react-konva";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
@@ -78,6 +78,33 @@ const Canvas = () => {
     }
   }, [ws, setRectangles]);
 
+  useEffect(() => {
+    const handleStorageChange = (event) => {
+      if (event.key === "canvasData") {
+        const cachedCanvasData = localStorage.getItem("canvasData");
+        if (cachedCanvasData) {
+          try {
+            const parsedData = JSON.parse(cachedCanvasData);
+            if (Array.isArray(parsedData)) {
+              setRectangles(parsedData);
+            } else {
+              console.warn("Cached data is not an array");
+            }
+          } catch (error) {
+            console.error("Error parsing cached data:", error);
+            localStorage.removeItem("canvasData");
+          }
+        }
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [setRectangles]);
+
   const handleFetchDbData = async () => {
     await fetchDbData();
     const cachedCanvasData = localStorage.getItem("canvasData");
@@ -102,6 +129,7 @@ const Canvas = () => {
       try {
         const parsedData = JSON.parse(cachedCanvasData);
         if (Array.isArray(parsedData)) {
+          console.log(parsedData);
           setRectangles(parsedData);
         } else {
           console.warn("Cached data is not an array");
@@ -151,11 +179,13 @@ const Canvas = () => {
     e.evt.preventDefault();
   };
 
-  const renderedRectangles = useMemo(() => {
-    return rectangles.map((rect, index) => (
-      <Rect key={index} {...rect} />
-    ));
-  }, [rectangles]);
+const renderedRectangles = useMemo(() => {
+  console.log("rectangles:", JSON.stringify(rectangles, null, 2));
+  console.log("Rendered Rectangles:", JSON.stringify(rectangles, null, 2));
+  return rectangles.map((rect, index) => (
+    <Rect key={index} {...rect} />
+  ));
+}, [rectangles]);
 
   return (
     <div className="canvas-container">
