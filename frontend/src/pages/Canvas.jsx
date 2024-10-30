@@ -12,6 +12,7 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 const Canvas = () => {
   const [selectedColor, setSelectedColor] = useState("black");
   const [coordinates, setCoordinates] = useState({ x: 0, y: 0 });
+  const [username, setUsername] = useState("");
   const [ws, setWs] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { rectangles, setRectangles, fetchDbData } = useFetchCanvasData();
@@ -21,6 +22,10 @@ const Canvas = () => {
 
   useEffect(() => {
     const token = Cookies.get("token_js");
+    const usernameFromCookie = Cookies.get("username"); // Assuming the username is stored in a cookie
+    if (usernameFromCookie) {
+      setUsername(usernameFromCookie);
+    }
     if (token) {
       setIsAuthenticated(true);
       const cachedCanvasData = localStorage.getItem("canvasData");
@@ -105,42 +110,6 @@ const Canvas = () => {
     };
   }, [setRectangles]);
 
-  const handleFetchDbData = async () => {
-    await fetchDbData();
-    const cachedCanvasData = localStorage.getItem("canvasData");
-    if (cachedCanvasData) {
-      try {
-        const parsedData = JSON.parse(cachedCanvasData);
-        if (Array.isArray(parsedData)) {
-          setRectangles(parsedData);
-        } else {
-          console.warn("Cached data is not an array");
-        }
-      } catch (error) {
-        console.error("Error parsing cached data:", error);
-        localStorage.removeItem("canvasData");
-      }
-    }
-  };
-
-  const handleRenderLocalStorageData = () => {
-    const cachedCanvasData = localStorage.getItem("canvasData");
-    if (cachedCanvasData) {
-      try {
-        const parsedData = JSON.parse(cachedCanvasData);
-        if (Array.isArray(parsedData)) {
-          console.log(parsedData);
-          setRectangles(parsedData);
-        } else {
-          console.warn("Cached data is not an array");
-        }
-      } catch (error) {
-        console.error("Error parsing cached data:", error);
-        localStorage.removeItem("canvasData");
-      }
-    }
-  };
-
   const handleMouseMove = (e) => {
     const { x, y } = e.target.getStage().getPointerPosition();
     const cellX = Math.floor(x / 2);
@@ -179,72 +148,73 @@ const Canvas = () => {
     e.evt.preventDefault();
   };
 
-const renderedRectangles = useMemo(() => {
-  console.log("rectangles:", JSON.stringify(rectangles, null, 2));
-  console.log("Rendered Rectangles:", JSON.stringify(rectangles, null, 2));
-  return rectangles.map((rect, index) => (
-    <Rect key={index} {...rect} />
-  ));
-}, [rectangles]);
+  const renderedRectangles = useMemo(() => {
+    console.log("rectangles:", JSON.stringify(rectangles, null, 2));
+    console.log("Rendered Rectangles:", JSON.stringify(rectangles, null, 2));
+    return rectangles.map((rect, index) => (
+      <Rect key={index} {...rect} />
+    ));
+  }, [rectangles]);
 
   return (
-    <div className="canvas-container">
-      {isAuthenticated ? (
-        <>
-          <ColorPicker setSelectedColor={setSelectedColor} />
-          <Coordinates coordinates={coordinates} />
-          <WebSocketClient
-            setWs={setWs}
-            setConnectionStatus={setConnectionStatus}
-            setMessages={setMessages}
-            setError={setError}
-          />
-          <button className="testButtons" onClick={handleFetchDbData}>Fetch Data from DB</button>
-          <button className="testButtons" onClick={handleRenderLocalStorageData}>Render Data from Local Storage</button>
-          <div className="stage-container">
-            <TransformWrapper
-              defaultScale={1}
-              panning={{ allowLeftClickPan: false }}
-              wheel={{ smoothStep: 0.03 }}
-              maxScale={50}
-              doubleClick={{ disabled: true }}
-            >
-              <TransformComponent>
-                <Stage
-                  style={{ imageRendering: "pixelated" }}
-                  width={768}
-                  height={512}
-                  onMouseMove={handleMouseMove}
-                  onClick={handleClick}
-                  onContextMenu={handleContextMenu}
-                  pixelRatio={1}
-                >
-                  <Layer>
-                    {renderedRectangles}
-                    {coordinates && (
-                      <Rect
-                        x={coordinates.x * 2}
-                        y={coordinates.y * 2}
-                        width={2}
-                        height={2}
-                        fill="rgba(155, 155, 155, 0.7)"
-                      />
-                    )}
-                  </Layer>
-                </Stage>
-              </TransformComponent>
-            </TransformWrapper>
-          </div>
-        </>
-      ) : (
-        <ReadOnlyCanvas rectangles={rectangles} />
-      )}
+    <div id="canvas-colorpicker-container-bckgr-img" style={{ borderColor: selectedColor, borderWidth: '10px', borderStyle: 'solid' }}>
+      <div id="canvas-colorpicker-container">
+        {isAuthenticated ? (
+          <>
+            <ColorPicker setSelectedColor={setSelectedColor} />
+            <WebSocketClient
+              setWs={setWs}
+              setConnectionStatus={setConnectionStatus}
+              setMessages={setMessages}
+              setError={setError}
+            />
+            <div id="canvas-container">
+              <TransformWrapper
+                defaultScale={1}
+                panning={{ allowLeftClickPan: false, velocityDisabled: true }}
+                wheel={{ smoothStep: 0.03 }}
+                maxScale={50}
+                doubleClick={{ disabled: true }}
+                centerOnInit={true}
+              >
+                <TransformComponent>
+                  <Stage
+                    id="canvas-stage"
+                    style={{ imageRendering: "pixelated" }}
+                    width={1024}
+                    height={640}
+                    onMouseMove={handleMouseMove}
+                    onClick={handleClick}
+                    onContextMenu={handleContextMenu}
+                    pixelRatio={1}
+                  >
+                    <Layer id="canvas-layer">
+                      {renderedRectangles}
+                      {coordinates && (
+                        <Rect
+                          x={coordinates.x * 2}
+                          y={coordinates.y * 2}
+                          width={2}
+                          height={2}
+                          fill="rgba(155, 155, 155, 0.7)"
+                        />
+                      )}
+                    </Layer>
+                  </Stage>
+                </TransformComponent>
+              </TransformWrapper>
+            </div>
+            <span id="coordinates">
+              <Coordinates coordinates={coordinates} />
+              <span id="username-canvas">Benutzer: {username}</span>
+            </span>
+          </>
+        ) : (
+          <ReadOnlyCanvas rectangles={rectangles} />
+        )}
+      </div>
     </div>
   );
 };
 
 export default Canvas;
-// TODO fetchen automatisch
-// TODO localStorage löschen damit keine alten Daten angezeigt oder Daten ohne Anmeldung angenommen bzw angezeigt werden
-// TODO Ampel für Verbindungszustand (grün, gelb, rot) neben dem Canvas
-// TODO Ohne Anmeldung nur lesen, keine Schreibrechte. ReadOnlyCanvas.jsx Komponente in Canvas.jsx auflösen

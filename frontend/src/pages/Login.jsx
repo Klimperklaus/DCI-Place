@@ -39,7 +39,7 @@ const handleLoginSubmit = async (e) => {
     console.log('Gespeicherter Token:', localSavedToken); // Token im Browser anzeigen
     
     setMessage({ type: 'success', text: "Erfolgreicher Login!" });
-    // window.location.href = "/profile"; // Weiterleitung zur Profilseite
+    window.location.href = "/profile"; // Weiterleitung zur Profilseite
   } catch (err) {
     setMessage({ type: 'error', text: err.message });
   }

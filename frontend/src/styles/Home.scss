@@ -1,7 +1,12 @@
 @import url(https://fonts.bunny.net/css?family=actor:400|gluten:600);
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url('../assets/fonts/press_start_2p/PressStart2P.ttf');
+}
 
 html,
 body {
+  font-family: 'Press Start 2P', sans-serif;
   margin: 0;
   overflow-x: hidden;
   position: relative;

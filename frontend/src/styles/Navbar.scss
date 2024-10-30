@@ -6,8 +6,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgb(40, 41, 41);
-  color: white;
+  background-color:#f5cfb091;
+  
   position: fixed;
   left: 0;
   top: 0;
@@ -18,12 +18,13 @@ nav ul {
   flex-direction: column;
   align-items: center;
   list-style-type: none;
-  gap: 0.5em;
+  gap: 3em;
 }
 nav a {
   text-decoration: none;
-  color: yellow;
+  color: rgb(63, 24, 0);
   padding: 0.5em;
+  font-size: 1.1em;
 }
 
 nav li a {
@@ -33,17 +34,25 @@ nav li a {
 }
 
 nav li a:hover {
-  text-shadow: 1px 1px 2px black;
-  color: lime;
-  scale: 1.1;
+  text-shadow: 1px 1px 3px black;
+  color: rgb(252, 255, 216);
+  transform: scale(1.5) translateX(1.2em);
+  transition: transform 0.5s ease-in-out, color 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
+  text-decoration: underline 3px red;
+}
+
+nav li a {
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out, text-shadow 0.2s ease-in-out;
+  text-decoration: none;
 }
 
 nav li {
-  font-family: system-ui, sans-serif;
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 0.8em;
   cursor: pointer;
 }
 
 button li {
-  font-family: system-ui, sans-serif;
+  font-family: 'Press Start 2P', sans-serif;
   cursor: pointer;
 }
