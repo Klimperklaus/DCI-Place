@@ -5,6 +5,39 @@
 
 $background-image-canvas-container: url("../assets/media/img/canvas-bg-wimmel.png");
 
+$colors: (
+    color0: #454545,
+    color1: #329694,
+    color2: #d7a3d5e6,
+    color3: #ceadad,
+    color4: #E3D3E0,
+    color5: #FFFFFF,
+    color7: #EB8C80,
+    color8: #266b60,
+    color10: #5F9695,
+);
+@mixin pixel-gradient($colors) {
+    background: linear-gradient(
+        to bottom,
+        map-get($colors, color0) 0%,
+        map-get($colors, color1) 9.28%,
+        map-get($colors, color2) 18.28%,
+        map-get($colors, color4) 31.56%,
+        map-get($colors, color3) 42.84%,
+        map-get($colors, color5) 50.84%,
+        map-get($colors, color10) 59.12%,
+        map-get($colors, color8) 72.4%,
+        map-get($colors, color7) 84.68%,
+        map-get($colors, color3) 96.84%,
+        map-get($colors, color0) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 100% 100%;
+    background-position: 0 0;
+}
+
 body {
   font-family: 'Press Start 2P', sans-serif;
   background-image: $background-image-canvas-container;
@@ -18,27 +51,28 @@ body {
 }
 
 #canvas-colorpicker-container {
-  background-color: #4b2c18;
+  background-color: #52396a;
   border-radius: 5px;
 }
 
 #canvas-container { 
-  border: 10px solid #4b2c18;
+  border: 5px solid #52396a;
   border-radius: 5px;
   image-rendering: pixelated;
   background-color: rgb(255, 249, 240);
 }
 
 #coordinates {
-  font-size: 1em;
+  font-size: 1.1em;
   color: #d6c3b9;
   text-align: center;
-  background-color: #4b2c18;
-
+  background-color: #52396a;
+  @include pixel-gradient($colors);
 }
 
 #username-canvas {
-  font-size: 1em;
+  font-size: 1.1em;
   color: #d6c3b9;
-  background-color: #4b2c18;
+  background-color: #52396a;
+  @include pixel-gradient($colors);
 }
