@@ -65,6 +65,11 @@ const login = async (req, res) => {
       secure: process.env.NODE_ENV === "production",
       maxAge: 24 * 60 * 60 * 1000,
     });
+    res.cookie("username", user.username, {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
     res.cookie("token_js", token, {
       httpOnly: false,
       secure: process.env.NODE_ENV === "production",

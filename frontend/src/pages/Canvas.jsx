@@ -12,7 +12,7 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 const Canvas = () => {
   const [selectedColor, setSelectedColor] = useState("black");
   const [coordinates, setCoordinates] = useState({ x: 0, y: 0 });
-  const [username, setUsername] = useState("TestAnarchist_A");
+  const [username, setUsername] = useState("");
   const [ws, setWs] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { rectangles, setRectangles, fetchDbData } = useFetchCanvasData();
