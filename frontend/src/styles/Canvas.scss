@@ -59,6 +59,7 @@ body {
   border: 5px solid #52396a;
   border-radius: 5px;
   image-rendering: pixelated;
+  
   background-color: rgb(255, 249, 240);
 }
 
@@ -76,3 +77,5 @@ body {
   background-color: #52396a;
   @include pixel-gradient($colors);
 }
+
+

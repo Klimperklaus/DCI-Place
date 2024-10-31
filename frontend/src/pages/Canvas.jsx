@@ -21,6 +21,10 @@ const Canvas = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    localStorage.removeItem("canvasData");
+  }, []);
+
+  useEffect(() => {
     const token = Cookies.get("token_js");
     const usernameFromCookie = Cookies.get("username"); // Assuming the username is stored in a cookie
     if (usernameFromCookie) {
@@ -170,6 +174,7 @@ const Canvas = () => {
             />
             <div id="canvas-container">
               <TransformWrapper
+        
                 defaultScale={1}
                 panning={{ allowLeftClickPan: false, velocityDisabled: true }}
                 wheel={{ smoothStep: 0.03 }}
@@ -178,17 +183,20 @@ const Canvas = () => {
                 centerOnInit={true}
               >
                 <TransformComponent>
-                  <Stage
+                  <Stage className="pixelated"
                     id="canvas-stage"
                     style={{ imageRendering: "pixelated" }}
-                    width={1024}
-                    height={640}
+                    width={980}
+                    height={760}
                     onMouseMove={handleMouseMove}
                     onClick={handleClick}
                     onContextMenu={handleContextMenu}
-                    pixelRatio={1}
+          
+                   
                   >
-                    <Layer id="canvas-layer">
+                    <Layer
+                      style={{ imageRendering: "pixelated" }}
+                      id="canvas-layer">
                       {renderedRectangles}
                       {coordinates && (
                         <Rect
@@ -197,6 +205,10 @@ const Canvas = () => {
                           width={2}
                           height={2}
                           fill="rgba(155, 155, 155, 0.7)"
+                          strokeWidth={0} 
+                          strokeColor='transparent'
+                          cornerRadius={0} 
+                  
                         />
                       )}
                     </Layer>
