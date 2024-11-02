@@ -7,7 +7,7 @@ import "./styles/Login.scss";
 import "./styles/Navbar.scss";
 import "./styles/Canvas.scss";
 import "./styles/ColorButtons.scss";
-import "./styles/Home.scss";
+// import "./styles/Home.scss";
 import "./styles/Statistik.scss";
 import "./styles/DevDesk.scss";
 import "./styles/Profile.scss";
