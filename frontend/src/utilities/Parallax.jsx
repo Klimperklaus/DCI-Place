@@ -86,9 +86,6 @@ const Parallax = () => {
           alignItems: "center",
           width: "100dvw",
           height: "100dvh",
-          position: "relative",
-          top: 0,
-          left: 0
         }}
       >
         <MouseParallaxChild
@@ -99,7 +96,7 @@ const Parallax = () => {
             style={{
               width: `${pixelObj.pixel_6.size}px`,
               height: `${pixelObj.pixel_6.size}px`,
-              backgroundColor: "red",
+              backgroundColor: "cyan",
             }}
           ></div>
         </MouseParallaxChild>

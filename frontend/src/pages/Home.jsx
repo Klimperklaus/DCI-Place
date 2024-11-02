@@ -4,7 +4,10 @@ const Home = () => {
     return (
         <div className="flex justify-center items-center w-full h-full">
             <Parallax />
-            <h1 className="bg-white absolute">hello</h1>
+            <div className="flex flex-col justify-center items-center absolute">
+                <h1>hello</h1>
+                <p>was ne sau</p>
+            </div>
         </div>
     )
 }
