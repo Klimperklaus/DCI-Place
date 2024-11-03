@@ -27,28 +27,29 @@ const pixelArr = [
 ];
 
 let renderArr = [];
-for (let i = 0; i < 50; i++) {
+const pixelCount = 50;
+for (let i = 0; i < pixelCount; i++) {
   renderArr.push(pixelArr[Math.floor(Math.random() * pixelArr.length)]);
 }
 
 renderArr.sort((a, b) => a.size - b.size);
 
+const colors = [
+  "rgba(113, 124, 179, 1)",
+  "rgba(209, 100, 91, 1)",
+  "rgba(231, 200, 140, 1)",
+  "rgba(240, 154, 100, 1)",
+  "rgba(50, 150, 148, 1)",
+  "rgba(148, 93, 78, 1)",
+  "rgba(235, 140, 128, 1)",
+];
+
+function getRandomColor() {
+  const randNum = Math.floor(Math.random() * colors.length);
+  return colors[randNum];
+}
+
 const Parallax = () => {
-  const colors = [
-    "rgba(113, 124, 179, 1)",
-    "rgba(209, 100, 91, 1)",
-    "rgba(231, 200, 140, 1)",
-    "rgba(240, 154, 100, 1)",
-    "rgba(50, 150, 148, 1)",
-    "rgba(148, 93, 78, 1)",
-    "rgba(235, 140, 128, 1)",
-  ];
-
-  function getRandomColor() {
-    const randNum = Math.floor(Math.random() * colors.length);
-    return colors[randNum];
-  }
-
   return (
     <>
       <MouseParallaxContainer
