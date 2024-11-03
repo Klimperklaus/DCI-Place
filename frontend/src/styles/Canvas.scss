@@ -85,8 +85,8 @@ body {
 }
 
 #canvas-container.normal-mode {
-  width: 1200px;
-  height: 800px;
+  width: 768px;
+  height: 512px;
   margin: auto;
 }
 
@@ -151,4 +151,37 @@ body {
   color: #d6c3b9;
   background-color: #52396a;
   @include pixel-gradient($colors);
+}
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  z-index: 10001; 
+  transition: transform 0.3s ease-in-out;
+  // transform: translateX(-100%);
+}
+
+#navbar.show {
+  transform: translateX(0);
+}
+
+#navbar-toggle {
+  position: absolute;
+  top: 10px;
+  right: 50px; 
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  z-index: 10002; 
+}
+
+#navbar-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.8);
 }
