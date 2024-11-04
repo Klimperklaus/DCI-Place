@@ -63,15 +63,27 @@ function LoginPage() {
     };
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSignupSubmit = async (e) => {
     e.preventDefault();
-    if (isRegister) {
-      await register(username, password);
-    } else {
-      await login(username, password);
+    try {
+      await register(username, email, password, team);
+      setMessage({ type: "success", text: "Registrierung erfolgreich!" });
+    } catch (err) {
+      setMessage({ type: "error", text: err.message });
     }
   };
-
+  
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const data = await login(email, password);
+      localStorage.setItem('token', data.token); 
+      setMessage({ type: 'success', text: "Erfolgreicher Login!" });
+      window.location.href = "/profile";
+    } catch (err) {
+      setMessage({ type: 'error', text: err.message });
+    }
+  };
   return (
     <body>
       <header>
