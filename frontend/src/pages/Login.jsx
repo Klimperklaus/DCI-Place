@@ -94,7 +94,7 @@ function LoginPage() {
     }
   };
   return (
-    <body>
+    <>
       <header>
         <nav>
           <ul>
@@ -123,7 +123,7 @@ function LoginPage() {
         />
 
         <div className={`signup ${isSignup ? "active" : ""}`}>
-          <form onSubmit={handleSignupSubmit}>
+          <form onSubmit={handleSignupSubmit} className='formOrder'>
             <label htmlFor="chk" aria-hidden="true">
               Sign up
             </label>
@@ -171,7 +171,7 @@ function LoginPage() {
         </div>
 
         <div className={`login ${!isSignup ? "active" : ""}`}>
-          <form onSubmit={handleLoginSubmit}>
+          <form onSubmit={handleLoginSubmit} className='formOrder'>
             <label htmlFor="chk" aria-hidden="true">
               Login
             </label>
@@ -196,6 +196,8 @@ function LoginPage() {
        
           </form>
           </div>
+          </div>
+        {/* <div className="login-bild">
           <img src={loginbild} alt="Zwei Pixelbilder" className="login-bild" />
         </div>
 
@@ -203,7 +205,7 @@ function LoginPage() {
           src={loginbild}
           alt="Zwei Pixelbilder"
           className="login-bild"
-        />
+        /> */}
         {/* <!--Pixel Wars Info--> */}
       <div className="box1">
         <h2 className="h2-pixel-headline">PIXEL WARS</h2>
@@ -269,7 +271,7 @@ function LoginPage() {
             <img src={bus} alt="Pixelbild eines Bus"/>
       </div>
     </main>
-  </body>
+  </>
   )
 }
 export default LoginPage
