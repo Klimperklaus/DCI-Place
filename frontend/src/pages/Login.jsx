@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import '../styles/LoginPage.scss';
 import bus from '../img/Bus.png';
 import bushaltestelle from '../img/bushaltestelle.png';
@@ -7,205 +7,130 @@ import einhorn from '../img/einhorn.png';
 import hund from '../img/Hund.png';
 import kopfhörer from '../img/kopfhörer.png';
 import { NavLink } from 'react-router-dom';
-import { login, register, loginWithGoogle } from '../services/api.js';
-import teams from '../data/teams.js';
+
 
 function LoginPage() {
-  const [isSignup, setIsSignup] = useState(false);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [team, setTeam] = useState("");
-  const [message, setMessage] = useState(null);
-
+  // Verweise für die Elemente
   const titleRef = useRef(null);
   const catchphraseRef = useRef(null);
   const starsRef = useRef([]);
   const stars2Ref = useRef([]);
   const stars3Ref = useRef([]);
-  
-  const handleCheckboxChange = () => {
-    setIsSignup(!isSignup);
-  };
-  
-  useEffect(() => {
-    const title = titleRef.current;
-    const catchphrase = catchphraseRef.current;
-    if (title && catchphrase) {
-      title.style.position = 'relative';
-      title.style.zIndex = '10';
-      catchphrase.style.position = 'relative';
-      catchphrase.style.zIndex = '10';
+// Parallax-Effekt mit useEffect hinzufügen
+useEffect(() => {
+  const title = titleRef.current;
+  const catchphrase = catchphraseRef.current;
+  if (title && catchphrase) {
+    title.style.position = 'relative';
+    title.style.zIndex = '10';
+    catchphrase.style.position = 'relative';
+    catchphrase.style.zIndex = '10';
+  }
+  const layers = [
+    { elements: starsRef.current, movementFactor: 0.05 },
+    { elements: stars2Ref.current, movementFactor: 0.1 },
+    { elements: stars3Ref.current, movementFactor: 0.15 }
+  ];
+  const handleMouseMove = (e) => {
+    let clientX, clientY;
+   if (e.type === 'touchmove') {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    } else {
+      clientX = e.clientX;
+      clientY = e.clientY;
     }
-    const layers = [
-      { elements: starsRef.current, movementFactor: 0.05 },
-      { elements: stars2Ref.current, movementFactor: 0.1 },
-      { elements: stars3Ref.current, movementFactor: 0.15 }
-    ];
-    const handleMouseMove = (e) => {
-      let clientX, clientY;
-      if (e.type === 'touchmove') {
-        clientX = e.touches[0].clientX;
-        clientY = e.touches[0].clientY;
-      } else {
-        clientX = e.clientX;
-        clientY = e.clientY;
-      }
-      layers.forEach(layer => {
-        layer.elements.forEach(star => {
-          const rect = star.getBoundingClientRect();
-          const starX = rect.left + rect.width / 2;
-          const starY = rect.top + rect.height / 2;
-          const deltaX = clientX - starX;
-          const deltaY = clientY - starY;
-          const newX = deltaX * layer.movementFactor;
-          const newY = deltaY * layer.movementFactor;
-          star.style.transform = `translate(${newX}px, ${newY}px)`;
-        });
+    layers.forEach(layer => {
+      layer.elements.forEach(star => {
+        const rect = star.getBoundingClientRect();
+        const starX = rect.left + rect.width / 2;
+        const starY = rect.top + rect.height / 2;
+        const deltaX = clientX - starX;
+        const deltaY = clientY - starY;
+        const newX = deltaX * layer.movementFactor;
+        const newY = deltaY * layer.movementFactor;
+        star.style.transform = `translate(${newX}px, ${newY}px)`;
       });
-    };
-    document.addEventListener('mousemove', handleMouseMove);
+    });
+  };
+  document.addEventListener('mousemove', handleMouseMove);
+  document.addEventListener('touchmove', handleMouseMove);
+  return () => {
+    document.removeEventListener('mousemove', handleMouseMove);
     document.addEventListener('touchmove', handleMouseMove);
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('touchmove', handleMouseMove);
-    };
-  }, []);
-
-  const handleSignupSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await register(username, email, password, team);
-      setMessage({ type: "success", text: "Registrierung erfolgreich!" });
-    } catch (err) {
-      setMessage({ type: "error", text: err.message });
-    }
   };
-  
-  const handleLoginSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const data = await login(email, password);
-      localStorage.setItem('token', data.token); 
-      setMessage({ type: 'success', text: "Erfolgreicher Login!" });
-      window.location.href = "/profile";
-    } catch (err) {
-      setMessage({ type: 'error', text: err.message });
-    }
-  };
-  return (
-    <>
-      <header>
-        <nav>
-          <ul>
-            <li><NavLink to="/">Home</NavLink></li>
-            <li><NavLink to="/login">Login</NavLink></li>
-            <li><NavLink to="/profile">Profile</NavLink></li>
-            <li><NavLink to="/canvas">Canvas</NavLink></li>
-            <li><NavLink to="/team">Team</NavLink></li>
-            <li><NavLink to="/statistik">Statistik</NavLink></li>
-            <li><NavLink to="/devdesk">DevDesk</NavLink></li>
-          </ul>
-        </nav>
-        <div id="stars"></div>
-        <div id="stars2"></div>
-        <div id="stars3"></div>
-      </header>
+}, []);
+return (
+    <body>
+    <header>
+      <nav>
+        <ul>
+        <li>
+          <NavLink to="/">Home</NavLink>
+        </li>
+        <li>
+          <NavLink to="/login">Login</NavLink>
+        </li>
+        <li>
+          <NavLink to="/profile">Profile</NavLink>
+        </li>
+        <li>
+          <NavLink to="/canvas">Canvas</NavLink>
+        </li>
+        <li>
+          <NavLink to="/team">Team</NavLink>
+        </li>
+        <li>
+          <NavLink to="/statistik">Statistik</NavLink>
+        </li>
+        <li>
+          <NavLink to="/devdesk">DevDesk</NavLink>
+        </li>
+        </ul>
+      </nav>
 
-      <main>
-      <div className="formwrap">
-        <input
-          type="checkbox"
-          id="chk"
-          aria-hidden="true"
-          checked={isSignup}
-          onChange={handleCheckboxChange}
-        />
+      <div id="stars"></div>
+      <div id="stars2"></div>
+      <div id="stars3"></div>
+    </header>
+    {/* <!--Login Page--> */}
+    <main>
+        {/* <!--Login Bereich--> */}
+      <div className="login-box">
+        <div className="login-formula">
+        <h1>User Login</h1>
+        <form action="#" method="post">
+          <label htmlFor="username"></label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Username"
+            required
+          /><br /><br />
 
-        <div className={`signup ${isSignup ? "active" : ""}`}>
-          <form onSubmit={handleSignupSubmit} className='formOrder'>
-            <label htmlFor="chk" aria-hidden="true">
-              Sign up
-            </label>
-            <input
-              type="text"
-              name="txt"
-              placeholder="User name"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <input
-              type="password"
-              name="pswd"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <select
-              name="team"
-              value={team}
-              onChange={(e) => setTeam(e.target.value)}
-              required
-            >
-              <option value="" disabled hidden>
-                Select your Class
-              </option>
-              {Object.keys(teams).map((key) => (
-                <option key={key} value={key}>
-                  {teams[key]}
-                </option>
-              ))}
-            </select>
-            <button type="submit">Sign up</button>
-          </form>
-        </div>
+          <label htmlFor="password"></label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            required
+          /><br /><br />
 
-        <div className={`login ${!isSignup ? "active" : ""}`}>
-          <form onSubmit={handleLoginSubmit} className='formOrder'>
-            <label htmlFor="chk" aria-hidden="true">
-              Login
-            </label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <input
-              type="password"
-              name="pswd"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <button type="submit">Login</button>
-            <button onClick={loginWithGoogle}>Login with Google</button>
-       
-          </form>
-          </div>
-          </div>
-        {/* <div className="login-bild">
-          <img src={loginbild} alt="Zwei Pixelbilder" className="login-bild" />
+          <button type="submit">Sign In</button>
+          <p>Don't have an account? <a className="sign-up" href="#">Sign Up</a></p>
+
+          <a className="forget-password" href="">Forget Password?</a>
+        </form>
         </div>
 
         <img
           src={loginbild}
           alt="Zwei Pixelbilder"
           className="login-bild"
-        /> */}
+        />
+      </div>
         {/* <!--Pixel Wars Info--> */}
       <div className="box1">
         <h2 className="h2-pixel-headline">PIXEL WARS</h2>
@@ -271,7 +196,7 @@ function LoginPage() {
             <img src={bus} alt="Pixelbild eines Bus"/>
       </div>
     </main>
-  </>
+  </body>
   )
 }
 export default LoginPage
