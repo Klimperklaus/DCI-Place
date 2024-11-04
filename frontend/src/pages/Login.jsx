@@ -10,15 +10,23 @@ import { NavLink } from 'react-router-dom';
 import { login, register } from '../services/api.js';
 
 function LoginPage() {
-  const [isRegister, setIsRegister] = useState(false);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [isSignup, setIsSignup] = useState(false);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [team, setTeam] = useState("");
+  const [message, setMessage] = useState(null);
+
   const titleRef = useRef(null);
   const catchphraseRef = useRef(null);
   const starsRef = useRef([]);
   const stars2Ref = useRef([]);
   const stars3Ref = useRef([]);
-
+  
+  const handleCheckboxChange = () => {
+    setIsSignup(!isSignup);
+  };
+  
   useEffect(() => {
     const title = titleRef.current;
     const catchphrase = catchphraseRef.current;
