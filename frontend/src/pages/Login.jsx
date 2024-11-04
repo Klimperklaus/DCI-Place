@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import '../styles/LoginPage.scss';
 import bus from '../img/Bus.png';
 import bushaltestelle from '../img/bushaltestelle.png';
@@ -7,122 +7,127 @@ import einhorn from '../img/einhorn.png';
 import hund from '../img/Hund.png';
 import kopfhörer from '../img/kopfhörer.png';
 import { NavLink } from 'react-router-dom';
-
+import { login, register } from '../services/api.js';
 
 function LoginPage() {
-  // Verweise für die Elemente
+  const [isRegister, setIsRegister] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const titleRef = useRef(null);
   const catchphraseRef = useRef(null);
   const starsRef = useRef([]);
   const stars2Ref = useRef([]);
   const stars3Ref = useRef([]);
-// Parallax-Effekt mit useEffect hinzufügen
-useEffect(() => {
-  const title = titleRef.current;
-  const catchphrase = catchphraseRef.current;
-  if (title && catchphrase) {
-    title.style.position = 'relative';
-    title.style.zIndex = '10';
-    catchphrase.style.position = 'relative';
-    catchphrase.style.zIndex = '10';
-  }
-  const layers = [
-    { elements: starsRef.current, movementFactor: 0.05 },
-    { elements: stars2Ref.current, movementFactor: 0.1 },
-    { elements: stars3Ref.current, movementFactor: 0.15 }
-  ];
-  const handleMouseMove = (e) => {
-    let clientX, clientY;
-   if (e.type === 'touchmove') {
-      clientX = e.touches[0].clientX;
-      clientY = e.touches[0].clientY;
-    } else {
-      clientX = e.clientX;
-      clientY = e.clientY;
+
+  useEffect(() => {
+    const title = titleRef.current;
+    const catchphrase = catchphraseRef.current;
+    if (title && catchphrase) {
+      title.style.position = 'relative';
+      title.style.zIndex = '10';
+      catchphrase.style.position = 'relative';
+      catchphrase.style.zIndex = '10';
     }
-    layers.forEach(layer => {
-      layer.elements.forEach(star => {
-        const rect = star.getBoundingClientRect();
-        const starX = rect.left + rect.width / 2;
-        const starY = rect.top + rect.height / 2;
-        const deltaX = clientX - starX;
-        const deltaY = clientY - starY;
-        const newX = deltaX * layer.movementFactor;
-        const newY = deltaY * layer.movementFactor;
-        star.style.transform = `translate(${newX}px, ${newY}px)`;
+    const layers = [
+      { elements: starsRef.current, movementFactor: 0.05 },
+      { elements: stars2Ref.current, movementFactor: 0.1 },
+      { elements: stars3Ref.current, movementFactor: 0.15 }
+    ];
+    const handleMouseMove = (e) => {
+      let clientX, clientY;
+      if (e.type === 'touchmove') {
+        clientX = e.touches[0].clientX;
+        clientY = e.touches[0].clientY;
+      } else {
+        clientX = e.clientX;
+        clientY = e.clientY;
+      }
+      layers.forEach(layer => {
+        layer.elements.forEach(star => {
+          const rect = star.getBoundingClientRect();
+          const starX = rect.left + rect.width / 2;
+          const starY = rect.top + rect.height / 2;
+          const deltaX = clientX - starX;
+          const deltaY = clientY - starY;
+          const newX = deltaX * layer.movementFactor;
+          const newY = deltaY * layer.movementFactor;
+          star.style.transform = `translate(${newX}px, ${newY}px)`;
+        });
       });
-    });
-  };
-  document.addEventListener('mousemove', handleMouseMove);
-  document.addEventListener('touchmove', handleMouseMove);
-  return () => {
-    document.removeEventListener('mousemove', handleMouseMove);
+    };
+    document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('touchmove', handleMouseMove);
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('touchmove', handleMouseMove);
+    };
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (isRegister) {
+      await register(username, password);
+    } else {
+      await login(username, password);
+    }
   };
-}, []);
-return (
+
+  return (
     <body>
-    <header>
-      <nav>
-        <ul>
-        <li>
-          <NavLink to="/">Home</NavLink>
-        </li>
-        <li>
-          <NavLink to="/login">Login</NavLink>
-        </li>
-        <li>
-          <NavLink to="/profile">Profile</NavLink>
-        </li>
-        <li>
-          <NavLink to="/canvas">Canvas</NavLink>
-        </li>
-        <li>
-          <NavLink to="/team">Team</NavLink>
-        </li>
-        <li>
-          <NavLink to="/statistik">Statistik</NavLink>
-        </li>
-        <li>
-          <NavLink to="/devdesk">DevDesk</NavLink>
-        </li>
-        </ul>
-      </nav>
+      <header>
+        <nav>
+          <ul>
+            <li><NavLink to="/">Home</NavLink></li>
+            <li><NavLink to="/login">Login</NavLink></li>
+            <li><NavLink to="/profile">Profile</NavLink></li>
+            <li><NavLink to="/canvas">Canvas</NavLink></li>
+            <li><NavLink to="/team">Team</NavLink></li>
+            <li><NavLink to="/statistik">Statistik</NavLink></li>
+            <li><NavLink to="/devdesk">DevDesk</NavLink></li>
+          </ul>
+        </nav>
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+      </header>
 
-      <div id="stars"></div>
-      <div id="stars2"></div>
-      <div id="stars3"></div>
-    </header>
-    {/* <!--Login Page--> */}
-    <main>
-        {/* <!--Login Bereich--> */}
-      <div className="login-box">
-        <div className="login-formula">
-        <h1>User Login</h1>
-        <form action="#" method="post">
-          <label htmlFor="username"></label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            placeholder="Username"
-            required
-          /><br /><br />
-
-          <label htmlFor="password"></label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-            required
-          /><br /><br />
-
-          <button type="submit">Sign In</button>
-          <p>Don't have an account? <a className="sign-up" href="#">Sign Up</a></p>
-
-          <a className="forget-password" href="">Forget Password?</a>
-        </form>
+      <main>
+        <div className="login-box">
+          <div className="login-formula">
+            <h1>{isRegister ? 'Register' : 'User Login'}</h1>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              /><br /><br />
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              /><br /><br />
+              <button type="submit">{isRegister ? 'Sign Up' : 'Sign In'}</button>
+              <p>
+                {isRegister ? (
+                  <span>
+                    Already have an account? <a className="sign-up" href="#" onClick={() => setIsRegister(false)}>Login</a>
+                  </span>
+                ) : (
+                  <span>
+                    Don't have an account? <a className="sign-up" href="#" onClick={() => setIsRegister(true)}>Sign Up</a>
+                  </span>
+                )}
+              </p>
+              {!isRegister && <a className="forget-password" href="#">Forget Password?</a>}
+            </form>
+          </div>
+          <img src={loginbild} alt="Zwei Pixelbilder" className="login-bild" />
         </div>
 
         <img
@@ -130,7 +135,6 @@ return (
           alt="Zwei Pixelbilder"
           className="login-bild"
         />
-      </div>
         {/* <!--Pixel Wars Info--> */}
       <div className="box1">
         <h2 className="h2-pixel-headline">PIXEL WARS</h2>
