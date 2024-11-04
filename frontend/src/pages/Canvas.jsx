@@ -20,6 +20,8 @@ const Canvas = () => {
   const [messages, setMessages] = useState([]);
   const [error, setError] = useState(null);
   const [dropdownPosition, setDropdownPosition] = useState(null);
+  const [timer, setTimer] = useState(null);
+  const [isClickAllowed, setIsClickAllowed] = useState(true); // New state to track click allowance
   const stageRef = useRef(null);
   const layerRef = useRef(null);
   const navigate = useNavigate();
@@ -126,6 +128,8 @@ const Canvas = () => {
   };
 
   const handleClick = (e) => {
+    if (!isClickAllowed) return; // Prevent click if not allowed
+
     if (dropdownPosition) {
       setDropdownPosition(null);
     } else {
@@ -152,6 +156,10 @@ const Canvas = () => {
         } else {
           console.error("WebSocket connection is not open.");
         }
+        setIsClickAllowed(false);
+        setTimer(setTimeout(() => {
+          setIsClickAllowed(true);
+        }, 5000));
       }
     }
   };
