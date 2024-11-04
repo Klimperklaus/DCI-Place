@@ -61,6 +61,12 @@ nav ul li a {
   padding: 10px;
   border-radius: 10px;
 }
+.login-box select {
+  width: 300px;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
 
 .login-box button {
   width: 100px;
@@ -68,6 +74,7 @@ nav ul li a {
   border-radius: 10px;
   margin-bottom: 10px;
   background-color: #eb8c80;
+  
   color: white;
   font-size: 1.5rem;
   cursor: pointer;
@@ -80,14 +87,16 @@ nav ul li a {
 .sign-up {
   display: inline;
   color: white;
+  text-shadow: 1px 1px 2px black;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 5rem;
   margin-left: 5px;
 }
 
 .forget-password {
   display: flex;
   color: white;
+  text-shadow: 1px 1px 2px black;
   text-decoration: none;
   font-size: 1rem;
   margin-top: -77px;
