@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import "../styles/Home.scss"; // Dein CSS
 import CarPixel from "../img/CarPixel.png";
 import logocontroller from "../img/logocontroller.png";
@@ -94,9 +95,6 @@ function Home() {
             <p id="catchphrase" ref={catchphraseRef}>
               DIGITAL CAREER INSTITUTE
             </p>
-            <button className="play">
-              <h1 className="playFont">PLAY</h1>
-            </button>
           </div>
           <div className="redDiv">
             <h1 id="titlePixel">PIXEL</h1>
@@ -121,7 +119,9 @@ function Home() {
             </div>
           </div>
           <div className="middle">
-            <h1 className="game">GAME</h1>
+            <Link to="/login">
+              <h1 className="game">ENTER GAME</h1>
+            </Link>
           </div>
           <div className="side">
             <div className="topRight">
@@ -163,7 +163,7 @@ function Home() {
           <div className="frontend">
             <h1 className="dev">FRONTEND</h1>
             <p className="names">Lea</p>
-            <p className="names">Robert</p>
+            <p className="names">Tim</p>
             <p className="names">Stina</p>
           </div>
           <img
@@ -175,7 +175,7 @@ function Home() {
             <h1 className="dev">BACKEND</h1>
             <p className="names">Benni</p>
             <p className="names">Steven</p>
-            <p className="names">Tim</p>
+            <p className="names">Robert</p>
           </div>
         </div>
       </main>
