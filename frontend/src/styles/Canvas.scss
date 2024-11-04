@@ -9,12 +9,12 @@ $colors: (
     color0: #454545,
     color1: #329694,
     color2: #d7a3d5e6,
-    color3: #ceadad,
-    color4: #E3D3E0,
-    color5: #FFFFFF,
+    color3: #a08888,
+    color4: #b0a5ae,
+    color5: #858585,
     color7: #EB8C80,
     color8: #266b60,
-    color10: #5F9695,
+    color10: #4e7b7b,
 );
 @mixin pixel-gradient($colors) {
     background: linear-gradient(
@@ -40,148 +40,27 @@ $colors: (
 
 body {
   font-family: 'Press Start 2P', sans-serif;
-  background-image: $background-image-canvas-container;
-  background-size: cover; 
-  background-position: center; 
-  background-repeat: no-repeat;  
+  overflow: hidden;
 }
 
-#canvas-colorpicker-container-bckgr-img {
-  border-radius: 15px;
-}
-
-#canvas-colorpicker-container {
+.canvas-layout {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #52396a;
-  border-radius: 5px;
 }
 
-#canvas-container { 
+#canvas-container {
+  width: 100%;
+  height: 100%;
+  max-width: 3840px;
+  max-height: 2160px;
   border: 5px solid #52396a;
   border-radius: 5px;
   image-rendering: pixelated;
-  
+  overflow: hidden;
   background-color: rgb(255, 249, 240);
-}
-
-#coordinates {
-  font-size: 1.1em;
-  color: #d6c3b9;
-  text-align: center;
-  background-color: #52396a;
-  @include pixel-gradient($colors);
-}
-
-#username-canvas {
-  font-size: 1.1em;
-  color: #d6c3b9;
-  background-color: #52396a;
-  @include pixel-gradient($colors);
-}
-
-
-.pixelated {
-  image-rendering: pixelated;
-  shape-rendering: crispEdges;
-}
-
-#canvas-container.normal-mode {
-  width: 768px;
-  height: 512px;
-  margin: auto;
-}
-
-#canvas-container.fullscreen-mode {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9999;
-  background-color: rgb(255, 249, 240);
-}
-
-#canvas-overlays {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10000;
-  pointer-events: none;
-}
-
-#coordinates-fullscreen {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  pointer-events: auto;
-}
-
-#fullscreen-toggle {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-  pointer-events: auto;
-}
-
-#fullscreen-toggle:hover {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-#coordinates {
-  font-size: 1.1em;
-  color: #d6c3b9;
-  text-align: center;
-  background-color: #52396a;
-  @include pixel-gradient($colors);
-}
-
-#username-canvas {
-  font-size: 1.1em;
-  color: #d6c3b9;
-  background-color: #52396a;
-  @include pixel-gradient($colors);
-}
-#navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 200px;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  z-index: 10001; 
-  transition: transform 0.3s ease-in-out;
-  // transform: translateX(-100%);
-}
-
-#navbar.show {
-  transform: translateX(0);
-}
-
-#navbar-toggle {
-  position: absolute;
-  top: 10px;
-  right: 50px; 
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-  z-index: 10002; 
-}
-
-#navbar-toggle:hover {
-  background-color: rgba(0, 0, 0, 0.8);
 }

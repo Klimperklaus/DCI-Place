@@ -5,11 +5,11 @@ const colors = [
     "#FF7F50", // Koralle
     "#FF8C00", // Dunkelorange
     "#FFA500", // Orange
+    "#FFDAB9", // Pfirsich
     "#FFD700", // Gold
     "#FFFF00", // Gelb
-    "#FFFFE0", // Hellgelb
-    "#FFFACD", // Zitronencreme
-    "#FAFAD2", // Hellgold
+    "#F0E68C", // Goldgelb
+    "#FFDA44", // Maisgelb
     "#EEE8AA", // Blasses Gold
     "#F0E68C", // Khaki
     "#ADFF2F", // Gelbgrün
@@ -26,6 +26,7 @@ const colors = [
     "#48D1CC", // Mittelmeerblau
     "#40E0D0", // Türkis
     "#00CED1", // Dunkeltürkis
+    "#00FFFF", // Cyan
     "#5F9EA0", // Cadetblau
     "#4682B4", // Stahlblau
     "#1E90FF", // Dodgerblau
@@ -38,9 +39,12 @@ const colors = [
     "#4B0082", // Indigo
     "#8A2BE2", // Blauviolett
     "#FF69B4", // Heißes Pink
+    "#FF1493", // Tiefes Pink
+    "#C71585", // Mittelpink
     "#8B4513", // Sattelbraun
+    "#A0522D", // Sienna
+    "#D2691E", // Schokolade
     "#A9A9A9", // Dunkelgrau
-    "#808080", // Grau
     "#696969", // Dim Grau
     "#778899", // Hell Schiefergrau
     "#708090", // Schiefergrau
@@ -50,8 +54,7 @@ const colors = [
     "#D3D3D3", // Hellgrau
     "#C0C0C0", // Silber
     "#DCDCDC", // Gainsboro
-    "#F5F5F5", // Weißer Rauch
-    "#FFFFFF"  // Weiß
+    "#F3F2F4", // Echtes Weiß
 ];
 
 export default colors;
