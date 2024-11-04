@@ -7,7 +7,8 @@ import einhorn from '../img/einhorn.png';
 import hund from '../img/Hund.png';
 import kopfhörer from '../img/kopfhörer.png';
 import { NavLink } from 'react-router-dom';
-import { login, register } from '../services/api.js';
+import { login, register, loginWithGoogle } from '../services/api.js';
+import teams from '../data/teams.js';
 
 function LoginPage() {
   const [isSignup, setIsSignup] = useState(false);
