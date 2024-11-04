@@ -92,40 +92,88 @@ function LoginPage() {
       </header>
 
       <main>
-        <div className="login-box">
-          <div className="login-formula">
-            <h1>{isRegister ? 'Register' : 'User Login'}</h1>
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                name="username"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              /><br /><br />
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              /><br /><br />
-              <button type="submit">{isRegister ? 'Sign Up' : 'Sign In'}</button>
-              <p>
-                {isRegister ? (
-                  <span>
-                    Already have an account? <a className="sign-up" href="#" onClick={() => setIsRegister(false)}>Login</a>
-                  </span>
-                ) : (
-                  <span>
-                    Don't have an account? <a className="sign-up" href="#" onClick={() => setIsRegister(true)}>Sign Up</a>
-                  </span>
-                )}
-              </p>
-              {!isRegister && <a className="forget-password" href="#">Forget Password?</a>}
-            </form>
+      <div className="formwrap">
+        <input
+          type="checkbox"
+          id="chk"
+          aria-hidden="true"
+          checked={isSignup}
+          onChange={handleCheckboxChange}
+        />
+
+        <div className={`signup ${isSignup ? "active" : ""}`}>
+          <form onSubmit={handleSignupSubmit}>
+            <label htmlFor="chk" aria-hidden="true">
+              Sign up
+            </label>
+            <input
+              type="text"
+              name="txt"
+              placeholder="User name"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              name="pswd"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <select
+              name="team"
+              value={team}
+              onChange={(e) => setTeam(e.target.value)}
+              required
+            >
+              <option value="" disabled hidden>
+                Select your Class
+              </option>
+              {Object.keys(teams).map((key) => (
+                <option key={key} value={key}>
+                  {teams[key]}
+                </option>
+              ))}
+            </select>
+            <button type="submit">Sign up</button>
+          </form>
+        </div>
+
+        <div className={`login ${!isSignup ? "active" : ""}`}>
+          <form onSubmit={handleLoginSubmit}>
+            <label htmlFor="chk" aria-hidden="true">
+              Login
+            </label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              name="pswd"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button type="submit">Login</button>
+            <button onClick={loginWithGoogle}>Login with Google</button>
+       
+          </form>
           </div>
           <img src={loginbild} alt="Zwei Pixelbilder" className="login-bild" />
         </div>
