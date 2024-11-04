@@ -4,11 +4,7 @@ dotenv.config();
 
 // Verbindung zur zweiten MongoDB-Datenbank herstellen
 const canvasConnection = mongoose.createConnection(
-  process.env.CANVAS_MONGO_URI,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
+  process.env.CANVAS_MONGO_URI
 );
 
 const canvasSchema = new mongoose.Schema({

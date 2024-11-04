@@ -28,11 +28,11 @@ const userSchema = new mongoose.Schema({
   },
   timer: {
     type: Number,
-    default: 5000, // Standard-Timer in Millisekunden
+    default: 10000, // 10 Sekunden Timeout als Standard
   },
-  rewarded: {
-    type: Boolean,
-    default: false,
+  tier: {
+    type: Number,
+    default: 1, // Stufe des Spielers gibt an, welchen bonus er auf timeout erhält
   },
   isAdmin: {
     type: Boolean,

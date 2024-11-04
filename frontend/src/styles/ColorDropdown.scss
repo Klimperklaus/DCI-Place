@@ -1,22 +1,25 @@
+$background-image-canvas-container: url('../assets/media/img/canvas-bg-wimmel.png');
+
 .color-dropdown {
   position: absolute;
   display: flex;
   flex-direction: column;
   width: 200px;
-  max-height: 80vh; 
+  max-height: 60vh; 
   overflow-y: auto; 
+  background-image: linear-gradient(rgba(179, 141, 147, 0.5), rgba(103, 103, 103, 0.5)), $background-image-canvas-container;
   background-color: white;
-  border: 1px solid #ccc;
+  border: 1px solid #b9b9b9;
   border-radius: 5px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 10000;
-  padding: 10px;
+  padding: 5px;
 }
 
 .color-options {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20px, 1fr));
-  gap: 5px;
+  gap: 4px;
 }
 
 .color-option {
@@ -34,20 +37,24 @@
 .dropdown-divider {
   margin: 10px 0;
   border: 0;
-  border-top: 1px solid #b0806c;
+  border-top: 4px solid #865d4b;
 }
 
 .dropdown-nav ul {
   list-style-type: none;
+  gap: 1em;
   padding: 0;
   margin: 0;
 }
 
 .dropdown-nav li {
-  font-size: 0.8em;
+  font-size: 1em;
   cursor: pointer;
   color: #333;
   transition: color 0.2s;
+  padding: 0;
+  margin: 0;
+  line-height: 80%;
 }
 
 .dropdown-nav li:hover {

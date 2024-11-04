@@ -49,9 +49,9 @@ const colors = [
     "#778899", // Hell Schiefergrau
     "#708090", // Schiefergrau
     "#2F4F4F", // Dunkles Schiefergrau
+    "#000000", // Schwarz
     "#556B2F", // Dunkelolivgrün
     "#BDB76B", // Dunkelkhaki
-    "#D3D3D3", // Hellgrau
     "#C0C0C0", // Silber
     "#DCDCDC", // Gainsboro
     "#F3F2F4", // Echtes Weiß

@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const wss = new WebSocketServer({ port: process.env.WS_PORT || 3131 });
+const wss = new WebSocketServer({ port: process.env.WEBSOCKET_PORT || 3131 });
 
 wss.on("connection", function connection(ws, req) {
   const token = new URLSearchParams(req.url.split("?")[1]).get("token");

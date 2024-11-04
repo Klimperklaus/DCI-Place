@@ -1,3 +1,21 @@
 ul {
     list-style: none;
 }
+
+.user-stats {
+      font-family: 'Press Start 2P', cursive;
+      background-color: #1e1e1e;
+      color: #ffffff;
+      padding: 20px;
+      border: 2px solid #ffffff;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+.user-stats h1 {
+      color: #ffcc00;
+    }
+
+.user-stats div {
+      margin: 10px 0;
+    }
