@@ -1,7 +1,6 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { validationResult } from "express-validator";
 
 const handleError = (res, status, msg) => res.status(status).json({ msg });
 
@@ -157,6 +156,36 @@ const logout = (req, res) => {
   res.json({ msg: "Erfolgreich ausgeloggt" });
 };
 
+// Funktion zum Erhöhen des Zählers und Speichern in der MongoDB
+export const incrementPixelCount = async (req, res) => {
+  try {
+    const userId = req.user.id; // Angenommen, die Benutzer-ID ist im JWT-Token enthalten
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ msg: "Benutzer nicht gefunden" });
+    }
+
+    user.clicks += 1;
+
+    // Überprüfen, ob der Benutzer 500 Pixel gesetzt hat
+    if (user.clicks >= 500 && !user.rewarded) {
+      user.rewarded = true;
+      user.timer = user.timer / 2; // Timer halbieren
+    }
+
+    await user.save();
+    res.json({
+      msg: "Pixel-Zähler erhöht",
+      clicks: user.clicks,
+      timer: user.timer,
+    });
+  } catch (error) {
+    console.error("Fehler beim Erhöhen des Pixel-Zählers:", error);
+    res.status(500).json({ msg: "Serverfehler" });
+  }
+};
+
 export {
   register,
   login,
@@ -166,6 +195,7 @@ export {
   deleteUser,
   changePassword,
   logout,
+  incrementPixelCount,
 };
 
 /*

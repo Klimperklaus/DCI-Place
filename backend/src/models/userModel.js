@@ -22,6 +22,18 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  clicks: {
+    type: Number,
+    default: 0,
+  },
+  timer: {
+    type: Number,
+    default: 5000, // Standard-Timer in Millisekunden
+  },
+  rewarded: {
+    type: Boolean,
+    default: false,
+  },
   isAdmin: {
     type: Boolean,
     default: false,

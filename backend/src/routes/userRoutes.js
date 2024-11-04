@@ -8,6 +8,7 @@ import {
   editUser,
   changePassword,
   logout,
+  incrementPixelCount,
 } from "../controller/userController.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import adminMiddleware from "../middleware/adminMiddleware.js";
@@ -44,6 +45,8 @@ router.put("/profile", authMiddleware, editUser);
 router.delete("/profile", authMiddleware, deleteUser);
 router.put("/change-password", authMiddleware, changePassword);
 router.post("/logout", authMiddleware, logout);
+// Neue Route zum Erhöhen des Pixel-Zählers
+router.put("/increment-pixel", authMiddleware, incrementPixelCount);
 
 // Admin-Routen
 router.get("/users", authMiddleware, adminMiddleware, getUsers);
