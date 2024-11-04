@@ -18,6 +18,7 @@ nav ul {
   flex-direction: row;
   align-items: center;
   list-style-type: none;
+  text-shadow: 1px 1px 2px black;
   gap: 0.5em;
 }
 nav a {
@@ -34,7 +35,6 @@ nav li a {
 
 nav li a:hover {
   text-shadow: 1px 1px 2px black;
-  color: lime;
   scale: 1.1;
 }
 
